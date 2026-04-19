@@ -112,7 +112,7 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 
 /* SUBTAREFAS */
 .subtasks-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-.subtask-row{display:grid;grid-template-columns:1fr 100px 90px 80px 80px 36px 28px;gap:8px;align-items:center;background:var(--black5);border-radius:6px;padding:8px 10px;font-size:12px}
+.subtask-row{display:grid;grid-template-columns:1fr 100px 90px 80px 80px 36px 36px 28px;gap:6px;align-items:center;background:var(--black5);border-radius:6px;padding:8px 10px;font-size:12px}
 .subtask-row .sr-name{font-weight:500;color:var(--white)}
 .subtask-row .sr-date{color:var(--gray)}
 .subtask-row .sr-midia{color:var(--accent);font-size:11px}
@@ -168,6 +168,9 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 /* SUBTASK ROW EDIT BUTTON */
 .sr-design{background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);border-radius:5px;color:#A78BFA;cursor:pointer;padding:3px 8px;font-size:11px;font-weight:600;transition:all .15s;flex-shrink:0;white-space:nowrap}
 .sr-design:hover{background:rgba(167,139,250,.2)}
+.sr-dup{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--gray);cursor:pointer;padding:3px 7px;font-size:13px;transition:all .15s;flex-shrink:0}
+.sr-dup:hover{color:var(--yellow);border-color:var(--yellow)}
+.sr-empty{color:var(--danger)!important;opacity:.7}
 .sr-edit{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--gray);cursor:pointer;padding:3px 8px;font-size:11px;transition:all .15s;flex-shrink:0}
 .sr-edit:hover{color:var(--accent);border-color:var(--accent)}
 
@@ -649,24 +652,41 @@ function renderListView() {
           <span class="task-mother-status ${statusClass}">${status}</span>
         </div>`;
 
-      // Subtarefas existentes
-      if(subtasks.length) {
+      // Filtra templates das subtarefas
+      const visibleSubs = subtasks.filter(s => {
+        const st = (s.status?.status||'').toLowerCase();
+        const nm = s.name.toLowerCase();
+        return !st.includes('template') && !nm.includes('[template]');
+      });
+
+      // Popula subtaskCache fora da template string
+      for(const s of visibleSubs) {
+        const cf2 = parseCustomFields(s.custom_fields||[]);
+        subtaskCache[s.id] = {
+          id: s.id, name: s.name, status: s.status?.status||'',
+          dueDateRaw: s.due_date, midia: cf2.midia, funil: cf2.funil,
+          mes: cf2.mes, desc: s.description||'',
+          client: client, parentId: taskId, listId: ALL_LISTS[client]
+        };
+      }
+
+      if(visibleSubs.length) {
         html += `<div class="subtasks-list">`;
-        for(const s of subtasks) {
+        for(const s of visibleSubs) {
           const cf = parseCustomFields(s.custom_fields||[]);
           const stStatus = s.status?.status||'—';
-          const subJson = JSON.stringify({id:s.id,name:s.name,status:stStatus,date:cf.data,dueDateRaw:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client,parentId:taskId,listId:ALL_LISTS[client]}).replace(/'/g,"&#39;");
+          const dateStr = cf.data||fmtDateFull(s.due_date)||'—';
+          const midiaStr = cf.midia||'—';
           html += `<div class="subtask-row">
             <div class="sr-name">${s.name}</div>
-            <div class="sr-date">${cf.data||fmtDateFull(s.due_date)||'—'}</div>
-            <div class="sr-midia">${cf.midia||'—'}</div>
+            <div class="sr-date ${!cf.data && !s.due_date ? 'sr-empty' : ''}">${dateStr}</div>
+            <div class="sr-midia ${!cf.midia ? 'sr-empty' : ''}">${midiaStr}</div>
             <div class="sr-status"><span class="task-mother-status ${getStatusClass(stStatus)}" style="font-size:10px">${stStatus}</span></div>
             <button class="sr-design" onclick="sendToDesign('${s.id}')" title="Enviar para Design">→ Design</button>
+            <button class="sr-dup" onclick="duplicateSub('${s.id}')" title="Duplicar">⧉</button>
             <button class="sr-edit" onclick="openEditModal('${s.id}')" title="Editar">✎</button>
             <button class="sr-del" onclick="deleteSubtask('${s.id}','${taskId}','${client}')" title="Remover">✕</button>
           </div>`;
-          // Armazena dados da subtarefa para edição
-          subtaskCache['${s.id}'] = {id:'${s.id}',name:s.name,status:stStatus,dueDateRaw:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client:'${client}',parentId:'${taskId}',listId:'${ALL_LISTS[client]}'};
         }
         html += `</div>`;
       } else {
@@ -917,6 +937,31 @@ function showToast(msg,type='') {
   el.className='toast show'+(type?' '+type:'');
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ─────────────────────────────────────────────
+// DUPLICAR SUBTAREFA
+// ─────────────────────────────────────────────
+async function duplicateSub(taskId) {
+  const s = subtaskCache[taskId];
+  if(!s) { showToast('Erro: subtarefa não encontrada','err'); return; }
+
+  try {
+    showToast('Duplicando…');
+    const body = {
+      name: s.name + ' (cópia)',
+      parent: s.parentId,
+      assignees: [parseInt(MEMBER_ID)],
+      due_date: s.dueDateRaw ? parseInt(s.dueDateRaw) : undefined,
+      description: s.desc || '',
+      status: 'planejamento'
+    };
+    await apiPost(`/list/${s.listId}/task`, body);
+    showToast('Post duplicado! ✓', 'ok');
+    await syncData();
+  } catch(e) {
+    showToast('Erro ao duplicar: '+e.message, 'err');
+  }
 }
 
 // ─────────────────────────────────────────────
