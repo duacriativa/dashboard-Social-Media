@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isadora — Planejamento Social</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#080808;--black2:#101010;--black3:#181818;--black4:#222;--black5:#2a2a2a;
+  --yellow:#F5E642;--yellow2:#DFCE1A;
+  --purple:#7C3AED;--purple2:#6D28D9;
+  --accent:#F472B6; /* cor da Ciane: azul */
+  --white:#F5F5F0;--gray:#888884;--gray2:#444440;
+  --ok:#22C55E;--warn:#F59E0B;--danger:#EF4444;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+  --fd:'Bebas Neue',sans-serif;--fb:'Inter',sans-serif;
+  --r:10px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px}
+body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100dvh;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(244,114,182,.06) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 10% 100%,rgba(245,230,66,.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+.page{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:20px 20px 40px}
+
+/* HEADER */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{font-family:var(--fd);font-size:28px;letter-spacing:.04em;line-height:1}
+.logo em{color:var(--yellow);font-style:normal}
+.tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);border-left:1px solid var(--gray2);padding-left:10px;line-height:1.5}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.user-chip{display:flex;align-items:center;gap:8px;background:rgba(244,114,182,.1);border:1px solid rgba(244,114,182,.25);border-radius:50px;padding:5px 12px 5px 5px}
+.user-avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;color:var(--black)}
+.user-name{font-size:13px;font-weight:500;color:var(--accent)}
+.btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--black3);color:var(--white);cursor:pointer;transition:all .15s}
+.btn:hover{background:var(--black4);border-color:var(--border2)}
+.btn.primary{background:var(--yellow);color:var(--black);border-color:var(--yellow)}
+.btn.primary:hover{background:var(--yellow2)}
+.btn svg{width:14px;height:14px;flex-shrink:0}
+
+/* WEEK NAV */
+.week-nav{display:flex;align-items:center;gap:0;background:var(--black3);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content}
+.week-nav button{background:none;border:none;color:var(--gray);cursor:pointer;padding:6px 10px;border-radius:7px;font-size:16px;transition:all .15s;line-height:1}
+.week-nav button:hover{color:var(--white);background:var(--black4)}
+.week-label{font-size:13px;font-weight:500;color:var(--white);padding:0 12px;white-space:nowrap}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
+.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:6px}
+.stat-value{font-family:var(--fd);font-size:32px;letter-spacing:.02em;line-height:1}
+.stat-value.yellow{color:var(--yellow)}
+.stat-value.ok{color:var(--ok)}
+.stat-value.warn{color:var(--warn)}
+.stat-value.accent{color:var(--accent)}
+
+/* PROGRESS */
+.progress-bar-wrap{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:20px}
+.progress-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:8px}
+.progress-bar-label span{color:var(--white);font-weight:600}
+.progress-bar{height:6px;background:var(--black5);border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--yellow));border-radius:99px;transition:width .5s ease}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:16px}
+.tab{font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .15s;color:var(--gray);background:none}
+.tab:hover{color:var(--white)}
+.tab.active{background:var(--black3);border-color:var(--border2);color:var(--white)}
+
+/* CALENDAR VIEW */
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:24px}
+.cal-day{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);min-height:120px;overflow:hidden}
+.cal-day.today{border-color:var(--accent)}
+.cal-day-header{padding:8px 10px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.cal-day-name{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray)}
+.cal-day-num{font-family:var(--fd);font-size:20px;color:var(--white)}
+.cal-day.today .cal-day-num{color:var(--accent)}
+.cal-cards{padding:6px;display:flex;flex-direction:column;gap:4px}
+.cal-card{background:var(--black4);border-radius:6px;padding:6px 8px;font-size:11px;border-left:2px solid var(--accent);cursor:pointer;transition:background .15s}
+.cal-card:hover{background:var(--black5)}
+.cal-card .cc-client{font-weight:600;color:var(--white);margin-bottom:2px}
+.cal-card .cc-midia{color:var(--gray);font-size:10px}
+.cal-card.stories{border-left-color:var(--accent)}
+.cal-card.feed{border-left-color:var(--yellow)}
+.cal-card.reels{border-left-color:var(--ok)}
+
+/* LIST VIEW */
+.client-section{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+.client-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;transition:background .15s}
+.client-header:hover{background:var(--black4)}
+.client-header-left{display:flex;align-items:center;gap:10px}
+.client-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.client-name{font-family:var(--fd);font-size:20px;letter-spacing:.03em}
+.client-meta{font-size:12px;color:var(--gray);margin-top:1px}
+.client-header-right{display:flex;align-items:center;gap:8px}
+.badge-count{background:rgba(244,114,182,.15);color:var(--accent);font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px}
+.chevron{color:var(--gray);font-size:12px;transition:transform .2s}
+.client-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
+.client-body.open{display:block}
+
+/* TAREFA MÃE */
+.task-mother{background:var(--black4);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-top:12px}
+.task-mother-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.task-mother-name{font-size:14px;font-weight:600;color:var(--white)}
+.task-mother-status{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:500;text-transform:capitalize}
+.status-planejamento{background:rgba(245,158,11,.15);color:#F59E0B}
+.status-agendamento{background:rgba(34,197,94,.15);color:#22C55E}
+.status-aprovacao{background:rgba(96,165,250,.15);color:#60A5FA}
+.status-design{background:rgba(167,139,250,.15);color:#A78BFA}
+
+/* SUBTAREFAS */
+.subtasks-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.subtask-row{display:grid;grid-template-columns:1fr 100px 90px 80px 80px 36px 28px;gap:8px;align-items:center;background:var(--black5);border-radius:6px;padding:8px 10px;font-size:12px}
+.subtask-row .sr-name{font-weight:500;color:var(--white)}
+.subtask-row .sr-date{color:var(--gray)}
+.subtask-row .sr-midia{color:var(--accent);font-size:11px}
+.subtask-row .sr-status{font-size:11px}
+.subtask-row .sr-del{background:none;border:none;color:var(--gray);cursor:pointer;font-size:14px;padding:2px;border-radius:4px;transition:color .15s}
+.subtask-row .sr-del:hover{color:var(--danger)}
+
+/* FORM NOVA SUBTAREFA */
+.new-sub-form{background:rgba(244,114,182,.05);border:1px dashed rgba(244,114,182,.2);border-radius:8px;padding:12px}
+.new-sub-form-title{font-size:12px;font-weight:600;color:var(--accent);margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em}
+.form-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+.form-group input,.form-group select,.form-group textarea{background:var(--black3);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--white);font-family:var(--fb);outline:none;transition:border-color .15s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group select option{background:var(--black3)}
+.form-group textarea{resize:vertical;min-height:60px}
+.form-actions{display:flex;gap:8px;justify-content:flex-end}
+.btn-sm{font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:var(--black3);color:var(--white);cursor:pointer;transition:all .15s}
+.btn-sm:hover{background:var(--black4)}
+.btn-sm.save{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:600}
+.btn-sm.save:hover{opacity:.85}
+.add-subtask-btn{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);background:none;border:1px dashed rgba(244,114,182,.2);border-radius:6px;padding:7px 12px;cursor:pointer;transition:all .15s;width:100%}
+.add-subtask-btn:hover{background:rgba(244,114,182,.05)}
+
+/* EDIT MODAL */
+.edit-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:160;align-items:center;justify-content:center;padding:20px}
+.edit-modal-bg.open{display:flex}
+.edit-modal{background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:24px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto}
+.edit-modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.edit-modal-title{font-family:var(--fd);font-size:22px;color:var(--white)}
+.edit-modal-close{background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;transition:color .15s}
+.edit-modal-close:hover{color:var(--white)}
+.edit-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.edit-form-row.full{grid-template-columns:1fr}
+.edit-form-group{display:flex;flex-direction:column;gap:4px}
+.edit-form-group label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+.edit-form-group input,.edit-form-group select,.edit-form-group textarea{background:var(--black3);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--white);font-family:var(--fb);outline:none;transition:border-color .15s}
+.edit-form-group input:focus,.edit-form-group select:focus,.edit-form-group textarea:focus{border-color:var(--accent)}
+.edit-form-group select option{background:var(--black3)}
+.edit-form-group textarea{resize:vertical;min-height:80px}
+.edit-modal-actions{display:flex;gap:8px;justify-content:space-between;margin-top:16px}
+.edit-del-btn{font-size:12px;padding:8px 14px;border-radius:7px;border:1px solid rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:var(--danger);cursor:pointer;transition:all .15s}
+.edit-del-btn:hover{background:rgba(239,68,68,.15)}
+.edit-save-btn{font-size:13px;padding:8px 20px;border-radius:7px;border:none;background:var(--accent);color:var(--black);font-weight:600;cursor:pointer;transition:opacity .15s}
+.edit-save-btn:hover{opacity:.85}
+.edit-design-btn{font-size:12px;padding:8px 16px;border-radius:7px;border:1px solid rgba(167,139,250,.3);background:rgba(167,139,250,.1);color:#A78BFA;font-weight:600;cursor:pointer;transition:all .15s}
+.edit-design-btn:hover{background:rgba(167,139,250,.2)}
+.edit-cancel-btn{font-size:12px;padding:8px 14px;border-radius:7px;border:1px solid var(--border2);background:none;color:var(--gray);cursor:pointer;transition:all .15s}
+.edit-cancel-btn:hover{color:var(--white)}
+
+/* SUBTASK ROW EDIT BUTTON */
+.sr-design{background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.25);border-radius:5px;color:#A78BFA;cursor:pointer;padding:3px 8px;font-size:11px;font-weight:600;transition:all .15s;flex-shrink:0;white-space:nowrap}
+.sr-design:hover{background:rgba(167,139,250,.2)}
+.sr-edit{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--gray);cursor:pointer;padding:3px 8px;font-size:11px;transition:all .15s;flex-shrink:0}
+.sr-edit:hover{color:var(--accent);border-color:var(--accent)}
+
+/* EMPTY / LOADING */
+.empty-state{text-align:center;padding:40px 20px;color:var(--gray);font-size:14px}
+.loading-state{text-align:center;padding:40px 20px;color:var(--gray);font-size:14px}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* CONFIG MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:28px;width:100%;max-width:440px}
+.modal h3{font-family:var(--fd);font-size:24px;margin-bottom:6px}
+.modal p{font-size:13px;color:var(--gray);margin-bottom:18px;line-height:1.6}
+.modal input{width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--white);outline:none;font-family:var(--fb);margin-bottom:12px}
+.modal input:focus{border-color:var(--accent)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--black2);border:1px solid var(--border2);border-radius:10px;padding:12px 18px;font-size:13px;font-weight:500;z-index:200;transform:translateY(80px);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{border-color:rgba(34,197,94,.3);color:var(--ok)}
+.toast.err{border-color:rgba(239,68,68,.3);color:var(--danger)}
+
+/* DETAIL MODAL */
+.detail-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:150;align-items:center;justify-content:center;padding:20px}
+.detail-modal-bg.open{display:flex}
+.detail-modal{background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:24px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.detail-modal h4{font-family:var(--fd);font-size:22px;margin-bottom:4px}
+.detail-modal .dm-sub{font-size:12px;color:var(--gray);margin-bottom:16px}
+.detail-field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.detail-field label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+.detail-field .val{font-size:14px;color:var(--white)}
+.dm-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:13px;text-decoration:none;margin-top:8px}
+.dm-link:hover{text-decoration:underline}
+
+/* FOOTER */
+footer{text-align:center;font-size:11px;color:var(--gray2);margin-top:32px;letter-spacing:.05em}
+
+@media(max-width:900px){
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .calendar-grid{grid-template-columns:repeat(4,1fr)}
+  .form-row{grid-template-columns:1fr 1fr}
+  .subtask-row{grid-template-columns:1fr 80px 70px 24px}
+  .subtask-row .sr-status{display:none}
+}
+@media(max-width:600px){
+  .calendar-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="hdr">
+    <div class="brand">
+      <div class="logo">DUA<em>*.*</em></div>
+      <div class="tag">Marketing<br>de Moda</div>
+    </div>
+    <div class="hdr-right">
+      <div class="user-chip">
+        <div class="user-avatar">IS</div>
+        <span class="user-name">Isadora</span>
+      </div>
+      <button class="btn" onclick="syncData()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Atualizar
+      </button>
+      <button class="btn" onclick="openConfig()">🔑</button>
+    </div>
+  </header>
+
+  <!-- WEEK NAV -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+    <div class="week-nav">
+      <button onclick="changeWeek(-1)">‹</button>
+      <span class="week-label" id="week-label">—</span>
+      <button onclick="changeWeek(1)">›</button>
+    </div>
+    <span style="font-size:12px;color:var(--gray)" id="week-sub">Semana Ter → Seg</span>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Clientes</div>
+      <div class="stat-value accent" id="stat-clientes">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Posts planejados</div>
+      <div class="stat-value yellow" id="stat-posts">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Agendados</div>
+      <div class="stat-value ok" id="stat-agendados">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pendentes</div>
+      <div class="stat-value warn" id="stat-pendentes">—</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-label">
+      <span>Progresso da semana</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="setTab('lista',this)">Lista por cliente</button>
+    <button class="tab" onclick="setTab('calendario',this)">Calendário da semana</button>
+  </div>
+
+  <!-- VIEWS -->
+  <div id="view-lista"></div>
+  <div id="view-calendario" style="display:none"></div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>Dua Criativa © 2026 — Isadora DuaCriativa</footer>
+
+<!-- EDIT MODAL -->
+<div class="edit-modal-bg" id="edit-modal-bg">
+  <div class="edit-modal">
+    <div class="edit-modal-top">
+      <div class="edit-modal-title">Editar post</div>
+      <button class="edit-modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="edit-form-row">
+      <div class="edit-form-group" style="grid-column:1/-1">
+        <label>Título / Tema</label>
+        <input type="text" id="em-name" placeholder="Nome do post">
+      </div>
+    </div>
+    <div class="edit-form-row">
+      <div class="edit-form-group">
+        <label>Data de postagem</label>
+        <input type="date" id="em-date">
+      </div>
+      <div class="edit-form-group">
+        <label>Mídia</label>
+        <select id="em-midia">
+          <option>Stories</option><option>Feed</option><option>Reels</option><option>TikTok</option><option>Carrossel</option>
+        </select>
+      </div>
+    </div>
+    <div class="edit-form-row">
+      <div class="edit-form-group">
+        <label>Funil</label>
+        <select id="em-funil">
+          <option>Topo</option><option>Meio</option><option>Fundo</option>
+        </select>
+      </div>
+      <div class="edit-form-group">
+        <label>Mês referente</label>
+        <select id="em-mes">
+          <option>Janeiro</option><option>Fevereiro</option><option>Março</option><option>Abril</option>
+          <option>Maio</option><option>Junho</option><option>Julho</option><option>Agosto</option>
+          <option>Setembro</option><option>Outubro</option><option>Novembro</option><option>Dezembro</option>
+        </select>
+      </div>
+    </div>
+    <div class="edit-form-row full">
+      <div class="edit-form-group">
+        <label>Descrição / Observação</label>
+        <textarea id="em-desc" placeholder="Referências, copy, observações…"></textarea>
+      </div>
+    </div>
+    <div class="edit-modal-actions">
+      <button class="edit-del-btn" onclick="deleteFromModal()">🗑 Excluir post</button>
+      <button class="edit-design-btn" onclick="sendToDesignFromModal()">→ Enviar para Design</button>
+      <div style="display:flex;gap:8px">
+        <button class="edit-cancel-btn" onclick="closeEditModal()">Cancelar</button>
+        <button class="edit-save-btn" onclick="saveEditModal()">Salvar alterações</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIG MODAL -->
+<div class="modal-bg" id="config-modal">
+  <div class="modal">
+    <h3>Configure o ClickUp</h3>
+    <p>Cole seu API Token abaixo. Ele fica salvo só no seu navegador.</p>
+    <input type="password" id="token-input" placeholder="pk_...">
+    <div class="modal-actions">
+      <button class="btn-sm" onclick="closeConfig()">Cancelar</button>
+      <button class="btn-sm save" onclick="saveToken()">Salvar e conectar</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="detail-modal-bg" id="detail-modal">
+  <div class="detail-modal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+      <h4 id="dm-title">—</h4>
+      <button onclick="closeDetail()" style="background:none;border:none;color:var(--gray);font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div class="dm-sub" id="dm-sub">—</div>
+    <div id="dm-fields"></div>
+    <a id="dm-link" href="#" target="_blank" class="dm-link">Abrir no ClickUp ↗</a>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// CONFIG
+// ─────────────────────────────────────────────
+const MEMBER_ID = '112051789'; // Ciane DuaCriativa
+const MEMBER_NAME = 'Isadora';
+
+const ALL_LISTS = {
+  'Andirá Jeans':'901324614041','Amiche':'901324613220','Del Carmen':'901324614474',
+  'Doce Caju':'901324614721','Eloah':'901324682275','Flora Minha':'901324682301',
+  'Kyrefh Jeans':'901324682326','Marry Blue':'901324682343','Nina & Noz':'901324682520',
+  'Sun Liv':'901324682532','Naromo':'901324682471','Tchu Bi':'901324505493','Aya':'901326685391'
+};
+
+// Clientes da Ciane — ajuste conforme necessário
+const MY_CLIENTS = ['Sun Liv','Doce Caju','Flora Minha','Nina & Noz','Tchu Bi','Andirá Jeans'];
+
+const MIDIAS = ['Stories','Feed','Reels','TikTok','Carrossel'];
+const FUNIS = ['Topo','Meio','Fundo'];
+const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+const STATUS_PLANEJAMENTO = ['planejamento','planning'];
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let token = localStorage.getItem('cu_token_isadora') || '';
+let currentWeekOffset = 0;
+let allData = {}; // { clientName: { motherTask, subtasks[] } }
+let activeTab = 'lista';
+let openForms = {}; // taskId -> bool
+let openClients = {}; // clientName -> bool
+
+// ─────────────────────────────────────────────
+// WEEK HELPERS
+// ─────────────────────────────────────────────
+function getWeekRange(offset=0) {
+  const today = new Date();
+  const day = today.getDay(); // 0=dom
+  // Semana Ter(2) → Seg(1)
+  let diff = day - 2; // dias desde terça
+  if(diff < 0) diff += 7;
+  const ter = new Date(today); ter.setDate(today.getDate() - diff + offset*7);
+  const seg = new Date(ter); seg.setDate(ter.getDate() + 6);
+  return {start:ter, end:seg};
+}
+
+function fmtDate(d) {
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+}
+
+function fmtDateFull(ts) {
+  if(!ts) return '—';
+  const d = new Date(parseInt(ts));
+  return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+
+function renderWeekLabel() {
+  const {start,end} = getWeekRange(currentWeekOffset);
+  document.getElementById('week-label').textContent = `${fmtDate(start)} → ${fmtDate(end)}`;
+}
+
+function changeWeek(dir) {
+  currentWeekOffset += dir;
+  renderWeekLabel();
+  syncData();
+}
+
+// ─────────────────────────────────────────────
+// API
+// ─────────────────────────────────────────────
+async function api(path) {
+  const r = await fetch(`https://api.clickup.com/api/v2${path}`, {
+    headers:{'Authorization':token,'Content-Type':'application/json'}
+  });
+  if(!r.ok) throw new Error(`ClickUp ${r.status}`);
+  return r.json();
+}
+
+async function apiPut(path, body) {
+  const r = await fetch(`https://api.clickup.com/api/v2${path}`, {
+    method:'PUT',
+    headers:{'Authorization':token,'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  if(!r.ok) {const e=await r.json(); throw new Error(e.err||`ClickUp ${r.status}`);}
+  return r.json();
+}
+
+async function apiPost(path, body) {
+  const r = await fetch(`https://api.clickup.com/api/v2${path}`, {
+    method:'POST',
+    headers:{'Authorization':token,'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  if(!r.ok) {const e=await r.json(); throw new Error(e.err||`ClickUp ${r.status}`);}
+  return r.json();
+}
+
+// ─────────────────────────────────────────────
+// SYNC
+// ─────────────────────────────────────────────
+async function syncData() {
+  if(!token){openConfig();return;}
+  showListLoading();
+  allData = {};
+
+  const promises = MY_CLIENTS.map(async client => {
+    const listId = ALL_LISTS[client];
+    if(!listId) return;
+    try {
+      // Busca tarefas mãe no status planejamento
+      const data = await api(`/list/${listId}/task?include_closed=false`);
+      const allTasks = data.tasks || [];
+
+      // Busca também subtarefas separadamente
+      const subData = await api(`/list/${listId}/task?subtasks=true&include_closed=false`);
+      const allWithSubs = subData.tasks || [];
+
+      // Tarefas mãe: status planejamento, não template
+      const mothers = allTasks.filter(t => {
+        const name = t.name.toLowerCase();
+        const st = (t.status?.status||'').toLowerCase();
+        const isTmpl = name.includes('[template]') || name.includes('template');
+        const isPlan = STATUS_PLANEJAMENTO.some(s => st.includes(s));
+        return !isTmpl && isPlan && !t.parent;
+      });
+
+      for(const m of mothers) {
+        // Subtarefas: filha desta mãe, qualquer status exceto concluído/agendado
+        const subs = allWithSubs.filter(t => {
+          const st = (t.status?.status||'').toLowerCase();
+          const ignored = ['agendamento','concluído','concluido','done'].some(s=>st.includes(s));
+          return t.parent === m.id && !ignored;
+        });
+        allData[client] = allData[client] || [];
+        allData[client].push({mother:m, subtasks:subs});
+      }
+
+      // Se não achou tarefas mãe, tenta achar subtarefas direto no status planejamento
+      if(!allData[client]) {
+        const planSubs = allWithSubs.filter(t => {
+          const st = (t.status?.status||'').toLowerCase();
+          const name = t.name.toLowerCase();
+          const isTmpl = name.includes('[template]') || name.includes('template');
+          return STATUS_PLANEJAMENTO.some(s => st.includes(s)) && !isTmpl;
+        });
+        if(planSubs.length) {
+          // Agrupa por tarefa mãe
+          const byParent = {};
+          for(const s of planSubs) {
+            const pid = s.parent || 'avulso';
+            byParent[pid] = byParent[pid] || [];
+            byParent[pid].push(s);
+          }
+          allData[client] = [];
+          for(const [pid, subs] of Object.entries(byParent)) {
+            const mother = allTasks.find(t=>t.id===pid) || {id:pid, name:'Posts planejados', status:{status:'planejamento'}};
+            allData[client].push({mother, subtasks:subs});
+          }
+        }
+      }
+
+    } catch(e) {
+      console.warn('Erro ao buscar', client, e);
+    }
+  });
+
+  await Promise.all(promises);
+  renderStats();
+  renderView();
+  showToast('Dados atualizados!','ok');
+}
+
+// ─────────────────────────────────────────────
+// RENDER STATS
+// ─────────────────────────────────────────────
+function renderStats() {
+  let totalPosts=0, agendados=0;
+  const clientes = Object.keys(allData).filter(c => allData[c]?.length);
+  for(const c of clientes) {
+    for(const g of (allData[c]||[])) {
+      totalPosts += (g.subtasks||[]).length;
+      agendados += (g.subtasks||[]).filter(s=>{
+        const st=(s.status?.status||'').toLowerCase();
+        return st.includes('agendamento')||st.includes('conclu');
+      }).length;
+    }
+  }
+  document.getElementById('stat-clientes').textContent = clientes.length;
+  document.getElementById('stat-posts').textContent = totalPosts;
+  document.getElementById('stat-agendados').textContent = agendados;
+  document.getElementById('stat-pendentes').textContent = totalPosts - agendados;
+  const pct = totalPosts ? Math.round(agendados/totalPosts*100) : 0;
+  document.getElementById('progress-pct').textContent = pct+'%';
+  document.getElementById('progress-fill').style.width = pct+'%';
+}
+
+// ─────────────────────────────────────────────
+// RENDER VIEWS
+// ─────────────────────────────────────────────
+function setTab(tab, el) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('view-lista').style.display = tab==='lista'?'block':'none';
+  document.getElementById('view-calendario').style.display = tab==='calendario'?'block':'none';
+  renderView();
+}
+
+function renderView() {
+  if(activeTab==='lista') renderListView();
+  else renderCalendarView();
+}
+
+function showListLoading() {
+  document.getElementById('view-lista').innerHTML = `<div class="loading-state"><div class="spinner"></div><div>Buscando dados do ClickUp…</div></div>`;
+}
+
+function renderListView() {
+  const el = document.getElementById('view-lista');
+  if(!token){el.innerHTML='<div class="empty-state">Configure seu token do ClickUp para começar.</div>';return;}
+
+  const clients = MY_CLIENTS.filter(c => allData[c]);
+  if(!clients.length){
+    el.innerHTML='<div class="empty-state">Nenhuma tarefa de planejamento encontrada para esta semana.</div>';
+    return;
+  }
+
+  let html = '';
+  for(const client of clients) {
+    const groups = allData[client] || [];
+    const isOpen = openClients[client] !== false; // default open
+    let totalSubs = groups.reduce((a,g)=>a+(g.subtasks||[]).length,0);
+
+    html += `<div class="client-section">
+      <div class="client-header" onclick="toggleClient('${client}')">
+        <div class="client-header-left">
+          <div class="client-dot"></div>
+          <div>
+            <div class="client-name">${client}</div>
+            <div class="client-meta">${groups.length} tarefa(s) mãe · ${totalSubs} subtarefa(s)</div>
+          </div>
+        </div>
+        <div class="client-header-right">
+          <span class="badge-count">${totalSubs} posts</span>
+          <span class="chevron" style="transform:${isOpen?'rotate(90deg)':'rotate(0deg)'};display:inline-block;transition:transform .2s">›</span>
+        </div>
+      </div>
+      <div class="client-body ${isOpen?'open':''}">`;
+
+    for(const g of groups) {
+      const {mother, subtasks} = g;
+      if(!mother) continue;
+      const status = mother.status?.status || 'planejamento';
+      const statusClass = getStatusClass(status);
+      const taskId = mother.id;
+      const showForm = openForms[taskId];
+
+      html += `<div class="task-mother">
+        <div class="task-mother-header">
+          <div class="task-mother-name">📋 ${mother.name}</div>
+          <span class="task-mother-status ${statusClass}">${status}</span>
+        </div>`;
+
+      // Subtarefas existentes
+      if(subtasks.length) {
+        html += `<div class="subtasks-list">`;
+        for(const s of subtasks) {
+          const cf = parseCustomFields(s.custom_fields||[]);
+          const stStatus = s.status?.status||'—';
+          const subJson = JSON.stringify({id:s.id,name:s.name,status:stStatus,date:cf.data,dueDateRaw:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client,parentId:taskId,listId:ALL_LISTS[client]}).replace(/'/g,"&#39;");
+          html += `<div class="subtask-row">
+            <div class="sr-name">${s.name}</div>
+            <div class="sr-date">${cf.data||fmtDateFull(s.due_date)||'—'}</div>
+            <div class="sr-midia">${cf.midia||'—'}</div>
+            <div class="sr-status"><span class="task-mother-status ${getStatusClass(stStatus)}" style="font-size:10px">${stStatus}</span></div>
+            <button class="sr-design" onclick="sendToDesign('${s.id}')" title="Enviar para Design">→ Design</button>
+            <button class="sr-edit" onclick="openEditModal('${s.id}')" title="Editar">✎</button>
+            <button class="sr-del" onclick="deleteSubtask('${s.id}','${taskId}','${client}')" title="Remover">✕</button>
+          </div>`;
+          // Armazena dados da subtarefa para edição
+          subtaskCache['${s.id}'] = {id:'${s.id}',name:s.name,status:stStatus,dueDateRaw:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client:'${client}',parentId:'${taskId}',listId:'${ALL_LISTS[client]}'};
+        }
+        html += `</div>`;
+      } else {
+        html += `<div style="font-size:12px;color:var(--gray);padding:8px 0 10px;text-align:center">Nenhum post planejado ainda</div>`;
+      }
+
+      // Botão / form
+      if(showForm) {
+        html += renderNewSubForm(taskId, client);
+      } else {
+        html += `<button class="add-subtask-btn" onclick="toggleForm('${taskId}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Adicionar post
+        </button>`;
+      }
+
+      html += `</div>`; // task-mother
+    }
+
+    html += `</div></div>`; // client-body + client-section
+  }
+
+  el.innerHTML = html;
+}
+
+function renderNewSubForm(taskId, client) {
+  const meses = MESES.map((m,i)=>`<option value="${m}" ${new Date().getMonth()===i?'selected':''}>${m}</option>`).join('');
+  const midias = MIDIAS.map(m=>`<option>${m}</option>`).join('');
+  const funis = FUNIS.map(f=>`<option>${f}</option>`).join('');
+  return `<div class="new-sub-form">
+    <div class="new-sub-form-title">+ Novo post</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Título / Tema</label>
+        <input type="text" id="nsf-name-${taskId}" placeholder="Ex: Look verão outono">
+      </div>
+      <div class="form-group">
+        <label>Data de postagem</label>
+        <input type="date" id="nsf-date-${taskId}">
+      </div>
+      <div class="form-group">
+        <label>Mídia</label>
+        <select id="nsf-midia-${taskId}">${midias}</select>
+      </div>
+      <div class="form-group">
+        <label>Funil</label>
+        <select id="nsf-funil-${taskId}">${funis}</select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Mês referente</label>
+        <select id="nsf-mes-${taskId}">${meses}</select>
+      </div>
+      <div class="form-group">
+        <label>Cliente (automático)</label>
+        <input type="text" value="${client}" disabled style="opacity:.5">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-sm" onclick="toggleForm('${taskId}')">Cancelar</button>
+      <button class="btn-sm save" onclick="saveSubtask('${taskId}','${client}')">Salvar no ClickUp</button>
+    </div>
+  </div>`;
+}
+
+function renderCalendarView() {
+  const el = document.getElementById('view-calendario');
+  const {start} = getWeekRange(currentWeekOffset);
+  const days = [];
+  for(let i=0;i<7;i++){
+    const d=new Date(start); d.setDate(start.getDate()+i); days.push(d);
+  }
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  // Collect all subtasks with dates
+  const byDay = {};
+  for(const client of MY_CLIENTS) {
+    for(const g of (allData[client]||[])) {
+      for(const s of (g.subtasks||[])) {
+        const cf = parseCustomFields(s.custom_fields||[]);
+        let dt = cf.dataRaw || (s.due_date ? new Date(parseInt(s.due_date)) : null);
+        if(dt) {
+          const key = new Date(dt).toDateString();
+          byDay[key] = byDay[key]||[];
+          byDay[key].push({...s, _client:client, _midia:cf.midia});
+        }
+      }
+    }
+  }
+
+  const dayNames = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  let html = `<div class="calendar-grid">`;
+  for(const d of days) {
+    const key = d.toDateString();
+    const isToday = d.getTime()===today.getTime();
+    const tasks = byDay[key]||[];
+    html += `<div class="cal-day ${isToday?'today':''}">
+      <div class="cal-day-header">
+        <span class="cal-day-name">${dayNames[d.getDay()]}</span>
+        <span class="cal-day-num">${d.getDate()}</span>
+      </div>
+      <div class="cal-cards">`;
+    if(!tasks.length) html += `<div style="font-size:11px;color:var(--gray);padding:4px 6px">—</div>`;
+    for(const t of tasks) {
+      const mClass = (t._midia||'').toLowerCase().replace(/\s/g,'');
+      html += `<div class="cal-card ${mClass}" onclick='openDetail(${JSON.stringify({id:t.id,name:t.name,status:t.status?.status,client:t._client,midia:t._midia,taskUrl:"https://app.clickup.com/t/"+t.id})})'>
+        <div class="cc-client">${t._client}</div>
+        <div class="cc-midia">${t._midia||t.name}</div>
+      </div>`;
+    }
+    html += `</div></div>`;
+  }
+  html += `</div>`;
+  el.innerHTML = html;
+}
+
+// ─────────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────────
+function parseCustomFields(fields) {
+  const r = {data:null, dataRaw:null, midia:null, funil:null, mes:null, cliente:null};
+  for(const f of fields) {
+    const name = (f.name||'').toLowerCase();
+    if(name==='data'||name==='date') {
+      if(f.value) {r.dataRaw=new Date(parseInt(f.value)); r.data=r.dataRaw.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});}
+    }
+    if(name==='mídia'||name==='midia'||name==='media') r.midia = f.value?.name||f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;
+    if(name==='funil') r.funil = f.value?.name||f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;
+    if(name==='mês referente'||name==='mes referente') r.mes = f.value?.name||f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;
+    if(name==='cliente') r.cliente = f.value||null;
+  }
+  return r;
+}
+
+function getStatusClass(status='') {
+  const s = status.toLowerCase();
+  if(s.includes('planejamento')) return 'status-planejamento';
+  if(s.includes('agendamento')) return 'status-agendamento';
+  if(s.includes('aprova')) return 'status-aprovacao';
+  if(s.includes('design')) return 'status-design';
+  return 'status-planejamento';
+}
+
+function toggleClient(name) {
+  openClients[name] = openClients[name]===false ? true : false;
+  renderListView();
+}
+
+function toggleForm(taskId) {
+  openForms[taskId] = !openForms[taskId];
+  renderListView();
+}
+
+// ─────────────────────────────────────────────
+// SAVE SUBTASK
+// ─────────────────────────────────────────────
+async function saveSubtask(parentId, client) {
+  const name = document.getElementById(`nsf-name-${parentId}`)?.value?.trim();
+  const date = document.getElementById(`nsf-date-${parentId}`)?.value;
+  const midia = document.getElementById(`nsf-midia-${parentId}`)?.value;
+  const funil = document.getElementById(`nsf-funil-${parentId}`)?.value;
+  const mes = document.getElementById(`nsf-mes-${parentId}`)?.value;
+
+  if(!name){showToast('Preencha o título do post','err');return;}
+
+  const listId = ALL_LISTS[client];
+  const body = {
+    name,
+    parent: parentId,
+    assignees: [parseInt(MEMBER_ID)],
+    due_date: date ? new Date(date).getTime() : undefined,
+    status: 'planejamento'
+  };
+
+  try {
+    showToast('Salvando…');
+    const task = await apiPost(`/list/${listId}/task`, body);
+
+    // Salva custom fields se possível (depende dos IDs dos campos)
+    // Por ora só criamos a tarefa com nome e data
+
+    showToast(`Post "${name}" criado!`,'ok');
+    openForms[parentId] = false;
+    await syncData();
+  } catch(e) {
+    showToast('Erro: '+e.message,'err');
+  }
+}
+
+// ─────────────────────────────────────────────
+// DELETE SUBTASK
+// ─────────────────────────────────────────────
+async function deleteSubtask(taskId, parentId, client) {
+  if(!confirm('Remover este post do planejamento?')) return;
+  try {
+    await fetch(`https://api.clickup.com/api/v2/task/${taskId}`,{
+      method:'DELETE',headers:{'Authorization':token}
+    });
+    showToast('Post removido','ok');
+    await syncData();
+  } catch(e) {
+    showToast('Erro ao remover','err');
+  }
+}
+
+// ─────────────────────────────────────────────
+// DETAIL MODAL
+// ─────────────────────────────────────────────
+function openDetail(data) {
+  document.getElementById('dm-title').textContent = data.name||'—';
+  document.getElementById('dm-sub').textContent = data.client||'';
+  document.getElementById('dm-link').href = data.taskUrl||'#';
+  const fields = [
+    {l:'Status',v:data.status},
+    {l:'Data',v:data.date},
+    {l:'Mídia',v:data.midia},
+    {l:'Funil',v:data.funil},
+    {l:'Mês referente',v:data.mes},
+  ].filter(f=>f.v);
+  document.getElementById('dm-fields').innerHTML = fields.map(f=>`<div class="detail-field"><label>${f.l}</label><div class="val">${f.v}</div></div>`).join('');
+  document.getElementById('detail-modal').classList.add('open');
+}
+function closeDetail(){document.getElementById('detail-modal').classList.remove('open');}
+
+// ─────────────────────────────────────────────
+// CONFIG
+// ─────────────────────────────────────────────
+function openConfig(){document.getElementById('config-modal').classList.add('open');}
+function closeConfig(){document.getElementById('config-modal').classList.remove('open');}
+function saveToken(){
+  const t=document.getElementById('token-input').value.trim();
+  if(!t){showToast('Token inválido','err');return;}
+  token=t;
+  localStorage.setItem('cu_token_isadora',t);
+  closeConfig();
+  showToast('Token salvo!','ok');
+  syncData();
+}
+
+// ─────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────
+let toastTimer;
+function showToast(msg,type='') {
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.className='toast show'+(type?' '+type:'');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+// ─────────────────────────────────────────────
+// ENVIAR PARA DESIGN
+// ─────────────────────────────────────────────
+async function sendToDesign(taskId) {
+  try {
+    showToast('Enviando para Design…');
+    await apiPut(`/task/${taskId}`, { status: 'design' });
+    showToast('Enviado para Design! 🎨', 'ok');
+    await syncData();
+  } catch(e) {
+    // Tenta com variações do nome do status
+    try {
+      await apiPut(`/task/${taskId}`, { status: 'Design' });
+      showToast('Enviado para Design! 🎨', 'ok');
+      await syncData();
+    } catch(e2) {
+      showToast('Erro: verifique o nome do status no ClickUp', 'err');
+      console.error(e2);
+    }
+  }
+}
+
+async function sendToDesignFromModal() {
+  if(!editingTaskId) return;
+  await sendToDesign(editingTaskId);
+  closeEditModal();
+}
+
+// ─────────────────────────────────────────────
+// SUBTASK CACHE & EDIT MODAL
+// ─────────────────────────────────────────────
+let subtaskCache = {};
+let editingTaskId = null;
+
+function openEditModal(taskId) {
+  const s = subtaskCache[taskId];
+  if(!s) return;
+  editingTaskId = taskId;
+
+  document.getElementById('em-name').value = s.name || '';
+  document.getElementById('em-desc').value = s.desc || '';
+
+  // Data
+  if(s.dueDateRaw) {
+    const d = new Date(parseInt(s.dueDateRaw));
+    const iso = d.toISOString().split('T')[0];
+    document.getElementById('em-date').value = iso;
+  } else {
+    document.getElementById('em-date').value = '';
+  }
+
+  // Selects
+  setSelectVal('em-midia', s.midia);
+  setSelectVal('em-funil', s.funil);
+  setSelectVal('em-mes', s.mes);
+
+  document.getElementById('edit-modal-bg').classList.add('open');
+}
+
+function setSelectVal(id, val) {
+  const sel = document.getElementById(id);
+  if(!val) return;
+  for(const opt of sel.options) {
+    if(opt.value.toLowerCase() === val.toLowerCase() || opt.text.toLowerCase() === val.toLowerCase()) {
+      sel.value = opt.value; return;
+    }
+  }
+}
+
+function closeEditModal() {
+  document.getElementById('edit-modal-bg').classList.remove('open');
+  editingTaskId = null;
+}
+
+async function saveEditModal() {
+  const s = subtaskCache[editingTaskId];
+  if(!s) return;
+
+  const name = document.getElementById('em-name').value.trim();
+  const dateVal = document.getElementById('em-date').value;
+  const desc = document.getElementById('em-desc').value.trim();
+
+  if(!name) { showToast('Preencha o título','err'); return; }
+
+  const body = {
+    name,
+    description: desc,
+    due_date: dateVal ? new Date(dateVal).getTime() : undefined,
+  };
+
+  try {
+    showToast('Salvando…');
+    await apiPut(`/task/${editingTaskId}`, body);
+    showToast('Post atualizado!', 'ok');
+    closeEditModal();
+    await syncData();
+  } catch(e) {
+    showToast('Erro: '+e.message, 'err');
+  }
+}
+
+async function deleteFromModal() {
+  if(!editingTaskId) return;
+  const s = subtaskCache[editingTaskId];
+  if(!confirm(`Excluir "${s?.name}"?`)) return;
+  try {
+    await fetch(`https://api.clickup.com/api/v2/task/${editingTaskId}`, {
+      method:'DELETE', headers:{'Authorization':token}
+    });
+    showToast('Post excluído','ok');
+    closeEditModal();
+    await syncData();
+  } catch(e) {
+    showToast('Erro ao excluir','err');
+  }
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+renderWeekLabel();
+if(token) {
+  syncData();
+} else {
+  document.getElementById('view-lista').innerHTML='<div class="empty-state">Configure seu token do ClickUp para começar. Clique no 🔑</div>';
+}
+</script>
+</body>
+</html>
