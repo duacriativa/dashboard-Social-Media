@@ -8,6 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  --theme-bg:#080808;--theme-bg2:#101010;--theme-bg3:#181818;--theme-bg4:#222;--theme-bg5:#2a2a2a;
+  --theme-text:#F5F5F0;--theme-text2:#888884;--theme-border:rgba(255,255,255,.07);--theme-border2:rgba(255,255,255,.14);
+}
+[data-theme="light"]{
+  --theme-bg:#F8F8F6;--theme-bg2:#FFFFFF;--theme-bg3:#F1F1EE;--theme-bg4:#E8E8E4;--theme-bg5:#DEDEDА;
+  --theme-text:#1A1A1A;--theme-text2:#666662;--theme-border:rgba(0,0,0,.08);--theme-border2:rgba(0,0,0,.14);
+  --black:#F8F8F6;--black2:#FFFFFF;--black3:#F1F1EE;--black4:#E8E8E4;--black5:#DEDEDА;
+  --white:#1A1A1A;--gray:#666662;--gray2:#AAAAА6;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+}
+:root{
   --black:#080808;--black2:#101010;--black3:#181818;--black4:#222;--black5:#2a2a2a;
   --yellow:#F5E642;
   --accent:#60C8F5;--adim:rgba(96,200,245,.1);--aborder:rgba(96,200,245,.25);
@@ -219,6 +230,20 @@ body{background:var(--black);color:var(--white);font-family:var(--fb);overflow-x
 .cbtn.s{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:700}
 
 .empty{text-align:center;padding:48px 20px;color:var(--gray);font-size:14px;line-height:1.8}
+
+/* LINKS PAGE */
+.links-wrap{padding:0 16px 80px;flex:1}
+.links-table{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.links-month-title{font-family:var(--fd);font-size:18px;letter-spacing:.04em;padding:14px 16px 10px;border-bottom:1px solid var(--border);color:var(--white)}
+.link-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);transition:background .15s}
+.link-row:last-child{border-bottom:none}
+.link-row:hover{background:var(--black4)}
+.link-client{font-size:14px;font-weight:700;color:var(--white);min-width:120px;flex-shrink:0}
+.link-btn{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--accent);text-decoration:none;background:var(--adim);border:1px solid var(--aborder);border-radius:8px;padding:7px 12px;transition:all .15s;white-space:nowrap}
+.link-btn:hover{background:rgba(96,200,245,.2)}
+.link-btn svg{width:14px;height:14px;flex-shrink:0}
+.link-empty{font-size:13px;color:var(--gray);padding:13px 16px}
+.links-loading{text-align:center;padding:40px;color:var(--gray);font-size:14px}
 .spin2{display:inline-block;width:22px;height:22px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:12px}
 </style>
 </head>
@@ -232,6 +257,7 @@ body{background:var(--black);color:var(--white);font-family:var(--fb);overflow-x
     <div class="topbar-right">
       <div class="chip"><div class="av" style="background:var(--accent);color:var(--black)">CI</div><span class="chip-nm">Ciane</span></div>
       <button class="ibtn" id="sync-btn" onclick="syncData()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+      <button class="ibtn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
       <button class="ibtn" onclick="openCfg()">🔑</button>
     </div>
   </div>
@@ -252,6 +278,14 @@ body{background:var(--black);color:var(--white);font-family:var(--fb);overflow-x
   <div class="prog">
     <div class="pt"><b>Progresso da semana</b><span id="prog-pct">0%</span></div>
     <div class="pb"><div class="pf" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <div style="display:flex;gap:8px;padding:0 16px 12px">
+    <button onclick="goToLinks('stories')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:var(--black3);border:1px solid var(--border2);border-radius:10px;color:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fb);touch-action:manipulation">
+      📁 Links Stories
+    </button>
+    <button onclick="goToLinks('feed')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:var(--black3);border:1px solid var(--border2);border-radius:10px;color:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fb);touch-action:manipulation">
+      📁 Links Feed
+    </button>
   </div>
   <div class="list-wrap" id="home-list"></div>
 </div>
@@ -349,6 +383,26 @@ body{background:var(--black);color:var(--white);font-family:var(--fb);overflow-x
       <button class="bb bb-save" onclick="confirmDup()">⧉ Criar cópia</button>
     </div>
   </div>
+</div>
+
+<!-- PAGE: LINKS STORIES -->
+<div class="page" id="pg-stories">
+  <div class="topbar">
+    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
+    <div class="topbar-center"><div class="topbar-title">📁 Links Stories</div></div>
+    <div class="topbar-right"><button class="ibtn" onclick="loadLinks('stories')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div>
+  </div>
+  <div class="links-wrap" id="links-stories-content"><div class="links-loading"><div class="spin2"></div><br>Carregando links…</div></div>
+</div>
+
+<!-- PAGE: LINKS FEED -->
+<div class="page" id="pg-feed">
+  <div class="topbar">
+    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
+    <div class="topbar-center"><div class="topbar-title">📁 Links Feed</div></div>
+    <div class="topbar-right"><button class="ibtn" onclick="loadLinks('feed')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div>
+  </div>
+  <div class="links-wrap" id="links-feed-content"><div class="links-loading"><div class="spin2"></div><br>Carregando links…</div></div>
 </div>
 
 <!-- CFG -->
@@ -458,9 +512,11 @@ async function syncData(){
       const mothers=(r1.tasks||[]).filter(t=>{
         const st=(t.status?.status||'').toLowerCase();
         const nm=t.name.toLowerCase();
+        // Filtra por status planejamento — não filtra por assignee na tarefa mãe
+        // pois nem sempre a social mídia está como responsável na mãe
         return !nm.includes('[template]')&&!nm.includes('template')&&
                (st.includes('planejamento')||st.includes('planning'))&&
-               !t.parent&&(t.assignees||[]).some(a=>String(a.id)===MEMBER_ID);
+               !t.parent;
       });
       for(const m of mothers){
         const subs=all.filter(t=>{
@@ -843,8 +899,108 @@ function saveCfg(){
   closeCfg();toast('Conectado!','ok');syncData();
 }
 
+// ═══ LINKS DOCS ═══
+const DOC_STORIES = '8ckm0q6-8473';
+const DOC_FEED = '8ckm0q6-8513';
+let linksCache = {stories:null, feed:null};
+
+function goToLinks(type){
+  pageStack.push('pg-home');
+  const pg = type==='stories' ? 'pg-stories' : 'pg-feed';
+  showPage(pg);
+  loadLinks(type);
+}
+
+async function loadLinks(type){
+  if(!token){openCfg();return;}
+  const docId = type==='stories' ? DOC_STORIES : DOC_FEED;
+  const elId = type==='stories' ? 'links-stories-content' : 'links-feed-content';
+  const el = document.getElementById(elId);
+
+  // Usa cache se disponível
+  if(linksCache[type]){el.innerHTML=linksCache[type];return;}
+
+  el.innerHTML='<div class="links-loading"><div class="spin2"></div><br>Carregando…</div>';
+  try{
+    const data = await GET(`/doc/${docId}/page?content_format=text/md`);
+    const pages = data.pages||[];
+    let html='';
+
+    for(const page of pages){
+      const lines = (page.content||'').split('
+');
+      let tableRows = [];
+      let inTable = false;
+      let monthTitle = page.name||'';
+
+      for(const line of lines){
+        if(line.includes('|')){
+          inTable=true;
+          const cells = line.split('|').map(c=>c.trim()).filter(c=>c&&c!=='---'&&!c.match(/^-+$/));
+          if(cells.length>=2 && !cells[0].toLowerCase().includes('cliente')){
+            tableRows.push({client:cells[0], link:cells[1]});
+          }
+        }
+      }
+
+      if(tableRows.length){
+        html+=`<div class="links-table">
+          <div class="links-month-title">${monthTitle}</div>`;
+        for(const row of tableRows){
+          const hasLink = row.link && row.link.includes('http');
+          const isGdrive = row.link&&(row.link.includes('drive.google')||row.link.toLowerCase().includes('google drive'));
+          html+=`<div class="link-row">
+            <div class="link-client">${row.client}</div>
+            ${hasLink
+              ? `<a class="link-btn" href="${row.link}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Abrir</a>`
+              : `<span style="font-size:13px;color:var(--gray)">Link não disponível</span>`
+            }
+          </div>`;
+        }
+        html+='</div>';
+      }
+    }
+
+    if(!html) html='<div class="empty">Nenhum link encontrado no documento.</div>';
+    linksCache[type]=html;
+    el.innerHTML=html;
+  }catch(e){
+    // Fallback: mostra botão direto pro doc no ClickUp
+    const docUrl = type==='stories'
+      ? 'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8473'
+      : 'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8513';
+    el.innerHTML=`<div class="empty">
+      Não foi possível carregar automaticamente.<br><br>
+      <a class="link-btn" href="${docUrl}" target="_blank" style="display:inline-flex;margin:0 auto">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+        Abrir no ClickUp
+      </a>
+    </div>`;
+    console.warn('Links doc error:',e.message);
+  }
+}
+
+// ═══ TEMA ═══
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme');
+  const next=cur==='light'?'dark':'light';
+  applyTheme(next);
+}
+function applyTheme(theme){
+  if(theme==='light'){
+    document.documentElement.setAttribute('data-theme','light');
+    document.getElementById('theme-btn').textContent='☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-btn').textContent='🌙';
+  }
+  localStorage.setItem('cu_theme_ciane',theme);
+}
+
 // ═══ INIT ═══
 renderWeek();
+const savedTheme=localStorage.getItem('cu_theme_ciane');
+if(savedTheme)applyTheme(savedTheme);
 if(token)syncData();
 else document.getElementById('home-list').innerHTML='<div class="empty">Configure seu token 🔑</div>';
 </script>
