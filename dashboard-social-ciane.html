@@ -2,368 +2,315 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Ciane — Planejamento Social</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --black:#080808;--black2:#101010;--black3:#181818;--black4:#222;--black5:#2a2a2a;
-  --yellow:#F5E642;--yellow2:#DFCE1A;
+  --yellow:#F5E642;
   --accent:#60C8F5;--accent-dim:rgba(96,200,245,.1);--accent-border:rgba(96,200,245,.25);
-  --purple:#A78BFA;
   --white:#F5F5F0;--gray:#888884;--gray2:#444440;
-  --ok:#22C55E;--warn:#F59E0B;--danger:#EF4444;
-  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
-  --fd:'Bebas Neue',sans-serif;--fb:'Inter',sans-serif;--r:10px;
+  --ok:#22C55E;--warn:#F59E0B;--danger:#EF4444;--purple:#A78BFA;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
+  --fd:'Bebas Neue',sans-serif;--fb:'Inter',sans-serif;--r:12px;
 }
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100dvh}
-body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 80% 0%,rgba(96,200,245,.06),transparent 60%),radial-gradient(ellipse 40% 30% at 10% 100%,rgba(245,230,66,.04),transparent 60%);pointer-events:none;z-index:0}
-.page{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:20px 20px 40px}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px;height:100%}
+body{background:var(--black);color:var(--white);font-family:var(--fb);min-height:100dvh;overflow-x:hidden}
 
-/* HEADER */
-.hdr{display:flex;align-items:center;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:20px;flex-wrap:wrap;gap:12px}
+/* ── HEADER ── */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--black);z-index:50}
 .brand{display:flex;align-items:center;gap:10px}
-.logo{font-family:var(--fd);font-size:28px;letter-spacing:.04em}
+.logo{font-family:var(--fd);font-size:26px;letter-spacing:.04em;line-height:1}
 .logo em{color:var(--yellow);font-style:normal}
-.tag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);border-left:1px solid var(--gray2);padding-left:10px;line-height:1.5}
-.hdr-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.user-chip{display:flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:50px;padding:5px 12px 5px 5px}
-.user-avatar{width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:13px;color:var(--black)}
-.user-name{font-size:13px;font-weight:500;color:var(--accent)}
-.btn{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:7px 14px;border-radius:8px;border:1px solid var(--border2);background:var(--black3);color:var(--white);cursor:pointer;transition:all .15s}
-.btn:hover{background:var(--black4)}
-.btn.spin svg{animation:spin .7s linear infinite}
+.tag{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray);border-left:1px solid var(--gray2);padding-left:8px;line-height:1.5}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.user-chip{display:flex;align-items:center;gap:7px;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:50px;padding:4px 10px 4px 4px}
+.avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:12px;font-weight:700;flex-shrink:0}
+.user-name{font-size:12px;font-weight:600;color:var(--accent)}
+.icon-btn{background:none;border:1px solid var(--border2);border-radius:8px;color:var(--white);cursor:pointer;padding:7px 10px;font-size:13px;transition:background .15s;display:flex;align-items:center;gap:5px}
+.icon-btn:hover,.icon-btn:active{background:var(--black4)}
+.icon-btn svg{width:14px;height:14px}
+.spin svg{animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* WEEK NAV */
-.week-nav-wrap{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.week-nav{display:flex;align-items:center;background:var(--black3);border:1px solid var(--border);border-radius:10px;padding:4px}
-.week-nav button{background:none;border:none;color:var(--gray);cursor:pointer;padding:5px 10px;border-radius:7px;font-size:16px;transition:all .15s}
-.week-nav button:hover{color:var(--white);background:var(--black4)}
-.week-label{font-size:13px;font-weight:500;color:var(--white);padding:0 10px;white-space:nowrap}
-.week-sub{font-size:12px;color:var(--gray)}
+/* ── WEEK NAV ── */
+.week-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.week-nav{display:flex;align-items:center;background:var(--black3);border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.week-nav button{background:none;border:none;color:var(--gray);cursor:pointer;padding:7px 12px;font-size:16px;transition:all .15s;line-height:1;touch-action:manipulation}
+.week-nav button:active{background:var(--black4)}
+.week-label{font-size:13px;font-weight:600;color:var(--white);padding:0 10px;white-space:nowrap}
+.week-hint{font-size:11px;color:var(--gray)}
 
-/* STATS */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-.stat-card{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px}
-.stat-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:6px}
-.stat-value{font-family:var(--fd);font-size:32px;letter-spacing:.02em;line-height:1}
-.stat-value.accent{color:var(--accent)}
-.stat-value.yellow{color:var(--yellow)}
-.stat-value.ok{color:var(--ok)}
-.stat-value.warn{color:var(--warn)}
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
+.stat{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px}
+.stat-l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:4px}
+.stat-v{font-family:var(--fd);font-size:28px;line-height:1}
+.c-acc{color:var(--accent)}.c-yel{color:var(--yellow)}.c-ok{color:var(--ok)}.c-warn{color:var(--warn)}
 
-/* PROGRESS */
-.prog-wrap{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:16px}
-.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:8px}
-.prog-top strong{color:var(--white)}
-.prog-bar{height:5px;background:var(--black5);border-radius:99px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--yellow));border-radius:99px;transition:width .5s ease}
+/* ── PROGRESS ── */
+.prog{padding:0 16px 12px}
+.prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:6px}
+.prog-top b{color:var(--white)}
+.prog-bar{height:4px;background:var(--black5);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--yellow));border-radius:99px;transition:width .5s}
 
-/* TABS */
-.tabs{display:flex;gap:4px;margin-bottom:16px}
-.tab{font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:all .15s;color:var(--gray);background:none}
-.tab:hover{color:var(--white)}
+/* ── TABS ── */
+.tabs{display:flex;gap:4px;padding:0 16px 12px}
+.tab{font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;border:1px solid transparent;cursor:pointer;color:var(--gray);background:none;transition:all .15s;touch-action:manipulation}
 .tab.active{background:var(--black3);border-color:var(--border2);color:var(--white)}
 
-/* CLIENT SECTION */
-.client-section{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
-.client-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;transition:background .15s;user-select:none}
-.client-header:hover{background:var(--black4)}
+/* ── MAIN LIST ── */
+.main-list{padding:0 16px 80px}
+
+/* ── CLIENT BLOCK ── */
+.client-block{margin-bottom:12px;background:var(--black3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.client-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;touch-action:manipulation;user-select:none}
+.client-hdr:active{background:var(--black4)}
+.client-hdr-left{display:flex;align-items:center;gap:10px}
 .client-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.client-name{font-family:var(--fd);font-size:20px;letter-spacing:.03em}
-.client-meta{font-size:12px;color:var(--gray);margin-top:1px}
-.badge-count{background:var(--accent-dim);color:var(--accent);font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;border:1px solid var(--accent-border)}
-.chevron{color:var(--gray);font-size:13px;transition:transform .2s;display:inline-block}
-.client-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
+.client-title{font-family:var(--fd);font-size:22px;letter-spacing:.02em}
+.client-sub{font-size:11px;color:var(--gray);margin-top:1px}
+.client-badge{background:var(--accent-dim);color:var(--accent);font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--accent-border)}
+.chevron{color:var(--gray);font-size:14px;transition:transform .2s;margin-left:4px}
+.client-body{display:none;border-top:1px solid var(--border)}
 .client-body.open{display:block}
 
-/* TASK MÃE */
-.task-mother{background:var(--black4);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-top:12px}
-.task-mother-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.task-mother-name{font-size:13px;font-weight:600;color:var(--white)}
-.status-pill{font-size:11px;padding:3px 10px;border-radius:99px;font-weight:500;text-transform:capitalize}
-.sp-planejamento{background:rgba(245,158,11,.15);color:#F59E0B}
+/* ── TASK MÃE ── */
+.task-mae{margin:10px 12px;background:var(--black4);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
+.task-mae-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:12px 14px 10px;gap:10px;cursor:pointer;touch-action:manipulation}
+.task-mae-hdr:active{background:rgba(255,255,255,.03)}
+.task-mae-icon{font-size:16px;margin-top:1px;flex-shrink:0}
+.task-mae-info{flex:1}
+.task-mae-name{font-size:14px;font-weight:600;color:var(--white);line-height:1.3;margin-bottom:4px}
+.task-mae-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.sp{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.sp-plan{background:rgba(245,158,11,.15);color:#F59E0B}
 .sp-design{background:rgba(167,139,250,.15);color:#A78BFA}
-.sp-aprovacao{background:rgba(34,197,94,.15);color:#22C55E}
-.sp-outros{background:rgba(255,255,255,.07);color:var(--gray)}
+.sp-ok{background:rgba(34,197,94,.15);color:#22C55E}
+.sp-out{background:rgba(255,255,255,.07);color:var(--gray)}
+.task-mae-toggle{color:var(--gray);font-size:12px;flex-shrink:0;transition:transform .2s;margin-top:2px}
 
-/* SUBTAREFA ROW */
-.subs-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
-.sub-row{display:grid;grid-template-columns:1fr 95px 85px 100px 34px 34px 34px 28px;gap:6px;align-items:center;background:var(--black5);border-radius:6px;padding:8px 10px;font-size:12px;transition:background .15s}
-.sub-row:hover{background:#2f2f2f}
-.sub-name{font-weight:500;color:var(--white);cursor:pointer;transition:color .15s}
-.sub-name:hover{color:var(--accent)}
-.sub-date{color:var(--gray);font-size:11px}
-.sub-date.empty{color:var(--danger);opacity:.8}
-.sub-midia{color:var(--accent);font-size:11px}
-.sub-midia.empty{color:var(--danger);opacity:.8}
-.sub-status-pill{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:500;text-align:center}
-.btn-design{background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);border-radius:5px;color:#A78BFA;cursor:pointer;padding:3px 6px;font-size:10px;font-weight:700;transition:all .15s;white-space:nowrap}
-.btn-design:hover{background:rgba(167,139,250,.25)}
-.btn-dup{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--gray);cursor:pointer;padding:3px 7px;font-size:13px;transition:all .15s}
-.btn-dup:hover{color:var(--yellow);border-color:var(--yellow)}
-.btn-edit{background:none;border:1px solid var(--border2);border-radius:5px;color:var(--gray);cursor:pointer;padding:3px 7px;font-size:12px;transition:all .15s}
-.btn-edit:hover{color:var(--accent);border-color:var(--accent)}
-.btn-del{background:none;border:none;color:var(--gray);cursor:pointer;font-size:14px;padding:2px 4px;border-radius:4px;transition:color .15s}
-.btn-del:hover{color:var(--danger)}
+/* ── SUBTAREFAS LISTA ESTILO CLICKUP ── */
+.subs-section{border-top:1px solid var(--border);padding:8px 0}
+.subs-section-title{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;padding:4px 14px 8px;display:flex;align-items:center;justify-content:space-between}
+.subs-section-title span{cursor:pointer;color:var(--accent);font-size:11px;font-weight:600}
 
-/* ADD FORM */
-.add-form{background:var(--accent-dim);border:1px dashed var(--accent-border);border-radius:8px;padding:14px;margin-top:6px}
-.add-form-title{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
-.fg{display:flex;flex-direction:column;gap:4px}
-.fg label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.07em}
-.fg input,.fg select,.fg textarea{background:var(--black3);border:1px solid var(--border2);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--white);font-family:var(--fb);outline:none;transition:border-color .15s;width:100%}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--accent)}
-.fg select option{background:var(--black3)}
-.fg textarea{resize:vertical;min-height:56px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px}
-.form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.form-actions{display:flex;gap:8px;justify-content:flex-end}
-.fbtn{font-size:12px;padding:6px 14px;border-radius:6px;border:1px solid var(--border2);background:var(--black3);color:var(--white);cursor:pointer;transition:all .15s}
-.fbtn:hover{background:var(--black4)}
-.fbtn.save{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:600}
-.fbtn.save:hover{opacity:.85}
-.add-btn{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);background:none;border:1px dashed var(--accent-border);border-radius:6px;padding:7px 12px;cursor:pointer;transition:all .15s;width:100%}
-.add-btn:hover{background:var(--accent-dim)}
+.sub-item{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s;touch-action:manipulation}
+.sub-item:last-child{border-bottom:none}
+.sub-item:active{background:rgba(255,255,255,.04)}
+.sub-item-icon{color:var(--accent);font-size:14px;flex-shrink:0;opacity:.7}
+.sub-item-body{flex:1;min-width:0}
+.sub-item-name{font-size:13px;font-weight:500;color:var(--white);line-height:1.3;margin-bottom:3px}
+.sub-item-tags{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tag-date{font-size:11px;color:var(--gray)}
+.tag-date.empty{color:var(--danger)}
+.tag-midia{font-size:11px;color:var(--accent)}
+.tag-midia.empty{color:var(--danger)}
+.sub-item-avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:11px;font-weight:700;flex-shrink:0}
+.sub-item-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.sab{background:none;border:none;color:var(--gray);cursor:pointer;padding:6px;border-radius:6px;font-size:14px;touch-action:manipulation;transition:color .15s}
+.sab:active{color:var(--white)}
+.sab.design-btn{color:var(--purple);font-size:10px;font-weight:700;border:1px solid rgba(167,139,250,.25);background:rgba(167,139,250,.08);border-radius:6px;padding:4px 7px}
+.sab.design-btn:active{background:rgba(167,139,250,.2)}
 
-/* MODAL BASE */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:100;align-items:center;justify-content:center;padding:20px}
-.modal-bg.open{display:flex}
-.modal-box{background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:24px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
-.modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.modal-title{font-family:var(--fd);font-size:22px}
-.modal-close{background:none;border:none;color:var(--gray);font-size:20px;cursor:pointer;transition:color .15s;line-height:1}
-.modal-close:hover{color:var(--white)}
-.mfg{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
-.mfg label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.07em}
-.mfg input,.mfg select,.mfg textarea{background:var(--black3);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;font-size:13px;color:var(--white);font-family:var(--fb);outline:none;transition:border-color .15s;width:100%}
-.mfg input:focus,.mfg select:focus,.mfg textarea:focus{border-color:var(--accent)}
-.mfg select option{background:var(--black3)}
-.mfg textarea{resize:vertical;min-height:72px}
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.modal-actions{display:flex;gap:8px;justify-content:space-between;margin-top:16px;flex-wrap:wrap}
-.mbtn{font-size:12px;padding:8px 16px;border-radius:7px;border:1px solid var(--border2);background:none;color:var(--white);cursor:pointer;transition:all .15s}
-.mbtn:hover{background:var(--black4)}
-.mbtn.save{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:700}
-.mbtn.save:hover{opacity:.85}
-.mbtn.danger{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:var(--danger)}
-.mbtn.danger:hover{background:rgba(239,68,68,.18)}
-.mbtn.design{border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.1);color:#A78BFA;font-weight:700}
-.mbtn.design:hover{background:rgba(167,139,250,.2)}
+.add-sub-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;color:var(--gray);font-size:13px;border-top:1px solid rgba(255,255,255,.04);touch-action:manipulation;transition:color .15s}
+.add-sub-btn:active{color:var(--white)}
+.add-sub-btn svg{flex-shrink:0}
 
-/* ASSIGN SELECT */
-.assign-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
-.assign-opt{display:flex;align-items:center;gap:8px;background:var(--black3);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;cursor:pointer;transition:all .15s}
-.assign-opt:hover{border-color:var(--accent)}
-.assign-opt.selected{border-color:var(--accent);background:var(--accent-dim)}
-.assign-dot{width:8px;height:8px;border-radius:50%}
-.assign-name{font-size:13px;font-weight:500}
+/* ── DRAWER (painel lateral/bottom sheet) ── */
+.drawer-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;backdrop-filter:blur(4px)}
+.drawer-bg.open{display:block}
+.drawer{position:fixed;bottom:0;left:0;right:0;background:var(--black2);border-radius:20px 20px 0 0;border:1px solid var(--border2);z-index:201;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:92dvh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,16px)}
+.drawer.open{transform:translateY(0)}
+.drawer-handle{width:36px;height:4px;background:var(--border2);border-radius:99px;margin:12px auto 0}
+.drawer-content{padding:16px 20px 24px}
 
-/* UNDO TOAST */
-.undo-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);opacity:0;background:var(--black2);border:1px solid var(--border2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:16px;z-index:300;transition:all .35s;pointer-events:none;min-width:320px;max-width:90vw}
+/* Drawer: tarefa mãe */
+.dm-breadcrumb{font-size:11px;color:var(--gray);margin-bottom:8px}
+.dm-breadcrumb span{color:var(--accent)}
+.dm-title{font-size:20px;font-weight:700;color:var(--white);margin-bottom:14px;line-height:1.3}
+.dm-fields{display:flex;flex-direction:column;gap:0;margin-bottom:16px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.dm-field{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--border)}
+.dm-field:last-child{border-bottom:none}
+.dm-field-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.dm-field-label{font-size:12px;color:var(--gray);min-width:90px;flex-shrink:0}
+.dm-field-val{font-size:13px;color:var(--white);font-weight:500;flex:1}
+.dm-desc{background:var(--black3);border-radius:10px;padding:14px;margin-bottom:16px}
+.dm-desc-title{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.dm-desc-body{font-size:14px;color:var(--white);line-height:1.6}
+.dm-subs-title{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between}
+.dm-sub-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--black3);border-radius:8px;margin-bottom:6px;cursor:pointer;touch-action:manipulation;transition:background .15s}
+.dm-sub-item:active{background:var(--black4)}
+.dm-sub-name{flex:1;font-size:13px;color:var(--white);font-weight:500}
+.dm-sub-date{font-size:11px;color:var(--gray)}
+
+/* Drawer: subtarefa (edit) */
+.dsub-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.dsub-client{font-size:11px;color:var(--accent);margin-bottom:8px}
+.dsub-title-input{font-size:18px;font-weight:700;color:var(--white);background:none;border:none;outline:none;width:100%;border-bottom:1px solid var(--border2);padding-bottom:10px;margin-bottom:16px;font-family:var(--fb)}
+.dsub-title-input::placeholder{color:var(--gray)}
+.dfield{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.dfield label{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.08em}
+.dfield input,.dfield select,.dfield textarea{background:var(--black3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--white);font-family:var(--fb);outline:none;transition:border-color .2s;width:100%}
+.dfield input:focus,.dfield select:focus,.dfield textarea:focus{border-color:var(--accent)}
+.dfield select option{background:var(--black3)}
+.dfield textarea{resize:none;min-height:80px;line-height:1.5}
+.dfield-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.drawer-actions{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.dact-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .15s;touch-action:manipulation;font-family:var(--fb)}
+.dact-btn:active{opacity:.8}
+.dact-save{background:var(--accent);color:var(--black)}
+.dact-design{background:rgba(167,139,250,.15);color:#A78BFA;border:1px solid rgba(167,139,250,.3) !important;border-radius:10px}
+.dact-dup{background:var(--black3);color:var(--white);border:1px solid var(--border2) !important;border-radius:10px}
+.dact-del{background:rgba(239,68,68,.1);color:var(--danger);border:1px solid rgba(239,68,68,.25) !important;border-radius:10px}
+.dact-cancel{background:none;color:var(--gray);border:1px solid var(--border2) !important;border-radius:10px}
+
+/* Assign options */
+.assign-list{display:flex;flex-direction:column;gap:8px;margin:12px 0 20px}
+.assign-opt{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--black3);border:1px solid var(--border2);border-radius:10px;cursor:pointer;touch-action:manipulation;transition:all .15s}
+.assign-opt:active,.assign-opt.sel{border-color:var(--accent);background:var(--accent-dim)}
+.assign-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.assign-name{font-size:14px;font-weight:500}
+
+/* Dup date */
+.dup-hint{font-size:13px;color:var(--gray);margin-bottom:14px}
+
+/* ── UNDO BAR ── */
+.undo-bar{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);opacity:0;background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:12px 20px;display:flex;align-items:center;gap:14px;z-index:300;transition:all .35s cubic-bezier(.32,.72,0,1);pointer-events:none;min-width:min(340px,90vw)}
 .undo-bar.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:all}
 .undo-msg{font-size:13px;color:var(--white);flex:1}
-.undo-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);border-radius:0 0 12px 12px;transition:width linear}
-.undo-btn{font-size:12px;font-weight:700;color:var(--accent);background:none;border:1px solid var(--accent-border);border-radius:6px;padding:5px 12px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.undo-btn:hover{background:var(--accent-dim)}
+.undo-btn-el{font-size:12px;font-weight:700;color:var(--accent);background:none;border:1px solid var(--accent-border);border-radius:7px;padding:6px 14px;cursor:pointer;white-space:nowrap;touch-action:manipulation}
+.undo-prog{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);border-radius:0 0 14px 14px;transition:width linear}
 
-/* CONFIG MODAL */
-.cfg-modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center}
-.cfg-modal-bg.open{display:flex}
-.cfg-box{background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:28px;width:100%;max-width:420px}
-.cfg-box h3{font-family:var(--fd);font-size:26px;margin-bottom:6px}
+/* ── CFG ── */
+.cfg-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:400;align-items:center;justify-content:center;padding:20px}
+.cfg-bg.open{display:flex}
+.cfg-box{background:var(--black2);border:1px solid var(--border2);border-radius:16px;padding:24px;width:100%;max-width:400px}
+.cfg-box h3{font-family:var(--fd);font-size:24px;margin-bottom:6px}
 .cfg-box p{font-size:13px;color:var(--gray);margin-bottom:16px;line-height:1.6}
-.cfg-box input{width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;font-size:14px;color:var(--white);outline:none;font-family:var(--fb);margin-bottom:12px}
+.cfg-box input{width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:8px;padding:11px 12px;font-size:14px;color:var(--white);outline:none;font-family:var(--fb);margin-bottom:12px;transition:border-color .15s}
 .cfg-box input:focus{border-color:var(--accent)}
+.cfg-actions{display:flex;gap:8px;justify-content:flex-end}
+.cfg-btn{font-size:13px;padding:9px 18px;border-radius:8px;border:1px solid var(--border2);background:none;color:var(--white);cursor:pointer;font-family:var(--fb)}
+.cfg-btn.save{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:700}
 
-/* EMPTY/LOADING */
-.empty{text-align:center;padding:40px;color:var(--gray);font-size:14px}
+/* ── EMPTY/LOADING ── */
+.empty{text-align:center;padding:40px 20px;color:var(--gray);font-size:14px}
 .spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:10px}
 
-/* CALENDAR */
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
-.cal-col{background:var(--black3);border:1px solid var(--border);border-radius:var(--r);min-height:120px;overflow:hidden}
+/* ── CALENDAR ── */
+.cal-wrap{padding:0 16px 80px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-col{background:var(--black3);border:1px solid var(--border);border-radius:10px;min-height:100px;overflow:hidden}
 .cal-col.today{border-color:var(--accent)}
-.cal-col-hdr{padding:8px 10px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.cal-day-name{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray)}
-.cal-day-num{font-family:var(--fd);font-size:20px}
-.cal-col.today .cal-day-num{color:var(--accent)}
-.cal-cards{padding:6px;display:flex;flex-direction:column;gap:4px}
-.cal-card{background:var(--black4);border-radius:6px;padding:6px 8px;font-size:11px;border-left:2px solid var(--accent);cursor:pointer;transition:background .15s}
-.cal-card:hover{background:var(--black5)}
-.cal-client{font-weight:600;color:var(--accent);font-size:10px;margin-bottom:1px}
-.cal-name{color:var(--white);line-height:1.3}
+.cal-col-hdr{padding:7px 8px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;align-items:center}
+.cal-dn{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--gray)}
+.cal-num{font-family:var(--fd);font-size:18px;line-height:1}
+.cal-col.today .cal-num{color:var(--accent)}
+.cal-cards{padding:4px;display:flex;flex-direction:column;gap:3px}
+.cal-card{background:var(--black4);border-radius:5px;padding:4px 6px;font-size:10px;border-left:2px solid var(--accent);cursor:pointer;touch-action:manipulation}
+.cal-card:active{background:var(--black5)}
+.cal-cli{font-weight:700;color:var(--accent);font-size:9px}
+.cal-nm{color:var(--white);line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
-@media(max-width:900px){
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .sub-row{grid-template-columns:1fr 85px 70px 28px}
-  .sub-row .sub-date,.sub-row .sub-midia,.sub-row .sub-status-pill,.sub-row .btn-design,.sub-row .btn-dup,.sub-row .btn-edit{display:none}
-  .cal-grid{grid-template-columns:repeat(4,1fr)}
+@media(min-width:600px){
+  .drawer{left:auto;right:0;top:0;bottom:0;border-radius:0;max-width:420px;max-height:100dvh;transform:translateX(100%)}
+  .drawer.open{transform:translateX(0)}
+  .drawer-handle{display:none}
+  .cal-grid{grid-template-columns:repeat(7,1fr)}
 }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <header class="hdr">
-    <div class="brand">
-      <div class="logo">DUA<em>*.*</em></div>
-      <div class="tag">Marketing<br>de Moda</div>
+<!-- HEADER -->
+<header class="hdr">
+  <div class="brand">
+    <div class="logo">DUA<em>*.*</em></div>
+    <div class="tag">Marketing<br>de Moda</div>
+  </div>
+  <div class="hdr-right">
+    <div class="user-chip">
+      <div class="avatar" style="background:var(--accent);color:var(--black)">CI</div>
+      <span class="user-name">Ciane</span>
     </div>
-    <div class="hdr-right">
-      <div class="user-chip">
-        <div class="user-avatar">CI</div>
-        <span class="user-name">Ciane</span>
-      </div>
-      <button class="btn" id="sync-btn" onclick="syncData()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-        Atualizar
-      </button>
-      <button class="btn" onclick="openCfg()">🔑</button>
-    </div>
-  </header>
-
-  <div class="week-nav-wrap">
-    <div class="week-nav">
-      <button onclick="changeWeek(-1)">‹</button>
-      <span class="week-label" id="week-label">—</span>
-      <button onclick="changeWeek(1)">›</button>
-    </div>
-    <span class="week-sub">Semana Ter → Seg</span>
+    <button class="icon-btn" id="sync-btn" onclick="syncData()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+    <button class="icon-btn" onclick="openCfg()">🔑</button>
   </div>
+</header>
 
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Clientes</div><div class="stat-value accent" id="s-cli">—</div></div>
-    <div class="stat-card"><div class="stat-label">Posts planejados</div><div class="stat-value yellow" id="s-posts">—</div></div>
-    <div class="stat-card"><div class="stat-label">Agendados</div><div class="stat-value ok" id="s-ag">—</div></div>
-    <div class="stat-card"><div class="stat-label">Pendentes</div><div class="stat-value warn" id="s-pend">—</div></div>
+<!-- WEEK NAV -->
+<div class="week-bar">
+  <div class="week-nav">
+    <button onclick="changeWeek(-1)">‹</button>
+    <span class="week-label" id="week-label">—</span>
+    <button onclick="changeWeek(1)">›</button>
   </div>
-
-  <div class="prog-wrap">
-    <div class="prog-top"><strong>Progresso da semana</strong><span id="prog-pct">0%</span></div>
-    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="setTab('lista',this)">Lista por cliente</button>
-    <button class="tab" onclick="setTab('calendario',this)">Calendário da semana</button>
-  </div>
-
-  <div id="view-lista"></div>
-  <div id="view-calendario" style="display:none"></div>
-
+  <span class="week-hint">Ter → Seg</span>
 </div>
 
-<footer style="text-align:center;font-size:11px;color:#444440;margin-top:32px;letter-spacing:.05em;position:relative;z-index:1">Dua Criativa © 2026 — Ciane DuaCriativa</footer>
-
-<!-- MODAL EDITAR/CRIAR -->
-<div class="modal-bg" id="edit-modal">
-  <div class="modal-box">
-    <div class="modal-top">
-      <div class="modal-title" id="edit-modal-title">Editar post</div>
-      <button class="modal-close" onclick="closeEditModal()">✕</button>
-    </div>
-    <div class="mfg" style="grid-column:1/-1">
-      <label>Título / Tema</label>
-      <input type="text" id="em-name" placeholder="Ex: Look verão outono">
-    </div>
-    <div class="mgrid" style="margin-bottom:10px">
-      <div class="mfg"><label>Data de postagem</label><input type="date" id="em-date"></div>
-      <div class="mfg"><label>Mídia</label>
-        <select id="em-midia"><option value="">— selecione —</option><option>Stories</option><option>Feed</option><option>Reels</option><option>TikTok</option><option>Carrossel</option></select>
-      </div>
-    </div>
-    <div class="mgrid" style="margin-bottom:10px">
-      <div class="mfg"><label>Funil</label>
-        <select id="em-funil"><option value="">— selecione —</option><option>Topo</option><option>Meio</option><option>Fundo</option></select>
-      </div>
-      <div class="mfg"><label>Mês referente</label>
-        <select id="em-mes"><option value="">— selecione —</option><option>Janeiro</option><option>Fevereiro</option><option>Março</option><option>Abril</option><option>Maio</option><option>Junho</option><option>Julho</option><option>Agosto</option><option>Setembro</option><option>Outubro</option><option>Novembro</option><option>Dezembro</option></select>
-      </div>
-    </div>
-    <div class="mfg">
-      <label>Descrição / Observação</label>
-      <textarea id="em-desc" placeholder="Referências, copy, observações…"></textarea>
-    </div>
-    <div class="modal-actions">
-      <button class="mbtn danger" id="edit-del-btn" onclick="deleteFromModal()">🗑 Excluir</button>
-      <div style="display:flex;gap:8px">
-        <button class="mbtn" onclick="closeEditModal()">Cancelar</button>
-        <button class="mbtn save" onclick="saveEdit()">Salvar</button>
-      </div>
-    </div>
-  </div>
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="stat-l">Clientes</div><div class="stat-v c-acc" id="s-cli">—</div></div>
+  <div class="stat"><div class="stat-l">Posts</div><div class="stat-v c-yel" id="s-posts">—</div></div>
+  <div class="stat"><div class="stat-l">Agendados</div><div class="stat-v c-ok" id="s-ag">—</div></div>
+  <div class="stat"><div class="stat-l">Pendentes</div><div class="stat-v c-warn" id="s-pend">—</div></div>
+</div>
+<div class="prog">
+  <div class="prog-top"><b>Progresso</b><span id="prog-pct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
 </div>
 
-<!-- MODAL DESIGN -->
-<div class="modal-bg" id="design-modal">
-  <div class="modal-box">
-    <div class="modal-top">
-      <div class="modal-title">Enviar para Design</div>
-      <button class="modal-close" onclick="closeDesignModal()">✕</button>
-    </div>
-    <p style="font-size:13px;color:var(--gray);margin-bottom:16px">Selecione o designer responsável por este post:</p>
-    <div class="assign-grid" id="assign-grid"></div>
-    <div class="modal-actions" style="margin-top:20px">
-      <button class="mbtn" onclick="closeDesignModal()">Cancelar</button>
-      <button class="mbtn design" onclick="confirmDesign()">→ Enviar para Design</button>
-    </div>
-  </div>
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="setTab('lista',this)">Lista</button>
+  <button class="tab" onclick="setTab('calendario',this)">Calendário</button>
 </div>
 
-<!-- MODAL DUPLICAR -->
-<div class="modal-bg" id="dup-modal">
-  <div class="modal-box">
-    <div class="modal-top">
-      <div class="modal-title">Duplicar post</div>
-      <button class="modal-close" onclick="closeDupModal()">✕</button>
-    </div>
-    <p style="font-size:13px;color:var(--gray);margin-bottom:14px">Informe a nova data de postagem:</p>
-    <div class="mfg" style="margin-bottom:14px">
-      <label>Nova data de postagem</label>
-      <input type="date" id="dup-date">
-    </div>
-    <div class="mfg" style="margin-bottom:6px">
-      <label>Título (opcional — edite se quiser)</label>
-      <input type="text" id="dup-name">
-    </div>
-    <div class="modal-actions" style="margin-top:16px">
-      <span></span>
-      <div style="display:flex;gap:8px">
-        <button class="mbtn" onclick="closeDupModal()">Cancelar</button>
-        <button class="mbtn save" onclick="confirmDup()">Duplicar</button>
-      </div>
-    </div>
-  </div>
+<!-- VIEWS -->
+<div id="view-lista" class="main-list"></div>
+<div id="view-cal" class="cal-wrap" style="display:none"></div>
+
+<!-- DRAWER BG -->
+<div class="drawer-bg" id="drawer-bg" onclick="closeDrawer()"></div>
+
+<!-- DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-content" id="drawer-content"></div>
 </div>
 
-<!-- CFG MODAL -->
-<div class="cfg-modal-bg" id="cfg-modal">
+<!-- CFG -->
+<div class="cfg-bg" id="cfg-bg">
   <div class="cfg-box">
     <h3>Configure o ClickUp</h3>
-    <p>Cole seu API Token abaixo. Fica salvo só no seu navegador.</p>
+    <p>Cole seu token abaixo. Fica salvo no navegador.</p>
     <input type="password" id="cfg-token" placeholder="pk_...">
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button class="mbtn" onclick="closeCfg()">Cancelar</button>
-      <button class="mbtn save" onclick="saveCfg()">Salvar</button>
+    <div class="cfg-actions">
+      <button class="cfg-btn" onclick="closeCfg()">Cancelar</button>
+      <button class="cfg-btn save" onclick="saveCfg()">Salvar</button>
     </div>
   </div>
 </div>
 
-<!-- UNDO BAR -->
+<!-- UNDO -->
 <div class="undo-bar" id="undo-bar">
   <span class="undo-msg" id="undo-msg">Ação realizada</span>
-  <button class="undo-btn" onclick="doUndo()">↩ Desfazer</button>
-  <div class="undo-progress" id="undo-progress" style="width:100%"></div>
+  <button class="undo-btn-el" onclick="doUndo()">↩ Desfazer</button>
+  <div class="undo-prog" id="undo-prog" style="width:100%"></div>
 </div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────
+// ─── CONFIG ───────────────────────────────────
 const MEMBER_ID = '112051792';
 const MEMBER_NAME = 'Ciane';
+const MEMBER_COLOR = '#60C8F5';
 
 const ALL_LISTS = {
   'Andirá Jeans':'901324614041','Amiche':'901324613220','Del Carmen':'901324614474',
@@ -374,157 +321,130 @@ const ALL_LISTS = {
 const MY_CLIENTS = ['Naromo','Amiche','Kyrefh Jeans','Del Carmen','Marry Blue','Eloah','Tchu Bi','Aya'];
 
 const DESIGNERS = [
-  {id:'112051788', name:'Alexia Cruz',  color:'#A78BFA'},
-  {id:'112051786', name:'Luana Vieira', color:'#F472B6'},
-  {id:'112051789', name:'Isadora',      color:'#34D399'},
-  {id:'112051792', name:'Ciane',        color:'#60C8F5'},
+  {id:'112051788',name:'Alexia Cruz',color:'#A78BFA',initials:'AL'},
+  {id:'112051786',name:'Luana Vieira',color:'#F472B6',initials:'LU'},
+  {id:'112051789',name:'Isadora',color:'#34D399',initials:'IS'},
+  {id:'112051792',name:'Ciane',color:'#60C8F5',initials:'CI'},
 ];
 
-const STATUS_IGNORE = ['agendamento','concluído','concluido','done','complete','template'];
+const IGNORE_ST = ['agendamento','concluído','concluido','done','complete'];
 
-// ─── STATE ────────────────────────────────────────────────
-let token = localStorage.getItem('cu_token_ciane') || '';
-let weekOffset = 0;
-let allData = {};
-let cache = {};        // id -> task data
+// ─── STATE ────────────────────────────────────
+let token = localStorage.getItem('cu_token_ciane')||'';
+let weekOff = 0;
+let allData = {};   // client -> [{mother, subtasks[]}]
+let cache = {};     // id -> {task data}
+let motherCache = {};  // id -> {mother data + desc}
 let activeTab = 'lista';
 let openClients = {};
+let openMothers = {};
 let openForms = {};
+let undoAction = null, undoTimer = null;
 
-// Edit state
-let editingId = null;
-let editingIsNew = false;
-let editingParentId = null;
-let editingListId = null;
-let editingClient = null;
+// Drawer state
+let drawerMode = null; // 'mother'|'sub-edit'|'design'|'dup'
+let drawerSubId = null;
+let drawerMotherId = null;
+let drawerDesignAssignee = null;
 
-// Design state
-let designTaskId = null;
-let designAssigneeId = null;
-
-// Dup state
-let dupSourceId = null;
-
-// Undo state
-let undoAction = null;
-let undoTimer = null;
-let undoProgressTimer = null;
-
-// ─── WEEK ─────────────────────────────────────────────────
-function getWeekRange(off=0) {
-  const today = new Date();
-  const dow = today.getDay();
-  let diffToTue = dow - 2;
-  if(diffToTue < 0) diffToTue += 7;
-  const tue = new Date(today);
-  tue.setDate(today.getDate() - diffToTue + off*7);
-  tue.setHours(0,0,0,0);
-  const mon = new Date(tue); mon.setDate(tue.getDate()+6);
-  return {start:tue, end:mon};
+// ─── WEEK ─────────────────────────────────────
+function getWeekRange(off=0){
+  const t=new Date(), dow=t.getDay();
+  let d=dow-2; if(d<0)d+=7;
+  const tue=new Date(t); tue.setDate(t.getDate()-d+off*7); tue.setHours(0,0,0,0);
+  const mon=new Date(tue); mon.setDate(tue.getDate()+6);
+  return {start:tue,end:mon};
 }
-function fmt(d){ return d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}); }
-function fmtFull(ts){ if(!ts) return '—'; return new Date(parseInt(ts)).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}); }
-function renderWeekLabel(){ const {start,end}=getWeekRange(weekOffset); document.getElementById('week-label').textContent=`${fmt(start)} → ${fmt(end)}`; }
-function changeWeek(d){ weekOffset+=d; renderWeekLabel(); syncData(); }
+const fmt2=(d)=>d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+const fmtTs=(ts)=>ts?new Date(parseInt(ts)).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}):null;
+const tsToInput=(ts)=>ts?new Date(parseInt(ts)).toISOString().split('T')[0]:'';
+function renderWeekLabel(){const {start,end}=getWeekRange(weekOff);document.getElementById('week-label').textContent=`${fmt2(start)} → ${fmt2(end)}`;}
+function changeWeek(d){weekOff+=d;renderWeekLabel();syncData();}
 
-// ─── API ──────────────────────────────────────────────────
-async function api(path){
-  const r = await fetch(`https://api.clickup.com/api/v2${path}`,{headers:{'Authorization':token}});
-  if(!r.ok) throw new Error(`CU ${r.status}`);
-  return r.json();
-}
-async function apiPost(path,body){
-  const r = await fetch(`https://api.clickup.com/api/v2${path}`,{method:'POST',headers:{'Authorization':token,'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok){const e=await r.json();throw new Error(e.err||`CU ${r.status}`);}
-  return r.json();
-}
-async function apiPut(path,body){
-  const r = await fetch(`https://api.clickup.com/api/v2${path}`,{method:'PUT',headers:{'Authorization':token,'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok){const e=await r.json();throw new Error(e.err||`CU ${r.status}`);}
-  return r.json();
-}
-async function apiDel(path){
-  const r = await fetch(`https://api.clickup.com/api/v2${path}`,{method:'DELETE',headers:{'Authorization':token}});
-  if(!r.ok) throw new Error(`CU ${r.status}`);
-}
+// ─── API ──────────────────────────────────────
+const apiBase='https://api.clickup.com/api/v2';
+async function apiGet(p){const r=await fetch(apiBase+p,{headers:{Authorization:token}});if(!r.ok)throw new Error(`CU ${r.status}`);return r.json();}
+async function apiPost(p,b){const r=await fetch(apiBase+p,{method:'POST',headers:{Authorization:token,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||`CU ${r.status}`);}return r.json();}
+async function apiPut(p,b){const r=await fetch(apiBase+p,{method:'PUT',headers:{Authorization:token,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||`CU ${r.status}`);}return r.json();}
+async function apiDel(p){await fetch(apiBase+p,{method:'DELETE',headers:{Authorization:token}});}
 
-// ─── SYNC ─────────────────────────────────────────────────
-async function syncData(){
-  if(!token){openCfg();return;}
-  document.getElementById('view-lista').innerHTML='<div class="empty"><div class="spinner"></div><div>Buscando tarefas…</div></div>';
-  document.getElementById('sync-btn').classList.add('spin');
-  allData = {}; cache = {};
-
-  await Promise.all(MY_CLIENTS.map(async client => {
-    const listId = ALL_LISTS[client];
-    if(!listId) return;
-    try {
-      const [r1,r2] = await Promise.all([
-        api(`/list/${listId}/task?include_closed=false`),
-        api(`/list/${listId}/task?subtasks=true&include_closed=false`)
-      ]);
-      const all = r2.tasks||[];
-
-      // Tarefas mãe no status planejamento onde ela é responsável
-      const mothers = (r1.tasks||[]).filter(t => {
-        const st=(t.status?.status||'').toLowerCase();
-        const nm=t.name.toLowerCase();
-        const isTmpl = nm.includes('[template]')||nm.includes('template');
-        const isPlan = st.includes('planejamento')||st.includes('planning');
-        const isAssigned = (t.assignees||[]).some(a=>String(a.id)===MEMBER_ID);
-        return !isTmpl && isPlan && !t.parent && isAssigned;
-      });
-
-      for(const m of mothers){
-        // Subtarefas: filhas desta mãe, não template, ordenadas por data ASC
-        const subs = all
-          .filter(t => {
-            const st=(t.status?.status||'').toLowerCase();
-            const nm=t.name.toLowerCase();
-            const isIgnored = STATUS_IGNORE.some(s=>st.includes(s));
-            const isTmpl = nm.includes('[template]');
-            return t.parent===m.id && !isIgnored && !isTmpl;
-          })
-          .sort((a,b) => {
-            const da = a.due_date ? parseInt(a.due_date) : Infinity;
-            const db = b.due_date ? parseInt(b.due_date) : Infinity;
-            return da - db;
-          });
-
-        // Cacheia tudo
-        cache[m.id] = {id:m.id,name:m.name,status:m.status?.status||'',client,listId};
-        for(const s of subs){
-          const cf = parseCF(s.custom_fields||[]);
-          cache[s.id] = {id:s.id,name:s.name,status:s.status?.status||'',dueDateRaw:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client,parentId:m.id,listId};
-        }
-
-        allData[client] = allData[client]||[];
-        allData[client].push({mother:m,subtasks:subs});
-      }
-    } catch(e){ console.warn(client,e.message); }
-  }));
-
-  document.getElementById('sync-btn').classList.remove('spin');
-  renderStats();
-  renderView();
-  showToast('Atualizado!','ok');
-}
-
-// ─── CUSTOM FIELDS ────────────────────────────────────────
+// ─── CUSTOM FIELDS ────────────────────────────
 function parseCF(fields){
-  const r={midia:null,funil:null,mes:null,data:null};
+  const r={midia:null,funil:null,mes:null};
   for(const f of fields){
     const nm=(f.name||'').toLowerCase();
     const getOpt=()=>f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;
-    if(nm==='mídia'||nm==='midia'||nm==='media') r.midia=getOpt();
+    if(nm.includes('mídia')||nm.includes('midia')||nm==='media') r.midia=getOpt();
     if(nm==='funil') r.funil=getOpt();
     if(nm.includes('mês')||nm.includes('mes')) r.mes=getOpt();
-    if(nm==='data'||nm==='date') r.data=f.value?new Date(parseInt(f.value)).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}):null;
   }
   return r;
 }
 
-// ─── STATS ────────────────────────────────────────────────
+// ─── SYNC ─────────────────────────────────────
+async function syncData(){
+  if(!token){openCfg();return;}
+  document.getElementById('view-lista').innerHTML='<div class="empty"><div class="spinner"></div><div style="margin-top:8px">Buscando tarefas…</div></div>';
+  document.getElementById('sync-btn').classList.add('spin');
+  allData={}; cache={}; motherCache={};
+
+  await Promise.all(MY_CLIENTS.map(async client=>{
+    const listId=ALL_LISTS[client]; if(!listId)return;
+    try{
+      const [r1,r2]=await Promise.all([
+        apiGet(`/list/${listId}/task?include_closed=false`),
+        apiGet(`/list/${listId}/task?subtasks=true&include_closed=false`)
+      ]);
+      const allTasks=r2.tasks||[];
+
+      const mothers=(r1.tasks||[]).filter(t=>{
+        const st=(t.status?.status||'').toLowerCase();
+        const nm=t.name.toLowerCase();
+        return !nm.includes('[template]')&&!nm.includes('template')&&
+               (st.includes('planejamento')||st.includes('planning'))&&
+               !t.parent&&
+               (t.assignees||[]).some(a=>String(a.id)===MEMBER_ID);
+      });
+
+      for(const m of mothers){
+        const subs=allTasks
+          .filter(t=>{
+            const st=(t.status?.status||'').toLowerCase();
+            return t.parent===m.id&&
+                   !IGNORE_ST.some(s=>st.includes(s))&&
+                   !t.name.toLowerCase().includes('[template]');
+          })
+          .sort((a,b)=>(a.due_date?parseInt(a.due_date):Infinity)-(b.due_date?parseInt(b.due_date):Infinity));
+
+        // Cache mãe
+        motherCache[m.id]={
+          id:m.id, name:m.name, status:m.status?.status||'',
+          due_date:m.due_date, description:m.description||'',
+          assignees:m.assignees||[], client, listId
+        };
+
+        // Cache subs
+        for(const s of subs){
+          const cf=parseCF(s.custom_fields||[]);
+          cache[s.id]={
+            id:s.id, name:s.name, status:s.status?.status||'',
+            dueDateRaw:s.due_date, midia:cf.midia, funil:cf.funil, mes:cf.mes,
+            desc:s.description||'', client, parentId:m.id, listId
+          };
+        }
+
+        allData[client]=allData[client]||[];
+        allData[client].push({mother:m, subtasks:subs});
+      }
+    }catch(e){console.warn(client,e.message);}
+  }));
+
+  document.getElementById('sync-btn').classList.remove('spin');
+  renderStats(); renderView();
+  toast('Atualizado!','ok');
+}
+
+// ─── STATS ────────────────────────────────────
 function renderStats(){
   let posts=0,ag=0;
   const clis=MY_CLIENTS.filter(c=>allData[c]?.length);
@@ -541,21 +461,21 @@ function renderStats(){
   document.getElementById('prog-fill').style.width=pct+'%';
 }
 
-// ─── TABS ─────────────────────────────────────────────────
+// ─── TABS ─────────────────────────────────────
 function setTab(tab,el){
   activeTab=tab;
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('view-lista').style.display=tab==='lista'?'block':'none';
-  document.getElementById('view-calendario').style.display=tab==='calendario'?'block':'none';
+  document.getElementById('view-cal').style.display=tab==='calendario'?'block':'none';
   renderView();
 }
-function renderView(){ if(activeTab==='lista') renderList(); else renderCal(); }
+function renderView(){if(activeTab==='lista')renderList();else renderCal();}
 
-// ─── LIST VIEW ────────────────────────────────────────────
+// ─── LIST ─────────────────────────────────────
 function renderList(){
   const el=document.getElementById('view-lista');
-  if(!token){el.innerHTML='<div class="empty">Configure seu token. Clique no 🔑</div>';return;}
+  if(!token){el.innerHTML='<div class="empty">Configure seu token 🔑</div>';return;}
   const clients=MY_CLIENTS.filter(c=>allData[c]?.length);
   if(!clients.length){el.innerHTML='<div class="empty">Nenhuma tarefa de planejamento encontrada.</div>';return;}
 
@@ -563,65 +483,80 @@ function renderList(){
   for(const client of clients){
     const groups=allData[client]||[];
     const isOpen=openClients[client]!==false;
-    const totalSubs=groups.reduce((a,g)=>a+g.subtasks.length,0);
-
-    html+=`<div class="client-section">
-      <div class="client-header" onclick="toggleClient('${client}')">
-        <div style="display:flex;align-items:center;gap:10px">
+    const total=groups.reduce((a,g)=>a+g.subtasks.length,0);
+    html+=`<div class="client-block">
+      <div class="client-hdr" onclick="toggleClient('${client}')">
+        <div class="client-hdr-left">
           <div class="client-dot"></div>
           <div>
-            <div class="client-name">${client}</div>
-            <div class="client-meta">${groups.length} tarefa(s) mãe · ${totalSubs} post(s)</div>
+            <div class="client-title">${client}</div>
+            <div class="client-sub">${groups.length} tarefa(s) · ${total} post(s)</div>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <span class="badge-count">${totalSubs} posts</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="client-badge">${total}</span>
           <span class="chevron" style="transform:${isOpen?'rotate(90deg)':'none'}">›</span>
         </div>
       </div>
       <div class="client-body ${isOpen?'open':''}">`;
 
     for(const {mother,subtasks} of groups){
-      const st=mother.status?.status||'planejamento';
-      const stClass=st.toLowerCase().includes('planejamento')?'sp-planejamento':st.toLowerCase().includes('design')?'sp-design':'sp-outros';
+      const mSt=(mother.status?.status||'').toLowerCase();
+      const mStClass=mSt.includes('planejamento')?'sp-plan':mSt.includes('design')?'sp-design':'sp-out';
+      const mOpen=openMothers[mother.id]!==false;
 
-      html+=`<div class="task-mother">
-        <div class="task-mother-header">
-          <div class="task-mother-name">📋 ${mother.name}</div>
-          <span class="status-pill ${stClass}">${st}</span>
+      html+=`<div class="task-mae">
+        <div class="task-mae-hdr" onclick="toggleMother('${mother.id}')">
+          <div class="task-mae-icon">📋</div>
+          <div class="task-mae-info">
+            <div class="task-mae-name">${mother.name}</div>
+            <div class="task-mae-meta">
+              <span class="sp ${mStClass}">${mother.status?.status||'—'}</span>
+              <span style="font-size:11px;color:var(--gray)">${subtasks.length} post(s)</span>
+            </div>
+          </div>
+          <span class="task-mae-toggle" style="transform:${mOpen?'rotate(90deg)':'none'}">›</span>
         </div>`;
 
-      if(subtasks.length){
-        html+=`<div class="subs-list">`;
+      if(mOpen){
+        html+=`<div class="subs-section">
+          <div class="subs-section-title">
+            <span>Subtarefas</span>
+            <span onclick="event.stopPropagation();openDrawerMotherInfo('${mother.id}')">Ver detalhes ›</span>
+          </div>`;
+
         for(const s of subtasks){
           const cf=parseCF(s.custom_fields||[]);
-          const dateStr=cf.data||fmtFull(s.due_date);
+          const dateStr=fmtTs(s.due_date);
           const midiaStr=cf.midia;
-          const stSt=s.status?.status||'—';
-          const stClass2=stSt.toLowerCase().includes('planejamento')?'sp-planejamento':stSt.toLowerCase().includes('design')?'sp-design':'sp-outros';
-          html+=`<div class="sub-row">
-            <div class="sub-name" onclick="openEdit('${s.id}')">${s.name}</div>
-            <div class="sub-date ${!dateStr?'empty':''}">${dateStr||'sem data'}</div>
-            <div class="sub-midia ${!midiaStr?'empty':''}">${midiaStr||'sem mídia'}</div>
-            <span class="sub-status-pill status-pill ${stClass2}">${stSt}</span>
-            <button class="btn-design" onclick="openDesignModal('${s.id}')">→ Design</button>
-            <button class="btn-dup" onclick="openDupModal('${s.id}')" title="Duplicar">⧉</button>
-            <button class="btn-edit" onclick="openEdit('${s.id}')" title="Editar">✎</button>
-            <button class="btn-del" onclick="confirmDelete('${s.id}')" title="Excluir">✕</button>
+          const sSt=(s.status?.status||'').toLowerCase();
+          const sStClass=sSt.includes('planejamento')?'sp-plan':sSt.includes('design')?'sp-design':'sp-out';
+          const assignee=DESIGNERS.find(d=>String(d.id)===MEMBER_ID)||{color:MEMBER_COLOR,initials:'CI'};
+
+          html+=`<div class="sub-item" onclick="openDrawerSub('${s.id}')">
+            <div class="sub-item-icon">✎</div>
+            <div class="sub-item-body">
+              <div class="sub-item-name">${s.name}</div>
+              <div class="sub-item-tags">
+                <span class="tag-date ${!dateStr?'empty':''}">${dateStr||'sem data'}</span>
+                ${midiaStr?`<span class="tag-midia">${midiaStr}</span>`:'<span class="tag-midia empty">sem mídia</span>'}
+                <span class="sp ${sStClass}" style="font-size:9px">${s.status?.status||'—'}</span>
+              </div>
+            </div>
+            <div class="sub-item-actions" onclick="event.stopPropagation()">
+              <button class="sab design-btn" onclick="openDrawerDesign('${s.id}')">→ Design</button>
+              <button class="sab" onclick="openDrawerDup('${s.id}')" title="Duplicar">⧉</button>
+              <button class="sab" onclick="confirmDelete('${s.id}')" title="Excluir" style="color:var(--danger)">✕</button>
+            </div>
+            <div class="sub-item-avatar" style="background:${assignee.color};color:var(--black)">${assignee.initials}</div>
           </div>`;
         }
-        html+=`</div>`;
-      } else {
-        html+=`<div style="font-size:12px;color:var(--gray);padding:8px 0 10px;text-align:center">Nenhum post planejado ainda</div>`;
-      }
 
-      if(openForms[mother.id]){
-        html+=renderAddForm(mother.id, client);
-      } else {
-        html+=`<button class="add-btn" onclick="toggleForm('${mother.id}')">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-          Adicionar post
-        </button>`;
+        html+=`<div class="add-sub-btn" onclick="openAddSub('${mother.id}','${client}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Adicionar subtarefa
+        </div>`;
+        html+=`</div>`;
       }
       html+=`</div>`;
     }
@@ -630,56 +565,31 @@ function renderList(){
   el.innerHTML=html;
 }
 
-function renderAddForm(parentId,client){
-  const mes=new Date().getMonth();
-  const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  return `<div class="add-form">
-    <div class="add-form-title">+ Novo post</div>
-    <div class="form-grid">
-      <div class="fg"><label>Título / Tema</label><input type="text" id="af-name-${parentId}" placeholder="Ex: Look verão"></div>
-      <div class="fg"><label>Data</label><input type="date" id="af-date-${parentId}"></div>
-      <div class="fg"><label>Mídia</label><select id="af-midia-${parentId}"><option value="">—</option><option>Stories</option><option>Feed</option><option>Reels</option><option>TikTok</option><option>Carrossel</option></select></div>
-      <div class="fg"><label>Funil</label><select id="af-funil-${parentId}"><option value="">—</option><option>Topo</option><option>Meio</option><option>Fundo</option></select></div>
-    </div>
-    <div class="form-grid-2">
-      <div class="fg"><label>Mês referente</label><select id="af-mes-${parentId}">${meses.map((m,i)=>`<option ${i===mes?'selected':''}>${m}</option>`).join('')}</select></div>
-      <div class="fg"><label>Descrição</label><input type="text" id="af-desc-${parentId}" placeholder="Observações…"></div>
-    </div>
-    <div class="form-actions">
-      <button class="fbtn" onclick="toggleForm('${parentId}')">Cancelar</button>
-      <button class="fbtn save" onclick="saveNewSub('${parentId}','${client}')">Salvar no ClickUp</button>
-    </div>
-  </div>`;
-}
-
-// ─── CALENDAR VIEW ────────────────────────────────────────
+// ─── CALENDAR ─────────────────────────────────
 function renderCal(){
-  const el=document.getElementById('view-calendario');
-  const {start}=getWeekRange(weekOffset);
-  const today=new Date(); today.setHours(0,0,0,0);
+  const el=document.getElementById('view-cal');
+  const {start}=getWeekRange(weekOff);
+  const today=new Date();today.setHours(0,0,0,0);
   const days=[]; for(let i=0;i<7;i++){const d=new Date(start);d.setDate(start.getDate()+i);days.push(d);}
   const byDay={};
   for(const c of MY_CLIENTS) for(const {subtasks} of (allData[c]||[])) for(const s of subtasks){
-    if(!s.due_date) continue;
+    if(!s.due_date)continue;
     const k=new Date(parseInt(s.due_date)).toDateString();
-    byDay[k]=byDay[k]||[];
-    byDay[k].push({s,client:c});
+    byDay[k]=byDay[k]||[]; byDay[k].push({s,client:c});
   }
   const dns=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
   let html='<div class="cal-grid">';
   for(const d of days){
-    const k=d.toDateString();
-    const isToday=d.getTime()===today.getTime();
-    const tasks=byDay[k]||[];
-    html+=`<div class="cal-col ${isToday?'today':''}">
-      <div class="cal-col-hdr"><span class="cal-day-name">${dns[d.getDay()]}</span><span class="cal-day-num">${d.getDate()}</span></div>
+    const k=d.toDateString(), isT=d.getTime()===today.getTime();
+    const ts=byDay[k]||[];
+    html+=`<div class="cal-col ${isT?'today':''}">
+      <div class="cal-col-hdr"><span class="cal-dn">${dns[d.getDay()]}</span><span class="cal-num">${d.getDate()}</span></div>
       <div class="cal-cards">`;
-    if(!tasks.length) html+=`<div style="font-size:11px;color:#444440;padding:6px">—</div>`;
-    for(const {s,client} of tasks){
-      const cf=parseCF(s.custom_fields||[]);
-      html+=`<div class="cal-card" onclick="openEdit('${s.id}')">
-        <div class="cal-client">${client}</div>
-        <div class="cal-name">${s.name}</div>
+    if(!ts.length) html+=`<div style="font-size:10px;color:#444440;padding:4px 6px">—</div>`;
+    for(const {s,client} of ts){
+      html+=`<div class="cal-card" onclick="openDrawerSub('${s.id}')">
+        <div class="cal-cli">${client}</div>
+        <div class="cal-nm">${s.name}</div>
       </div>`;
     }
     html+=`</div></div>`;
@@ -688,210 +598,305 @@ function renderCal(){
   el.innerHTML=html;
 }
 
-// ─── TOGGLE ───────────────────────────────────────────────
-function toggleClient(name){ openClients[name]=openClients[name]===false?true:false; renderList(); }
-function toggleForm(id){ openForms[id]=!openForms[id]; renderList(); }
+// ─── TOGGLES ──────────────────────────────────
+function toggleClient(n){openClients[n]=openClients[n]===false?true:false;renderList();}
+function toggleMother(id){openMothers[id]=openMothers[id]===false?true:false;renderList();}
 
-// ─── EDIT MODAL ───────────────────────────────────────────
-function openEdit(id){
+// ─── DRAWER ───────────────────────────────────
+function openDrawer(html){
+  document.getElementById('drawer-content').innerHTML=html;
+  document.getElementById('drawer-bg').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('drawer-bg').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  drawerMode=null; drawerSubId=null; drawerMotherId=null;
+}
+
+// Drawer: info da tarefa mãe (estilo ClickUp)
+function openDrawerMotherInfo(mId){
+  drawerMode='mother'; drawerMotherId=mId;
+  const m=motherCache[mId]; if(!m)return;
+  const st=(m.status||'').toLowerCase();
+  const stClass=st.includes('planejamento')?'sp-plan':st.includes('design')?'sp-design':'sp-ok';
+  const subs=allData[m.client]?.find(g=>g.mother.id===mId)?.subtasks||[];
+  const dateStr=fmtTs(m.due_date);
+
+  let html=`
+    <div class="dm-breadcrumb">Criação / <span>${m.client}</span></div>
+    <div class="dm-title">${m.name}</div>
+    <div class="dm-fields">
+      <div class="dm-field">
+        <div class="dm-field-icon">🏷</div>
+        <div class="dm-field-label">Status</div>
+        <div class="dm-field-val"><span class="sp ${stClass}">${m.status||'—'}</span></div>
+      </div>
+      <div class="dm-field">
+        <div class="dm-field-icon">👤</div>
+        <div class="dm-field-label">Responsáveis</div>
+        <div class="dm-field-val" style="display:flex;gap:6px">
+          ${(m.assignees||[]).map(a=>{const d=DESIGNERS.find(x=>String(x.id)===String(a.id));return d?`<div class="avatar" style="background:${d.color};color:var(--black);width:24px;height:24px;font-size:11px">${d.initials}</div>`:''}).join('')||'—'}
+        </div>
+      </div>
+      ${dateStr?`<div class="dm-field"><div class="dm-field-icon">📅</div><div class="dm-field-label">Data final</div><div class="dm-field-val">${dateStr}</div></div>`:''}
+    </div>`;
+
+  if(m.description){
+    html+=`<div class="dm-desc">
+      <div class="dm-desc-title">Descrição</div>
+      <div class="dm-desc-body">${m.description.replace(/\n/g,'<br>')}</div>
+    </div>`;
+  }
+
+  html+=`<div class="dm-subs-title"><span>Subtarefas (${subs.length})</span></div>`;
+  for(const s of subs){
+    const dt=fmtTs(s.due_date);
+    html+=`<div class="dm-sub-item" onclick="closeDrawer();setTimeout(()=>openDrawerSub('${s.id}'),200)">
+      <div style="color:var(--accent);font-size:14px">✎</div>
+      <div class="dm-sub-name">${s.name}</div>
+      <div class="dm-sub-date">${dt||'—'}</div>
+    </div>`;
+  }
+
+  openDrawer(html);
+}
+
+// Drawer: editar subtarefa
+function openDrawerSub(id){
+  const s=cache[id]; if(!s){toast('Recarregue a página','err');return;}
+  drawerMode='sub-edit'; drawerSubId=id;
+  const dateVal=tsToInput(s.dueDateRaw);
+
+  const html=`
+    <div class="dsub-header">
+      <div class="dsub-client">${s.client}</div>
+      <div style="display:flex;gap:6px">
+        <button class="sab" style="font-size:16px" onclick="openDrawerMotherInfo('${s.parentId}')">☰</button>
+      </div>
+    </div>
+    <input class="dsub-title-input" id="ds-name" value="${s.name.replace(/"/g,'&quot;')}" placeholder="Título do post">
+    <div class="dfield-row">
+      <div class="dfield"><label>Data</label><input type="date" id="ds-date" value="${dateVal}"></div>
+      <div class="dfield"><label>Mídia</label>
+        <select id="ds-midia">
+          <option value="">— selecione —</option>
+          ${['Stories','Feed','Reels','TikTok','Carrossel'].map(m=>`<option ${s.midia===m?'selected':''}>${m}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="dfield-row">
+      <div class="dfield"><label>Funil</label>
+        <select id="ds-funil">
+          <option value="">— selecione —</option>
+          ${['Topo','Meio','Fundo'].map(f=>`<option ${s.funil===f?'selected':''}>${f}</option>`).join('')}
+        </select>
+      </div>
+      <div class="dfield"><label>Mês</label>
+        <select id="ds-mes">
+          <option value="">— selecione —</option>
+          ${['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'].map(m=>`<option ${s.mes===m?'selected':''}>${m}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="dfield"><label>Descrição / Observação</label>
+      <textarea id="ds-desc" placeholder="Referências, copy, observações…">${s.desc||''}</textarea>
+    </div>
+    <div class="drawer-actions">
+      <button class="dact-btn dact-save" onclick="saveSub()">💾 Salvar alterações</button>
+      <button class="dact-btn dact-design" onclick="closeDrawer();setTimeout(()=>openDrawerDesign('${id}'),200)">→ Enviar para Design</button>
+      <button class="dact-btn dact-dup" onclick="closeDrawer();setTimeout(()=>openDrawerDup('${id}'),200)">⧉ Duplicar post</button>
+      <button class="dact-btn dact-del" onclick="closeDrawer();setTimeout(()=>confirmDelete('${id}'),200)">🗑 Excluir post</button>
+    </div>`;
+
+  openDrawer(html);
+}
+
+async function saveSub(){
+  const id=drawerSubId; if(!id)return;
+  const name=document.getElementById('ds-name')?.value?.trim();
+  if(!name){toast('Preencha o título','err');return;}
+  const date=document.getElementById('ds-date')?.value;
+  const desc=document.getElementById('ds-desc')?.value||'';
+  try{
+    toast('Salvando…');
+    await apiPut(`/task/${id}`,{name,description:desc,due_date:date?new Date(date).getTime():undefined});
+    closeDrawer(); toast('Salvo!','ok'); await syncData();
+  }catch(e){toast('Erro: '+e.message,'err');}
+}
+
+// Drawer: design
+function openDrawerDesign(id){
+  drawerMode='design'; drawerSubId=id; drawerDesignAssignee=null;
   const s=cache[id];
-  if(!s){showToast('Recarregue a página','err');return;}
-  editingId=id; editingIsNew=false;
-  editingParentId=s.parentId; editingListId=s.listId; editingClient=s.client;
-
-  document.getElementById('edit-modal-title').textContent='Editar post';
-  document.getElementById('em-name').value=s.name||'';
-  document.getElementById('em-desc').value=s.desc||'';
-  document.getElementById('em-date').value=s.dueDateRaw?new Date(parseInt(s.dueDateRaw)).toISOString().split('T')[0]:'';
-  setSelect('em-midia',s.midia);
-  setSelect('em-funil',s.funil);
-  setSelect('em-mes',s.mes);
-  document.getElementById('edit-del-btn').style.display='';
-  document.getElementById('edit-modal').classList.add('open');
+  const html=`
+    <div class="dm-title" style="font-size:18px;margin-bottom:6px">→ Enviar para Design</div>
+    <div style="font-size:13px;color:var(--gray);margin-bottom:4px">${s?.name||''}</div>
+    <div style="font-size:12px;color:var(--gray);margin-bottom:2px">Selecione o designer responsável:</div>
+    <div class="assign-list">
+      ${DESIGNERS.map(d=>`
+        <div class="assign-opt" id="aopt-${d.id}" onclick="selectDesigner('${d.id}')">
+          <div class="assign-dot" style="background:${d.color}"></div>
+          <div class="avatar" style="background:${d.color};color:var(--black);width:28px;height:28px;font-size:13px">${d.initials}</div>
+          <span class="assign-name">${d.name}</span>
+        </div>`).join('')}
+    </div>
+    <button class="dact-btn dact-save" onclick="confirmDesign()">→ Confirmar envio</button>
+    <button class="dact-btn dact-cancel" style="margin-top:8px" onclick="closeDrawer()">Cancelar</button>`;
+  openDrawer(html);
 }
-
-function closeEditModal(){ document.getElementById('edit-modal').classList.remove('open'); editingId=null; }
-
-async function saveEdit(){
-  const name=document.getElementById('em-name').value.trim();
-  if(!name){showToast('Preencha o título','err');return;}
-  const date=document.getElementById('em-date').value;
-  const desc=document.getElementById('em-desc').value.trim();
-  try{
-    showToast('Salvando…');
-    await apiPut(`/task/${editingId}`,{name,description:desc,due_date:date?new Date(date).getTime():undefined});
-    showToast('Salvo!','ok');
-    closeEditModal();
-    await syncData();
-  }catch(e){showToast('Erro: '+e.message,'err');}
-}
-
-async function deleteFromModal(){
-  if(!editingId) return;
-  const s=cache[editingId];
-  const id=editingId;
-  closeEditModal();
-  scheduleUndo(`Post "${s?.name}" excluído`,async()=>{
-    await apiDel(`/task/${id}`);
-    await syncData();
-  });
-}
-
-// ─── NEW SUB ──────────────────────────────────────────────
-async function saveNewSub(parentId,client){
-  const name=document.getElementById(`af-name-${parentId}`)?.value?.trim();
-  const date=document.getElementById(`af-date-${parentId}`)?.value;
-  if(!name){showToast('Preencha o título','err');return;}
-  const listId=ALL_LISTS[client];
-  try{
-    showToast('Criando post…');
-    await apiPost(`/list/${listId}/task`,{
-      name,parent:parentId,assignees:[parseInt(MEMBER_ID)],
-      due_date:date?new Date(date).getTime():undefined,
-      description:document.getElementById(`af-desc-${parentId}`)?.value||'',
-      status:'planejamento'
-    });
-    showToast('Post criado!','ok');
-    openForms[parentId]=false;
-    await syncData();
-  }catch(e){showToast('Erro: '+e.message,'err');}
-}
-
-// ─── DESIGN MODAL ────────────────────────────────────────
-function openDesignModal(id){
-  designTaskId=id; designAssigneeId=null;
-  const grid=document.getElementById('assign-grid');
-  grid.innerHTML=DESIGNERS.map(d=>`
-    <div class="assign-opt" id="aopt-${d.id}" onclick="selectAssignee('${d.id}')">
-      <div class="assign-dot" style="background:${d.color}"></div>
-      <span class="assign-name">${d.name}</span>
-    </div>`).join('');
-  document.getElementById('design-modal').classList.add('open');
-}
-function closeDesignModal(){ document.getElementById('design-modal').classList.remove('open'); designTaskId=null; }
-function selectAssignee(id){
-  designAssigneeId=id;
-  document.querySelectorAll('.assign-opt').forEach(el=>el.classList.remove('selected'));
-  document.getElementById('aopt-'+id)?.classList.add('selected');
+function selectDesigner(id){
+  drawerDesignAssignee=id;
+  document.querySelectorAll('.assign-opt').forEach(e=>e.classList.remove('sel'));
+  document.getElementById('aopt-'+id)?.classList.add('sel');
 }
 async function confirmDesign(){
-  if(!designAssigneeId){showToast('Selecione um designer','err');return;}
-  const id=designTaskId;
-  const s=cache[id];
-  closeDesignModal();
-  scheduleUndo(`"${s?.name}" enviado para Design`,async()=>{
-    await apiPut(`/task/${id}`,{status:'design',assignees:{add:[parseInt(designAssigneeId)],rem:[]}});
+  if(!drawerDesignAssignee){toast('Selecione um designer','err');return;}
+  const id=drawerSubId; const s=cache[id];
+  closeDrawer();
+  scheduleUndo(`"${s?.name}" → Design`,async()=>{
+    await apiPut(`/task/${id}`,{status:'design',assignees:{add:[parseInt(drawerDesignAssignee)],rem:[]}});
     await syncData();
   });
 }
 
-// ─── DUP MODAL ────────────────────────────────────────────
-function openDupModal(id){
-  dupSourceId=id;
+// Drawer: duplicar
+function openDrawerDup(id){
+  drawerMode='dup'; drawerSubId=id;
   const s=cache[id];
-  document.getElementById('dup-name').value=(s?.name||'')+' (cópia)';
-  document.getElementById('dup-date').value='';
-  document.getElementById('dup-modal').classList.add('open');
+  const html=`
+    <div class="dm-title" style="font-size:18px;margin-bottom:6px">⧉ Duplicar post</div>
+    <div class="dup-hint">Post original: <b>${s?.name||''}</b></div>
+    <div class="dfield"><label>Novo título</label>
+      <input type="text" id="dup-name" value="${(s?.name||'').replace(/"/g,'&quot;')} (cópia)">
+    </div>
+    <div class="dfield"><label>Nova data de postagem <span style="color:var(--danger)">*</span></label>
+      <input type="date" id="dup-date">
+    </div>
+    <button class="dact-btn dact-save" style="margin-top:16px" onclick="confirmDup()">⧉ Criar cópia</button>
+    <button class="dact-btn dact-cancel" style="margin-top:8px" onclick="closeDrawer()">Cancelar</button>`;
+  openDrawer(html);
 }
-function closeDupModal(){ document.getElementById('dup-modal').classList.remove('open'); dupSourceId=null; }
 async function confirmDup(){
-  const date=document.getElementById('dup-date').value;
-  const name=document.getElementById('dup-name').value.trim();
-  if(!date){showToast('Informe a nova data','err');return;}
-  if(!name){showToast('Informe o título','err');return;}
-  const s=cache[dupSourceId];
-  const id=dupSourceId;
-  closeDupModal();
-  scheduleUndo(`Post "${name}" duplicado`,async()=>{
+  const date=document.getElementById('dup-date')?.value;
+  const name=document.getElementById('dup-name')?.value?.trim();
+  if(!date){toast('Informe a data','err');return;}
+  if(!name){toast('Informe o título','err');return;}
+  const s=cache[drawerSubId];
+  closeDrawer();
+  scheduleUndo(`"${name}" duplicado`,async()=>{
     await apiPost(`/list/${s.listId}/task`,{
-      name,parent:s.parentId,assignees:[parseInt(MEMBER_ID)],
+      name, parent:s.parentId, assignees:[parseInt(MEMBER_ID)],
       due_date:new Date(date).getTime(),
-      description:s.desc||'',status:'planejamento'
+      description:s.desc||'', status:'planejamento'
     });
     await syncData();
   });
 }
 
-// ─── DELETE ───────────────────────────────────────────────
+// Drawer: adicionar nova subtarefa
+function openAddSub(parentId,client){
+  drawerMode='add'; drawerMotherId=parentId;
+  const mes=new Date().getMonth();
+  const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const html=`
+    <div class="dm-title" style="font-size:18px;margin-bottom:14px">+ Novo post</div>
+    <div class="dfield"><label>Título / Tema <span style="color:var(--danger)">*</span></label>
+      <input type="text" id="add-name" placeholder="Ex: Look verão outono">
+    </div>
+    <div class="dfield-row">
+      <div class="dfield"><label>Data</label><input type="date" id="add-date"></div>
+      <div class="dfield"><label>Mídia</label>
+        <select id="add-midia"><option value="">—</option>${['Stories','Feed','Reels','TikTok','Carrossel'].map(m=>`<option>${m}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="dfield-row">
+      <div class="dfield"><label>Funil</label>
+        <select id="add-funil"><option value="">—</option>${['Topo','Meio','Fundo'].map(f=>`<option>${f}</option>`).join('')}</select>
+      </div>
+      <div class="dfield"><label>Mês</label>
+        <select id="add-mes">${meses.map((m,i)=>`<option ${i===mes?'selected':''}>${m}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="dfield"><label>Descrição</label>
+      <textarea id="add-desc" placeholder="Referências, copy, observações…"></textarea>
+    </div>
+    <button class="dact-btn dact-save" style="margin-top:16px" onclick="saveNewSub('${parentId}','${client}')">💾 Salvar no ClickUp</button>
+    <button class="dact-btn dact-cancel" style="margin-top:8px" onclick="closeDrawer()">Cancelar</button>`;
+  openDrawer(html);
+}
+async function saveNewSub(parentId,client){
+  const name=document.getElementById('add-name')?.value?.trim();
+  if(!name){toast('Preencha o título','err');return;}
+  const date=document.getElementById('add-date')?.value;
+  const desc=document.getElementById('add-desc')?.value||'';
+  const listId=ALL_LISTS[client];
+  try{
+    toast('Criando post…');
+    await apiPost(`/list/${listId}/task`,{
+      name, parent:parentId, assignees:[parseInt(MEMBER_ID)],
+      due_date:date?new Date(date).getTime():undefined,
+      description:desc, status:'planejamento'
+    });
+    closeDrawer(); toast('Post criado!','ok'); await syncData();
+  }catch(e){toast('Erro: '+e.message,'err');}
+}
+
+// ─── DELETE ───────────────────────────────────
 function confirmDelete(id){
   const s=cache[id];
-  scheduleUndo(`Post "${s?.name}" excluído`,async()=>{
+  scheduleUndo(`"${s?.name||'Post'}" excluído`,async()=>{
     await apiDel(`/task/${id}`);
     await syncData();
   });
 }
 
-// ─── UNDO ─────────────────────────────────────────────────
-const UNDO_DURATION=10000;
+// ─── UNDO ─────────────────────────────────────
+const UNDO_MS=10000;
 function scheduleUndo(msg,action){
-  // Cancela undo anterior se houver
   clearTimeout(undoTimer);
-  clearInterval(undoProgressTimer);
   undoAction=action;
-
   const bar=document.getElementById('undo-bar');
-  const prog=document.getElementById('undo-progress');
+  const prog=document.getElementById('undo-prog');
   document.getElementById('undo-msg').textContent=msg;
-  prog.style.transition='none';
-  prog.style.width='100%';
+  prog.style.transition='none'; prog.style.width='100%';
   bar.classList.add('show');
-
-  // Anima barra
-  setTimeout(()=>{
-    prog.style.transition=`width ${UNDO_DURATION}ms linear`;
-    prog.style.width='0%';
-  },50);
-
-  undoTimer=setTimeout(()=>{
-    bar.classList.remove('show');
-    if(undoAction){ undoAction(); undoAction=null; }
-  },UNDO_DURATION);
+  setTimeout(()=>{prog.style.transition=`width ${UNDO_MS}ms linear`;prog.style.width='0%';},30);
+  undoTimer=setTimeout(()=>{bar.classList.remove('show');if(undoAction){undoAction();undoAction=null;}},UNDO_MS);
 }
-
-async function doUndo(){
+function doUndo(){
   clearTimeout(undoTimer);
-  clearInterval(undoProgressTimer);
   undoAction=null;
   document.getElementById('undo-bar').classList.remove('show');
-  showToast('Ação desfeita','ok');
-  // Não executa a ação — simplesmente cancela
+  toast('Ação desfeita','ok');
 }
 
-// ─── HELPERS ──────────────────────────────────────────────
-function setSelect(id,val){
-  if(!val) return;
-  const sel=document.getElementById(id);
-  if(!sel) return;
-  for(const o of sel.options){
-    if(o.value.toLowerCase()===val.toLowerCase()||o.text.toLowerCase()===val.toLowerCase()){sel.value=o.value;return;}
-  }
-}
-function showToast(msg,type=''){
-  // usa undo-bar área ou toast simples
+// ─── TOAST ────────────────────────────────────
+function toast(msg,type=''){
   const t=document.createElement('div');
-  t.style.cssText='position:fixed;bottom:80px;right:24px;background:#101010;border:1px solid rgba(255,255,255,.13);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;z-index:400;transition:all .3s;pointer-events:none';
+  t.style.cssText='position:fixed;top:80px;right:16px;background:#101010;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;z-index:500;transition:opacity .3s;pointer-events:none;max-width:280px';
   t.textContent=msg;
-  if(type==='ok') t.style.color='#22C55E';
-  if(type==='err') t.style.color='#EF4444';
+  if(type==='ok')t.style.color='#22C55E';
+  if(type==='err')t.style.color='#EF4444';
   document.body.appendChild(t);
   setTimeout(()=>t.style.opacity='0',2000);
   setTimeout(()=>t.remove(),2400);
 }
 
-// ─── CFG ──────────────────────────────────────────────────
-function openCfg(){ document.getElementById('cfg-modal').classList.add('open'); }
-function closeCfg(){ document.getElementById('cfg-modal').classList.remove('open'); }
+// ─── CFG ──────────────────────────────────────
+function openCfg(){document.getElementById('cfg-bg').classList.add('open');}
+function closeCfg(){document.getElementById('cfg-bg').classList.remove('open');}
 function saveCfg(){
   const t=document.getElementById('cfg-token').value.trim();
-  if(!t){showToast('Token inválido','err');return;}
+  if(!t){toast('Token inválido','err');return;}
   token=t; localStorage.setItem('cu_token_ciane',t);
-  closeCfg(); showToast('Conectado!','ok'); syncData();
+  closeCfg(); toast('Conectado!','ok'); syncData();
 }
 
-// ─── INIT ─────────────────────────────────────────────────
+// ─── INIT ─────────────────────────────────────
 renderWeekLabel();
 if(token) syncData();
-else document.getElementById('view-lista').innerHTML='<div class="empty">Configure seu token do ClickUp. Clique no 🔑</div>';
+else document.getElementById('view-lista').innerHTML='<div class="empty">Configure seu token 🔑</div>';
 </script>
 </body>
 </html>
