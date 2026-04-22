@@ -75,7 +75,7 @@ nav{background:#111;border-bottom:1px solid #222;padding:12px 16px;display:flex;
 .addsub:hover{color:#f0f0f0;background:rgba(255,255,255,.03)}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:20}
 .overlay.open{display:block}
-.panel{position:fixed;bottom:0;left:0;right:0;background:#111;border-radius:18px 18px 0 0;border:1px solid #2a2a2a;z-index:21;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom,16px)}
+.panel{position:fixed;bottom:0;left:0;right:0;background:#111;border-radius:18px 18px 0 0;border:1px solid #2a2a2a;z-index:21;min-height:72vh;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom,16px)}
 .panel.open{transform:translateY(0)}
 .handle{width:36px;height:4px;background:#333;border-radius:99px;margin:12px auto 0}
 .pbody{padding:16px 20px 24px}
@@ -231,7 +231,26 @@ async function POST(p,b){const r=await fetch(B+p,{method:'POST',headers:{Authori
 async function PUT(p,b){const r=await fetch(B+p,{method:'PUT',headers:{Authorization:tok,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||r.status);}return r.json();}
 async function DEL(p){await fetch(B+p,{method:'DELETE',headers:{Authorization:tok}});}
 
-function pCF(fields){const r={midia:null,funil:null,mes:null};for(const f of fields){const n=(f.name||'').toLowerCase();const v=f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;if(n.includes('mídia')||n.includes('midia'))r.midia=v;if(n==='funil')r.funil=v;if(n.includes('mês')||n.includes('mes'))r.mes=v;}return r;}
+function pCF(fields){
+  const r={midia:null,funil:null,mes:null};
+  for(const f of fields){
+    const n=(f.name||'').toLowerCase().trim();
+    // Tenta pegar valor de dropdown, texto ou número
+    let v=null;
+    if(f.type==='drop_down'||f.type==='labels'){
+      v=f.type_config?.options?.find(o=>o.id===f.value)?.name||null;
+    } else if(f.type==='date'&&f.value){
+      v=new Date(parseInt(f.value)).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+    } else {
+      v=f.value||null;
+    }
+    if(!v)continue;
+    if(n.includes('mídia')||n.includes('midia')||n.includes('media'))r.midia=String(v);
+    if(n==='funil'||n.includes('funil'))r.funil=String(v);
+    if(n.includes('mês')||n.includes('mes')||n.includes('month'))r.mes=String(v);
+  }
+  return r;
+}
 
 async function syncData(){
   if(!tok){openCfg();return;}
@@ -430,22 +449,11 @@ function oMI(id){
   oPanel(h);
 }
 
-async function openLinks(type){
-  oPanel(`<div class="ptitle">📁 ${type==='stories'?'Links Stories':'Links Feed'}</div><div class="empty"><div class="spin"></div><br>Carregando…</div>`);
-  const docId=type==='stories'?'8ckm0q6-8473':'8ckm0q6-8513';
-  try{
-    const d=await GET(`/doc/${docId}/page?content_format=text/md`);
-    const pages=d.pages||[];let rows=[];
-    for(const pg of pages){const lines=(pg.content||'').split('\n');for(const l of lines){if(l.includes('|')){const cells=l.split('|').map(c=>c.trim()).filter(c=>c&&!c.match(/^-+$/));if(cells.length>=2&&!cells[0].toLowerCase().includes('cliente')){const um=cells[1].match(/https?:\/\/[^\s\)\]]+/);rows.push({client:cells[0],url:um?um[0]:null});}}}}
-    let h=`<div class="ptitle">📁 ${type==='stories'?'Links Stories':'Links Feed'}</div><div class="ibox" style="margin-bottom:16px">`;
-    if(!rows.length)h+=`<div class="empty">Nenhum link encontrado.</div>`;
-    else rows.forEach(r=>{h+=`<div class="lrow"><div class="lnm">${r.client}</div>${r.url?`<a class="lopen" href="${r.url}" target="_blank">↗ Abrir</a>`:'<span style="font-size:13px;color:#444">—</span>'}</div>`;});
-    h+=`</div><button class="pbtn pb-cancel" onclick="closePanel()">Fechar</button>`;
-    document.getElementById('pbody').innerHTML=h;
-  }catch(e){
-    const url=type==='stories'?'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8473':'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8513';
-    document.getElementById('pbody').innerHTML=`<div class="ptitle">📁 ${type==='stories'?'Links Stories':'Links Feed'}</div><div class="empty"><br><a href="${url}" target="_blank" class="lopen" style="display:inline-flex;margin:0 auto">↗ Abrir no ClickUp</a></div><button class="pbtn pb-cancel" style="margin:16px 0" onclick="closePanel()">Fechar</button>`;
-  }
+function openLinks(type){
+  const url=type==='stories'
+    ?'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8513'
+    :'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8473';
+  window.open(url,'_blank');
 }
 
 function sUndo(msg,action){
