@@ -603,8 +603,12 @@ function toggleClient(n){openClients[n]=openClients[n]===false?true:false;render
 
 // ═══ NAVIGATION ═══
 function showPage(id,dir='forward'){
-  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active','back');});
+  document.querySelectorAll('.page').forEach(p=>{
+    p.classList.remove('active','back');
+    p.style.display='none';
+  });
   const pg=document.getElementById(id);
+  pg.style.display='flex';
   if(dir==='back')pg.classList.add('back');
   pg.classList.add('active');
   window.scrollTo(0,0);
