@@ -2,1000 +2,475 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Ciane — Planejamento Social</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciane — Social Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --black:#080808;--black2:#101010;--black3:#181818;--black4:#222;--black5:#2a2a2a;
-  --yellow:#F5E642;
-  --accent:#60C8F5;--adim:rgba(96,200,245,.1);--aborder:rgba(96,200,245,.25);
-  --purple:#A78BFA;
-  --white:#F5F5F0;--gray:#888884;--gray2:#444440;
-  --ok:#22C55E;--warn:#F59E0B;--danger:#EF4444;
-  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);
-  --fd:'Bebas Neue',sans-serif;--fb:'Inter',sans-serif;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-size:16px}
-body{background:var(--black);color:var(--white);font-family:var(--fb)}
-
-/* PAGES */
-.page{display:none;flex-direction:column;min-height:100dvh;width:100%}
-.page.active{display:flex;animation:slideIn .2s ease}
-@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
-@keyframes slideBack{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
-.page.back{animation:slideBack .2s ease}
-
-/* TOPBAR */
-.topbar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--black);position:sticky;top:0;z-index:50;width:100%;pointer-events:all}
-.back-btn{background:none;border:none;color:var(--gray);cursor:pointer;padding:6px 10px 6px 0;display:flex;align-items:center;gap:4px;touch-action:manipulation;font-size:13px;font-weight:500;font-family:var(--fb);flex-shrink:0}
-.back-btn svg{width:16px;height:16px}
-.back-btn:active{color:var(--white)}
-.topbar-center{flex:1;overflow:hidden}
-.topbar-title{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar-sub{font-size:11px;color:var(--gray);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.ibtn{background:none;border:1px solid var(--border2);border-radius:8px;color:var(--white);cursor:pointer;padding:6px 10px;font-size:13px;touch-action:manipulation;display:flex;align-items:center;gap:4px}
-.ibtn:active{background:var(--black4)}
-.ibtn svg{width:14px;height:14px}
-.spin svg{animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* BRAND */
-.brand{display:flex;align-items:center;gap:8px}
-.logo{font-family:var(--fd);font-size:24px;letter-spacing:.04em;line-height:1}
-.logo em{color:var(--yellow);font-style:normal}
-.tag{font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);border-left:1px solid var(--gray2);padding-left:8px;line-height:1.5}
-.chip{display:flex;align-items:center;gap:6px;background:var(--adim);border:1px solid var(--aborder);border-radius:50px;padding:4px 10px 4px 4px}
-.av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:11px;font-weight:700;flex-shrink:0}
-.chip-nm{font-size:12px;font-weight:600;color:var(--accent)}
-
-/* HOME */
-.week-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border)}
-.wnav{display:flex;align-items:center;background:var(--black3);border:1px solid var(--border2);border-radius:8px;overflow:hidden}
-.wnav button{background:none;border:none;color:var(--gray);cursor:pointer;padding:7px 13px;font-size:16px;touch-action:manipulation}
-.wnav button:active{background:var(--black4)}
-.wlbl{font-size:13px;font-weight:600;color:var(--white);padding:0 10px;white-space:nowrap}
-.whint{font-size:11px;color:var(--gray)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#f0f0f0;font-family:'Inter',sans-serif;min-height:100vh}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+a{color:inherit;text-decoration:none}
+nav{background:#111;border-bottom:1px solid #222;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.05em}
+.brand span{color:#F5E642}
+.nav-r{display:flex;align-items:center;gap:8px}
+.chip{background:rgba(96,200,245,.12);border:1px solid rgba(96,200,245,.3);border-radius:99px;padding:4px 12px 4px 5px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#60C8F5}
+.av{width:22px;height:22px;border-radius:50%;background:#60C8F5;color:#000;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:11px;flex-shrink:0}
+.ibtn{background:#1a1a1a;border:1px solid #333;border-radius:7px;color:#f0f0f0;padding:6px 10px;font-size:13px}
+.ibtn:hover{background:#222}
+.week-row{padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1a1a1a}
+.wnav{display:flex;align-items:center;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;overflow:hidden}
+.wnav button{background:none;border:none;color:#888;padding:6px 12px;font-size:16px}
+.wnav button:hover{background:#222;color:#fff}
+.wlbl{font-size:13px;font-weight:600;padding:0 10px;white-space:nowrap}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px}
-.stat{background:var(--black3);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
-.sl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:4px}
-.sv{font-family:var(--fd);font-size:26px;line-height:1}
-.ca{color:var(--accent)}.cy{color:var(--yellow)}.cg{color:var(--ok)}.cw{color:var(--warn)}
+.stat{background:#141414;border:1px solid #222;border-radius:10px;padding:12px 14px}
+.sl{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#666;margin-bottom:4px}
+.sv{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1}
+.ca{color:#60C8F5}.cy{color:#F5E642}.cg{color:#22C55E}.cw{color:#F59E0B}
 .prog{padding:0 16px 12px}
-.pt{display:flex;justify-content:space-between;font-size:12px;color:var(--gray);margin-bottom:6px}
-.pt b{color:var(--white)}
-.pb{height:4px;background:var(--black5);border-radius:99px;overflow:hidden}
-.pf{height:100%;background:linear-gradient(90deg,var(--accent),var(--yellow));border-radius:99px;transition:width .5s}
-.list-wrap{padding:0 16px 80px;flex:1;position:relative;z-index:1}
-
-/* CLIENT */
-.cc{background:var(--black3);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:8px}
-.cc-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;touch-action:manipulation;user-select:none}
-.cc-hdr:active{background:var(--black4)}
-.cdot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.cnm{font-family:var(--fd);font-size:21px;letter-spacing:.02em}
-.csub{font-size:11px;color:var(--gray);margin-top:1px}
-.cbadge{background:var(--adim);color:var(--accent);font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--aborder)}
-.chev{color:var(--gray);font-size:14px;transition:transform .2s}
-.cc-body{display:none;border-top:1px solid var(--border)}
-.cc-body.open{display:block}
-
-/* MAE ROW */
-.mae-row{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;touch-action:manipulation;transition:background .15s}
-.mae-row:last-child{border-bottom:none}
-.mae-row:active{background:rgba(255,255,255,.04)}
-.mae-icon{font-size:16px;flex-shrink:0}
-.mae-info{flex:1;min-width:0}
-.mae-nm{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px;line-height:1.3}
-.mae-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.sp{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.pt{display:flex;justify-content:space-between;font-size:12px;color:#666;margin-bottom:6px}
+.pt b{color:#f0f0f0}
+.pb{height:4px;background:#1a1a1a;border-radius:99px;overflow:hidden}
+.pf{height:100%;background:linear-gradient(90deg,#60C8F5,#F5E642);border-radius:99px;transition:width .5s}
+.lbtns{display:flex;gap:8px;padding:0 16px 12px}
+.lbtn{flex:1;padding:10px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;color:#f0f0f0;font-size:13px;font-weight:600}
+.lbtn:hover{background:#222}
+.main{padding:0 16px 60px}
+.client{background:#141414;border:1px solid #222;border-radius:12px;margin-bottom:10px;overflow:hidden}
+.chdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:none;border:none;width:100%;text-align:left;color:#f0f0f0}
+.chdr:hover{background:#1a1a1a}
+.cl{display:flex;align-items:center;gap:10px}
+.cdot{width:8px;height:8px;border-radius:50%;background:#60C8F5;flex-shrink:0}
+.cnm{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.02em}
+.csub{font-size:11px;color:#666;margin-top:1px}
+.cbadge{background:rgba(96,200,245,.12);color:#60C8F5;border:1px solid rgba(96,200,245,.25);font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px}
+.cbody{display:none;border-top:1px solid #222}
+.cbody.open{display:block}
+.mae{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;margin:10px 12px;overflow:hidden}
+.mhdr{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:none;border:none;width:100%;text-align:left;color:#f0f0f0}
+.mhdr:hover{background:rgba(255,255,255,.03)}
+.mnm{font-size:14px;font-weight:600;margin-bottom:3px}
+.mmeta{display:flex;align-items:center;gap:6px}
+.sp{font-size:10px;padding:2px 7px;border-radius:99px;font-weight:700;text-transform:uppercase}
 .sp-plan{background:rgba(245,158,11,.15);color:#F59E0B}
 .sp-design{background:rgba(167,139,250,.15);color:#A78BFA}
-.sp-ok{background:rgba(34,197,94,.15);color:#22C55E}
-.sp-out{background:rgba(255,255,255,.06);color:var(--gray)}
-.mae-cnt{font-size:11px;color:var(--gray)}
-.row-arrow{color:var(--gray);font-size:16px;flex-shrink:0}
-
-/* ═══ MOTHER PAGE ═══ */
-.mp-scroll{flex:1;overflow-y:auto;padding-bottom:20px}
-.mp-hero{padding:20px 16px 16px}
-.mp-bread{font-size:11px;color:var(--gray);margin-bottom:8px}
-.mp-bread b{color:var(--accent)}
-.mp-title{font-size:24px;font-weight:700;line-height:1.3;margin-bottom:16px}
-.mp-props{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
-.mp-prop{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)}
-.mp-prop:last-child{border-bottom:none}
-.pp-icon{font-size:14px;width:22px;text-align:center;flex-shrink:0;opacity:.6}
-.pp-lbl{font-size:12px;color:var(--gray);min-width:95px;flex-shrink:0}
-.pp-val{font-size:13px;color:var(--white);font-weight:500;flex:1}
-.mp-desc{background:var(--black3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:16px}
-.mp-desc-lbl{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
-.mp-desc-text{font-size:14px;color:var(--white);line-height:1.7;white-space:pre-wrap}
-.mp-subs-hdr{display:flex;align-items:center;justify-content:space-between;padding:0 16px 10px}
-.mp-subs-nm{font-size:13px;font-weight:700}
-.mp-subs-cnt{font-size:12px;color:var(--gray)}
-.mp-subs-list{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:0 16px 16px}
-
-/* SUB ROW */
-.sub-row{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;touch-action:manipulation;transition:background .15s}
-.sub-row:last-child{border-bottom:none}
-.sub-row:active{background:rgba(255,255,255,.04)}
-.sr-icon{font-size:14px;color:var(--accent);flex-shrink:0}
-.sr-body{flex:1;min-width:0}
-.sr-nm{font-size:13px;font-weight:500;color:var(--white);margin-bottom:3px;line-height:1.3}
-.sr-tags{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.tdate{font-size:11px;color:var(--gray)}
-.tdate.x{color:var(--danger)}
-.tmidia{font-size:11px;color:var(--accent)}
-.tmidia.x{color:var(--danger)}
-.sr-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:11px;flex-shrink:0}
-.add-sub-row{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;color:var(--gray);font-size:13px;touch-action:manipulation;transition:color .15s;border-top:1px solid rgba(255,255,255,.04)}
-.add-sub-row svg{width:14px;height:14px;flex-shrink:0}
-.add-sub-row:active{color:var(--white)}
-
-/* ═══ SUB EDIT PAGE ═══ */
-.se-scroll{flex:1;overflow-y:auto;padding:16px 16px 100px}
-.se-client{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.se-title{width:100%;background:none;border:none;border-bottom:2px solid var(--border2);outline:none;font-size:20px;font-weight:700;color:var(--white);font-family:var(--fb);padding-bottom:12px;margin-bottom:18px;line-height:1.3}
-.se-title::placeholder{color:var(--gray)}
-.se-props{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
-.se-prop{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--border)}
-.se-prop:last-child{border-bottom:none}
-.sep-icon{font-size:14px;width:22px;text-align:center;flex-shrink:0;opacity:.6}
-.sep-lbl{font-size:12px;color:var(--gray);min-width:80px;flex-shrink:0}
-.sep-input{flex:1;background:none;border:none;outline:none;font-size:14px;color:var(--white);font-family:var(--fb);min-width:0}
-.sep-input::placeholder{color:var(--gray2)}
-.sep-select{flex:1;background:none;border:none;outline:none;font-size:14px;color:var(--white);font-family:var(--fb);-webkit-appearance:none;min-width:0}
-.sep-select option{background:var(--black3)}
-.se-desc-lbl{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
-.se-desc{width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:12px;padding:14px;font-size:14px;color:var(--white);font-family:var(--fb);outline:none;resize:none;min-height:90px;line-height:1.6}
-.se-desc:focus{border-color:var(--aborder)}
-
-/* BOTTOM BAR */
-.bbar{position:fixed;bottom:0;left:0;right:0;background:rgba(8,8,8,.96);border-top:1px solid var(--border2);padding:12px 16px;padding-bottom:max(12px,env(safe-area-inset-bottom));z-index:40;display:flex;flex-direction:column;gap:8px;backdrop-filter:blur(10px);pointer-events:all}
-.bbar-row{display:flex;gap:8px}
-.bb{flex:1;padding:13px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:var(--fb);touch-action:manipulation}
-.bb:active{opacity:.7}
-.bb-save{background:var(--accent);color:var(--black)}
-.bb-design{background:rgba(167,139,250,.12);color:#A78BFA;border:1px solid rgba(167,139,250,.3) !important}
-.bb-sm{flex:1;padding:10px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:none;color:var(--gray);font-family:var(--fb);touch-action:manipulation}
-.bb-sm:active{background:var(--black4)}
-.bb-del{color:var(--danger);border-color:rgba(239,68,68,.3) !important;background:rgba(239,68,68,.06) !important}
-
-/* DESIGN PAGE */
-.dp-scroll{flex:1;padding:20px 16px 100px;overflow-y:auto}
-.dp-sub{font-size:13px;color:var(--gray);margin-bottom:6px}
-.dp-nm{font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;line-height:1.3}
-.al{display:flex;flex-direction:column;gap:8px}
-.ao{display:flex;align-items:center;gap:12px;padding:14px;background:var(--black3);border:2px solid var(--border);border-radius:12px;cursor:pointer;touch-action:manipulation;transition:all .15s}
-.ao:active,.ao.sel{border-color:var(--accent);background:var(--adim)}
+.sp-out{background:rgba(255,255,255,.06);color:#666}
+.mcnt{font-size:11px;color:#666}
+.mbody{display:none;border-top:1px solid #222}
+.mbody.open{display:block}
+.sitem{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.04);background:none;border-left:none;border-right:none;border-top:none;width:100%;text-align:left;color:#f0f0f0}
+.sitem:hover{background:rgba(255,255,255,.03)}
+.sitem:last-of-type{border-bottom:none}
+.sico{color:#60C8F5;font-size:14px;flex-shrink:0}
+.sbody{flex:1;min-width:0}
+.snm{font-size:13px;font-weight:500;margin-bottom:3px;line-height:1.3}
+.stags{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tdate{font-size:11px;color:#666}
+.tdate.x{color:#EF4444}
+.tmidia{font-size:11px;color:#60C8F5}
+.tmidia.x{color:#EF4444}
+.sav{width:22px;height:22px;border-radius:50%;background:#60C8F5;color:#000;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:10px;flex-shrink:0}
+.addsub{display:flex;align-items:center;gap:8px;padding:11px 14px;background:none;border:none;border-top:1px solid rgba(255,255,255,.04);width:100%;text-align:left;color:#666;font-size:13px}
+.addsub:hover{color:#f0f0f0;background:rgba(255,255,255,.03)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:20}
+.overlay.open{display:block}
+.panel{position:fixed;bottom:0;left:0;right:0;background:#111;border-radius:18px 18px 0 0;border:1px solid #2a2a2a;z-index:21;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom,16px)}
+.panel.open{transform:translateY(0)}
+.handle{width:36px;height:4px;background:#333;border-radius:99px;margin:12px auto 0}
+.pbody{padding:16px 20px 24px}
+.ptitle{font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:4px}
+.psub{font-size:12px;color:#60C8F5;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.fg label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.08em}
+.fg input,.fg select,.fg textarea{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:10px 12px;font-size:14px;color:#f0f0f0;font-family:'Inter',sans-serif;outline:none;width:100%;transition:border-color .15s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:#60C8F5}
+.fg select option{background:#1a1a1a}
+.fg textarea{resize:none;min-height:80px;line-height:1.5}
+.fgrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tinput{width:100%;background:none;border:none;border-bottom:2px solid #2a2a2a;outline:none;font-size:20px;font-weight:700;color:#f0f0f0;font-family:'Inter',sans-serif;padding-bottom:10px;margin-bottom:16px}
+.tinput::placeholder{color:#444}
+.tinput:focus{border-bottom-color:#60C8F5}
+.pacts{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.pbtn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;border:none;font-family:'Inter',sans-serif}
+.pb-save{background:#60C8F5;color:#000}
+.pb-design{background:rgba(167,139,250,.12);color:#A78BFA;border:1px solid rgba(167,139,250,.3) !important}
+.pb-dup{background:#1a1a1a;color:#f0f0f0;border:1px solid #2a2a2a !important}
+.pb-del{background:rgba(239,68,68,.08);color:#EF4444;border:1px solid rgba(239,68,68,.25) !important}
+.pb-cancel{background:none;color:#666;border:1px solid #2a2a2a !important}
+.ao{display:flex;align-items:center;gap:12px;padding:13px;background:#1a1a1a;border:2px solid #2a2a2a;border-radius:10px;margin-bottom:8px;width:100%;text-align:left;color:#f0f0f0;font-size:15px;font-weight:600}
+.ao:hover,.ao.sel{border-color:#60C8F5;background:rgba(96,200,245,.08)}
 .ao-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.ao-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;flex-shrink:0}
-.ao-nm{font-size:15px;font-weight:600;flex:1}
-.ao-chk{color:var(--accent);font-size:20px;display:none}
+.ao-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;flex-shrink:0}
+.ao-chk{margin-left:auto;color:#60C8F5;display:none}
 .ao.sel .ao-chk{display:block}
-
-/* DUP PAGE */
-.dup-scroll{flex:1;padding:20px 16px 100px;overflow-y:auto}
-.dup-lbl{font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
-.dup-inp{width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:12px;padding:14px;font-size:15px;color:var(--white);font-family:var(--fb);outline:none;margin-bottom:16px;transition:border-color .15s}
-.dup-inp:focus{border-color:var(--aborder)}
-.req{color:var(--danger)}
-
-/* ADD SUB PAGE */
-.as-scroll{flex:1;overflow-y:auto;padding:16px 16px 100px}
-.as-props{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
-.as-prop{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--border)}
-.as-prop:last-child{border-bottom:none}
-.asp-icon{font-size:14px;width:22px;text-align:center;flex-shrink:0;opacity:.6}
-.asp-lbl{font-size:12px;color:var(--gray);min-width:80px;flex-shrink:0}
-.asp-inp{flex:1;background:none;border:none;outline:none;font-size:14px;color:var(--white);font-family:var(--fb);min-width:0}
-.asp-inp::placeholder{color:var(--gray2)}
-.asp-sel{flex:1;background:none;border:none;outline:none;font-size:14px;color:var(--white);font-family:var(--fb);-webkit-appearance:none;min-width:0}
-.asp-sel option{background:var(--black3)}
-.as-title{width:100%;background:none;border:none;border-bottom:2px solid var(--border2);outline:none;font-size:20px;font-weight:700;color:var(--white);font-family:var(--fb);padding-bottom:12px;margin-bottom:18px}
-.as-title::placeholder{color:var(--gray)}
-
-/* UNDO */
-.undo{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(80px);opacity:0;background:var(--black2);border:1px solid var(--border2);border-radius:14px;padding:11px 16px;display:flex;align-items:center;gap:12px;z-index:200;transition:all .3s;pointer-events:none;min-width:min(300px,88vw)}
+.ifield{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border-bottom:1px solid #1a1a1a}
+.ifield:last-child{border-bottom:none}
+.iflbl{font-size:12px;color:#666;min-width:90px;flex-shrink:0;margin-top:1px}
+.ifval{font-size:13px;color:#f0f0f0;font-weight:500;flex:1;line-height:1.5}
+.ibox{background:#1a1a1a;border:1px solid #222;border-radius:10px;margin-bottom:14px;overflow:hidden}
+.descbox{background:#1a1a1a;border:1px solid #222;border-radius:10px;padding:14px;margin-bottom:14px}
+.desclbl{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.desctxt{font-size:14px;color:#f0f0f0;line-height:1.7;white-space:pre-wrap}
+.lrow{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid #1a1a1a}
+.lrow:last-child{border-bottom:none}
+.lnm{font-size:14px;font-weight:700}
+.lopen{display:flex;align-items:center;gap:6px;background:rgba(96,200,245,.1);border:1px solid rgba(96,200,245,.25);border-radius:8px;padding:7px 12px;font-size:13px;color:#60C8F5;font-weight:600}
+.lopen:hover{background:rgba(96,200,245,.2)}
+.undo{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);opacity:0;background:#111;border:1px solid #333;border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:12px;z-index:30;transition:all .3s;pointer-events:none;min-width:min(300px,88vw)}
 .undo.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:all}
-.undo-msg{font-size:13px;color:var(--white);flex:1}
-.undo-act{font-size:12px;font-weight:700;color:var(--accent);background:none;border:1px solid var(--aborder);border-radius:7px;padding:5px 12px;cursor:pointer;touch-action:manipulation}
-.undo-prog{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);border-radius:0 0 14px 14px}
-
-/* CFG */
-.cfg-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:center;justify-content:center;padding:20px;pointer-events:none}
-.cfg-bg.open{display:flex;pointer-events:all}
-.cfg{background:var(--black2);border:1px solid var(--border2);border-radius:16px;padding:24px;width:100%;max-width:360px}
-.cfg h3{font-family:var(--fd);font-size:24px;margin-bottom:6px}
-.cfg p{font-size:13px;color:var(--gray);margin-bottom:16px;line-height:1.6}
-.cfg-in{width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:8px;padding:11px 12px;font-size:14px;color:var(--white);outline:none;font-family:var(--fb);margin-bottom:12px}
-.cfg-in:focus{border-color:var(--aborder)}
-.cfg-acts{display:flex;gap:8px;justify-content:flex-end}
-.cbtn{font-size:13px;padding:9px 18px;border-radius:8px;border:1px solid var(--border2);background:none;color:var(--white);cursor:pointer;font-family:var(--fb)}
-.cbtn.s{background:var(--accent);color:var(--black);border-color:var(--accent);font-weight:700}
-
-.empty{text-align:center;padding:48px 20px;color:var(--gray);font-size:14px;line-height:1.8}
-
-/* LINKS PAGE */
-.links-wrap{padding:0 16px 80px;flex:1}
-.links-table{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
-.links-month-title{font-family:var(--fd);font-size:18px;letter-spacing:.04em;padding:14px 16px 10px;border-bottom:1px solid var(--border);color:var(--white)}
-.link-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);transition:background .15s}
-.link-row:last-child{border-bottom:none}
-.link-row:hover{background:var(--black4)}
-.link-client{font-size:14px;font-weight:700;color:var(--white);min-width:120px;flex-shrink:0}
-.link-btn{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--accent);text-decoration:none;background:var(--adim);border:1px solid var(--aborder);border-radius:8px;padding:7px 12px;transition:all .15s;white-space:nowrap}
-.link-btn:hover{background:rgba(96,200,245,.2)}
-.link-btn svg{width:14px;height:14px;flex-shrink:0}
-.link-empty{font-size:13px;color:var(--gray);padding:13px 16px}
-.links-loading{text-align:center;padding:40px;color:var(--gray);font-size:14px}
-.spin2{display:inline-block;width:22px;height:22px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:12px}
+.umsg{font-size:13px;flex:1}
+.ubtn{background:none;border:1px solid rgba(96,200,245,.3);border-radius:7px;color:#60C8F5;font-size:12px;font-weight:700;padding:5px 12px}
+.uprog{position:absolute;bottom:0;left:0;height:3px;background:#60C8F5;border-radius:0 0 12px 12px}
+.cfg-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:40;align-items:center;justify-content:center;padding:20px}
+.cfg-bg.open{display:flex}
+.cfg{background:#111;border:1px solid #2a2a2a;border-radius:16px;padding:24px;width:100%;max-width:360px}
+.cfg h3{font-family:'Bebas Neue',sans-serif;font-size:24px;margin-bottom:6px}
+.cfg p{font-size:13px;color:#666;margin-bottom:16px;line-height:1.6}
+.cfgin{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:11px 12px;font-size:14px;color:#f0f0f0;outline:none;font-family:'Inter',sans-serif;margin-bottom:12px}
+.cfgin:focus{border-color:#60C8F5}
+.cfgacts{display:flex;gap:8px;justify-content:flex-end}
+.cbtn{font-size:13px;padding:8px 16px;border-radius:8px;border:1px solid #333;background:none;color:#f0f0f0}
+.cbtn.s{background:#60C8F5;color:#000;border-color:#60C8F5;font-weight:700}
+.empty{text-align:center;padding:48px 20px;color:#444;font-size:14px;line-height:1.8}
+.spin{display:inline-block;width:20px;height:20px;border:2px solid #2a2a2a;border-top-color:#60C8F5;border-radius:50%;animation:sp .7s linear infinite;margin-bottom:10px}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(min-width:600px){
+  .panel{left:auto;right:0;top:0;bottom:0;max-width:420px;max-height:100vh;border-radius:0;transform:translateX(100%)}
+  .panel.open{transform:translateX(0)}
+  .handle{display:none}
+}
 </style>
 </head>
 <body>
 
-<!-- ══════════ PAGE: HOME ══════════ -->
-<div class="page active" id="pg-home">
-  <div class="topbar">
-    <div class="brand"><div class="logo">DUA<em>*.*</em></div><div class="tag">Marketing<br>de Moda</div></div>
-    <div style="flex:1"></div>
-    <div class="topbar-right">
-      <div class="chip"><div class="av" style="background:var(--accent);color:var(--black)">CI</div><span class="chip-nm">Ciane</span></div>
-      <button class="ibtn" id="sync-btn" onclick="syncData()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
-      <button class="ibtn" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
-      <button class="ibtn" onclick="openCfg()">🔑</button>
-    </div>
+<nav>
+  <div class="brand">DUA<span>*.*</span></div>
+  <div class="nav-r">
+    <div class="chip"><div class="av">CI</div>Ciane</div>
+    <button class="ibtn" id="sync-btn" onclick="syncData()">↻</button>
+    <button class="ibtn" onclick="openCfg()">🔑</button>
   </div>
-  <div class="week-bar">
-    <div class="wnav">
-      <button onclick="changeWeek(-1)">‹</button>
-      <span class="wlbl" id="wlbl">—</span>
-      <button onclick="changeWeek(1)">›</button>
-    </div>
-    <span class="whint">Ter → Seg</span>
+</nav>
+
+<div class="week-row">
+  <div class="wnav">
+    <button onclick="changeWeek(-1)">‹</button>
+    <span class="wlbl" id="wlbl">—</span>
+    <button onclick="changeWeek(1)">›</button>
   </div>
-  <div class="stats">
-    <div class="stat"><div class="sl">Clientes</div><div class="sv ca" id="s-cli">—</div></div>
-    <div class="stat"><div class="sl">Posts</div><div class="sv cy" id="s-posts">—</div></div>
-    <div class="stat"><div class="sl">Agendados</div><div class="sv cg" id="s-ag">—</div></div>
-    <div class="stat"><div class="sl">Pendentes</div><div class="sv cw" id="s-pend">—</div></div>
-  </div>
-  <div class="prog">
-    <div class="pt"><b>Progresso da semana</b><span id="prog-pct">0%</span></div>
-    <div class="pb"><div class="pf" id="prog-fill" style="width:0%"></div></div>
-  </div>
-  <div style="display:flex;gap:8px;padding:0 16px 12px">
-    <button onclick="goToLinks('stories')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:var(--black3);border:1px solid var(--border2);border-radius:10px;color:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fb);touch-action:manipulation">
-      📁 Links Stories
-    </button>
-    <button onclick="goToLinks('feed')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:var(--black3);border:1px solid var(--border2);border-radius:10px;color:var(--white);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--fb);touch-action:manipulation">
-      📁 Links Feed
-    </button>
-  </div>
-  <div class="list-wrap" id="home-list"></div>
+  <span style="font-size:11px;color:#666">Ter → Seg</span>
 </div>
 
-<!-- ══════════ PAGE: MOTHER ══════════ -->
-<div class="page" id="pg-mother">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg><span id="back-label-mother">Voltar</span></button>
-    <div class="topbar-center"><div class="topbar-title" id="mt-title">—</div><div class="topbar-sub" id="mt-sub">—</div></div>
-  </div>
-  <div class="mp-scroll" id="mp-scroll"></div>
+<div class="stats">
+  <div class="stat"><div class="sl">Clientes</div><div class="sv ca" id="s-cli">—</div></div>
+  <div class="stat"><div class="sl">Posts</div><div class="sv cy" id="s-posts">—</div></div>
+  <div class="stat"><div class="sl">Agendados</div><div class="sv cg" id="s-ag">—</div></div>
+  <div class="stat"><div class="sl">Pendentes</div><div class="sv cw" id="s-pend">—</div></div>
 </div>
 
-<!-- ══════════ PAGE: SUB EDIT ══════════ -->
-<div class="page" id="pg-sub">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg><span id="back-label-sub">Voltar</span></button>
-    <div class="topbar-center"><div class="topbar-title" id="se-topbar-title">Editar post</div></div>
-  </div>
-  <div class="se-scroll" id="se-scroll"></div>
-  <div class="bbar" id="se-bbar">
-    <div class="bbar-row">
-      <button class="bb bb-save" onclick="saveSub()">💾 Salvar alterações</button>
-      <button class="bb bb-design" onclick="goToDesign()">→ Design</button>
-    </div>
-    <div class="bbar-row">
-      <button class="bb-sm" onclick="goToDup()">⧉ Duplicar</button>
-      <button class="bb-sm bb-del" onclick="deleteSub()">🗑 Excluir</button>
-    </div>
-  </div>
+<div class="prog">
+  <div class="pt"><b>Progresso</b><span id="prog-pct">0%</span></div>
+  <div class="pb"><div class="pf" id="pf" style="width:0%"></div></div>
 </div>
 
-<!-- ══════════ PAGE: ADD SUB ══════════ -->
-<div class="page" id="pg-add">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
-    <div class="topbar-center"><div class="topbar-title">Novo post</div></div>
-  </div>
-  <div class="as-scroll">
-    <input class="as-title" id="add-title" placeholder="Título / Tema do post">
-    <div class="as-props">
-      <div class="as-prop"><div class="asp-icon">📅</div><div class="asp-lbl">Data</div><input class="asp-inp" type="date" id="add-date"></div>
-      <div class="as-prop"><div class="asp-icon">📱</div><div class="asp-lbl">Mídia</div>
-        <select class="asp-sel" id="add-midia"><option value="">— selecione —</option><option>Stories</option><option>Feed</option><option>Reels</option><option>TikTok</option><option>Carrossel</option></select>
-      </div>
-      <div class="as-prop"><div class="asp-icon">🔻</div><div class="asp-lbl">Funil</div>
-        <select class="asp-sel" id="add-funil"><option value="">— selecione —</option><option>Topo</option><option>Meio</option><option>Fundo</option></select>
-      </div>
-      <div class="as-prop"><div class="asp-icon">📆</div><div class="asp-lbl">Mês</div>
-        <select class="asp-sel" id="add-mes"><option>Janeiro</option><option>Fevereiro</option><option>Março</option><option>Abril</option><option>Maio</option><option>Junho</option><option>Julho</option><option>Agosto</option><option>Setembro</option><option>Outubro</option><option>Novembro</option><option>Dezembro</option></select>
-      </div>
-    </div>
-    <div class="se-desc-lbl" style="font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Descrição</div>
-    <textarea class="se-desc" id="add-desc" placeholder="Referências, copy, observações…" style="width:100%;background:var(--black3);border:1px solid var(--border2);border-radius:12px;padding:14px;font-size:14px;color:var(--white);font-family:var(--fb);outline:none;resize:none;min-height:90px;line-height:1.6"></textarea>
-  </div>
-  <div class="bbar">
-    <div class="bbar-row">
-      <button class="bb bb-save" onclick="saveNewSub()">💾 Salvar no ClickUp</button>
-    </div>
-  </div>
+<div class="lbtns">
+  <button class="lbtn" onclick="openLinks('stories')">📁 Links Stories</button>
+  <button class="lbtn" onclick="openLinks('feed')">📁 Links Feed</button>
 </div>
 
-<!-- ══════════ PAGE: DESIGN ══════════ -->
-<div class="page" id="pg-design">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
-    <div class="topbar-center"><div class="topbar-title">→ Enviar para Design</div></div>
-  </div>
-  <div class="dp-scroll">
-    <div class="dp-sub">Selecione o designer responsável por:</div>
-    <div class="dp-nm" id="dp-task-nm">—</div>
-    <div class="al" id="al"></div>
-  </div>
-  <div class="bbar">
-    <div class="bbar-row">
-      <button class="bb bb-save" onclick="confirmDesign()">→ Confirmar envio para Design</button>
-    </div>
-  </div>
+<div class="main" id="main"></div>
+
+<div class="overlay" id="overlay" onclick="closePanel()"></div>
+
+<div class="panel" id="panel">
+  <div class="handle"></div>
+  <div class="pbody" id="pbody"></div>
 </div>
 
-<!-- ══════════ PAGE: DUP ══════════ -->
-<div class="page" id="pg-dup">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
-    <div class="topbar-center"><div class="topbar-title">⧉ Duplicar post</div></div>
-  </div>
-  <div class="dup-scroll">
-    <div class="dup-lbl">Novo título</div>
-    <input class="dup-inp" type="text" id="dup-nm" placeholder="Título da cópia">
-    <div class="dup-lbl">Nova data de postagem <span class="req">*</span></div>
-    <input class="dup-inp" type="date" id="dup-date">
-  </div>
-  <div class="bbar">
-    <div class="bbar-row">
-      <button class="bb bb-save" onclick="confirmDup()">⧉ Criar cópia</button>
-    </div>
-  </div>
-</div>
-
-<!-- PAGE: LINKS STORIES -->
-<div class="page" id="pg-stories">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
-    <div class="topbar-center"><div class="topbar-title">📁 Links Stories</div></div>
-    <div class="topbar-right"><button class="ibtn" onclick="loadLinks('stories')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div>
-  </div>
-  <div class="links-wrap" id="links-stories-content"><div class="links-loading"><div class="spin2"></div><br>Carregando links…</div></div>
-</div>
-
-<!-- PAGE: LINKS FEED -->
-<div class="page" id="pg-feed">
-  <div class="topbar">
-    <button class="back-btn" onclick="goBack()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>Voltar</button>
-    <div class="topbar-center"><div class="topbar-title">📁 Links Feed</div></div>
-    <div class="topbar-right"><button class="ibtn" onclick="loadLinks('feed')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button></div>
-  </div>
-  <div class="links-wrap" id="links-feed-content"><div class="links-loading"><div class="spin2"></div><br>Carregando links…</div></div>
-</div>
-
-<!-- CFG -->
 <div class="cfg-bg" id="cfg-bg">
   <div class="cfg">
-    <h3>Configure o ClickUp</h3>
-    <p>Cole seu token pessoal abaixo. Fica salvo só no seu navegador.</p>
-    <input class="cfg-in" type="password" id="cfg-tok" placeholder="pk_...">
-    <div class="cfg-acts">
+    <h3>ClickUp Token</h3>
+    <p>Cole seu token pessoal. Fica salvo no navegador.</p>
+    <input class="cfgin" type="password" id="cfg-tok" placeholder="pk_...">
+    <div class="cfgacts">
       <button class="cbtn" onclick="closeCfg()">Cancelar</button>
       <button class="cbtn s" onclick="saveCfg()">Salvar</button>
     </div>
   </div>
 </div>
 
-<!-- UNDO -->
 <div class="undo" id="undo">
-  <span class="undo-msg" id="undo-msg">Ação realizada</span>
-  <button class="undo-act" onclick="doUndo()">↩ Desfazer</button>
-  <div class="undo-prog" id="undo-prog" style="width:100%"></div>
+  <span class="umsg" id="umsg"></span>
+  <button class="ubtn" onclick="doUndo()">↩ Desfazer</button>
+  <div class="uprog" id="uprog" style="width:100%"></div>
 </div>
 
 <script>
-// ═══ CONFIG ═══
-const MEMBER_ID = '112051792';
+const MID='112051792';
+const TK_DEFAULT='pk_112051792_FUCWZ5VF68LDBXXBPMXH8H2CEZEND1DR';
+const LISTS={'Amiche':'901324613220','Naromo':'901324682471','Marry Blue':'901324682343','Tchu Bi':'901324505493','Aya':'901326685391','Kyrefh Jeans':'901324682326','Nina & Noz':'901324682520','Del Carmen':'901324614474','Flora Minha':'901324682301'};
+const CLIENTS=['Amiche','Naromo','Marry Blue','Tchu Bi','Aya','Kyrefh Jeans','Nina & Noz','Del Carmen','Flora Minha'];
+const DESIGNERS=[{id:'112051788',nm:'Alexia Cruz',color:'#A78BFA',init:'AL'},{id:'112051786',nm:'Luana Vieira',color:'#F472B6',init:'LU'},{id:'112051789',nm:'Isadora',color:'#34D399',init:'IS'},{id:'112051792',nm:'Ciane',color:'#60C8F5',init:'CI'}];
+const IGN=['agendamento','concluído','concluido','done','complete'];
 
-const ALL_LISTS = {
-  'Amiche':'901324613220','Naromo':'901324682471','Eloah':'901324682275',
-  'Marry Blue':'901324682343','Tchu Bi':'901324505493','Aya':'901326685391',
-  'Kyrefh Jeans':'901324682326','Nina & Noz':'901324682520',
-  'Del Carmen':'901324614474','Flora Minha':'901324682301'
-};
-const MY_CLIENTS = ['Amiche','Naromo','Eloah','Marry Blue','Tchu Bi','Aya','Kyrefh Jeans','Nina & Noz','Del Carmen','Flora Minha'];
+let tok=localStorage.getItem('cu_tok_ciane')||TK_DEFAULT;
+let wOff=0,data={},cache={},mc={},oc={},om={},sid=null,mid2=null,cli=null,da=null,ut=null,ua=null;
 
-const DESIGNERS = [
-  {id:'112051788',nm:'Alexia Cruz',color:'#A78BFA',init:'AL'},
-  {id:'112051786',nm:'Luana Vieira',color:'#F472B6',init:'LU'},
-  {id:'112051789',nm:'Isadora',color:'#34D399',init:'IS'},
-  {id:'112051792',nm:'Ciane',color:'#60C8F5',init:'CI'},
-];
-const IGNORE_ST = ['agendamento','concluído','concluido','done','complete'];
+const f2=d=>d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+const fts=ts=>ts?new Date(parseInt(ts)).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}):null;
+const t2i=ts=>ts?new Date(parseInt(ts)).toISOString().split('T')[0]:'';
 
-// ═══ STATE ═══
-let token = localStorage.getItem('cu_token_ciane')||'pk_112051792_FUCWZ5VF68LDBXXBPMXH8H2CEZEND1DR';
-let weekOff = 0;
-let allData = {};
-let cache = {};       // subId -> sub data
-let mCache = {};      // motherId -> mother data
-let pageStack = [];   // history
-let openClients = {};
-let openMothers = {};
+function getWeek(o=0){const t=new Date(),d=t.getDay();let diff=d-2;if(diff<0)diff+=7;const tue=new Date(t);tue.setDate(t.getDate()-diff+o*7);tue.setHours(0,0,0,0);const mon=new Date(tue);mon.setDate(tue.getDate()+6);return{s:tue,e:mon};}
+function rWeek(){const{s,e}=getWeek(wOff);document.getElementById('wlbl').textContent=`${f2(s)} → ${f2(e)}`;}
+function changeWeek(d){wOff+=d;rWeek();syncData();}
 
-// current context
-let curMotherId = null;
-let curSubId = null;
-let curAddParentId = null;
-let curAddClient = null;
-let designAssignee = null;
-let undoAction = null, undoTimer = null;
-
-// ═══ WEEK ═══
-function getWeek(off=0){
-  const t=new Date(),dow=t.getDay();
-  let d=dow-2;if(d<0)d+=7;
-  const tue=new Date(t);tue.setDate(t.getDate()-d+off*7);tue.setHours(0,0,0,0);
-  const mon=new Date(tue);mon.setDate(tue.getDate()+6);
-  return{start:tue,end:mon};
-}
-const f2=(d)=>d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-const fts=(ts)=>ts?new Date(parseInt(ts)).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}):null;
-const ts2in=(ts)=>ts?new Date(parseInt(ts)).toISOString().split('T')[0]:'';
-function renderWeek(){const{start,end}=getWeek(weekOff);document.getElementById('wlbl').textContent=`${f2(start)} → ${f2(end)}`;}
-function changeWeek(d){weekOff+=d;renderWeek();syncData();}
-
-// ═══ API ═══
 const B='https://api.clickup.com/api/v2';
-async function GET(p){const r=await fetch(B+p,{headers:{Authorization:token}});if(!r.ok)throw new Error(`CU${r.status}`);return r.json();}
-async function POST(p,b){const r=await fetch(B+p,{method:'POST',headers:{Authorization:token,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||`CU${r.status}`);}return r.json();}
-async function PUT(p,b){const r=await fetch(B+p,{method:'PUT',headers:{Authorization:token,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||`CU${r.status}`);}return r.json();}
-async function DEL(p){await fetch(B+p,{method:'DELETE',headers:{Authorization:token}});}
+async function GET(p){const r=await fetch(B+p,{headers:{Authorization:tok}});if(!r.ok)throw new Error(r.status);return r.json();}
+async function POST(p,b){const r=await fetch(B+p,{method:'POST',headers:{Authorization:tok,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||r.status);}return r.json();}
+async function PUT(p,b){const r=await fetch(B+p,{method:'PUT',headers:{Authorization:tok,'Content-Type':'application/json'},body:JSON.stringify(b)});if(!r.ok){const e=await r.json();throw new Error(e.err||r.status);}return r.json();}
+async function DEL(p){await fetch(B+p,{method:'DELETE',headers:{Authorization:tok}});}
 
-// ═══ CUSTOM FIELDS ═══
-function parseCF(fields){
-  const r={midia:null,funil:null,mes:null};
-  for(const f of fields){
-    const n=(f.name||'').toLowerCase();
-    const v=f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;
-    if(n.includes('mídia')||n.includes('midia')||n==='media')r.midia=v;
-    if(n==='funil')r.funil=v;
-    if(n.includes('mês')||n.includes('mes'))r.mes=v;
-  }
-  return r;
-}
+function pCF(fields){const r={midia:null,funil:null,mes:null};for(const f of fields){const n=(f.name||'').toLowerCase();const v=f.type_config?.options?.find(o=>o.id===f.value)?.name||f.value||null;if(n.includes('mídia')||n.includes('midia'))r.midia=v;if(n==='funil')r.funil=v;if(n.includes('mês')||n.includes('mes'))r.mes=v;}return r;}
 
-// ═══ SYNC ═══
 async function syncData(){
-  if(!token){openCfg();return;}
-  document.getElementById('home-list').innerHTML='<div class="empty"><div class="spin2"></div><br>Buscando tarefas…</div>';
-  document.getElementById('sync-btn').classList.add('spin');
-  allData={};cache={};mCache={};
-
-  await Promise.all(MY_CLIENTS.map(async client=>{
-    const listId=ALL_LISTS[client];if(!listId)return;
+  if(!tok){openCfg();return;}
+  document.getElementById('main').innerHTML='<div class="empty"><div class="spin"></div><br>Buscando tarefas…</div>';
+  document.getElementById('sync-btn').textContent='…';
+  data={};cache={};mc={};
+  await Promise.all(CLIENTS.map(async c=>{
+    const lid=LISTS[c];if(!lid)return;
     try{
-      const[r1,r2]=await Promise.all([GET(`/list/${listId}/task?include_closed=false`),GET(`/list/${listId}/task?subtasks=true&include_closed=false`)]);
+      const[r1,r2]=await Promise.all([GET(`/list/${lid}/task?include_closed=false`),GET(`/list/${lid}/task?subtasks=true&include_closed=false`)]);
       const all=r2.tasks||[];
-      const mothers=(r1.tasks||[]).filter(t=>{
-        const st=(t.status?.status||'').toLowerCase();
-        const nm=t.name.toLowerCase();
-        // Filtra por status planejamento — não filtra por assignee na tarefa mãe
-        // pois nem sempre a social mídia está como responsável na mãe
-        return !nm.includes('[template]')&&!nm.includes('template')&&
-               (st.includes('planejamento')||st.includes('planning'))&&
-               !t.parent;
-      });
-      for(const m of mothers){
-        const subs=all.filter(t=>{
-          const st=(t.status?.status||'').toLowerCase();
-          return t.parent===m.id&&!IGNORE_ST.some(s=>st.includes(s))&&!t.name.toLowerCase().includes('[template]');
-        }).sort((a,b)=>(a.due_date?parseInt(a.due_date):Infinity)-(b.due_date?parseInt(b.due_date):Infinity));
-
-        mCache[m.id]={id:m.id,name:m.name,status:m.status?.status||'',due_date:m.due_date,description:m.description||'',assignees:m.assignees||[],client,listId};
-        for(const s of subs){
-          const cf=parseCF(s.custom_fields||[]);
-          cache[s.id]={id:s.id,name:s.name,status:s.status?.status||'',dueDateRaw:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client,parentId:m.id,listId};
-        }
-        allData[client]=allData[client]||[];
-        allData[client].push({mother:m,subtasks:subs});
+      const ms=(r1.tasks||[]).filter(t=>{const st=(t.status?.status||'').toLowerCase(),nm=t.name.toLowerCase();return !nm.includes('[template]')&&!nm.includes('template')&&(st.includes('planejamento')||st.includes('planning'))&&!t.parent;});
+      for(const m of ms){
+        const subs=all.filter(t=>{const st=(t.status?.status||'').toLowerCase();return t.parent===m.id&&!IGN.some(s=>st.includes(s))&&!t.name.toLowerCase().includes('[template]');}).sort((a,b)=>(a.due_date?parseInt(a.due_date):Infinity)-(b.due_date?parseInt(b.due_date):Infinity));
+        mc[m.id]={id:m.id,name:m.name,status:m.status?.status||'',due_date:m.due_date,description:m.description||'',assignees:m.assignees||[],client:c,listId:lid};
+        for(const s of subs){const cf=pCF(s.custom_fields||[]);cache[s.id]={id:s.id,name:s.name,status:s.status?.status||'',ddr:s.due_date,midia:cf.midia,funil:cf.funil,mes:cf.mes,desc:s.description||'',client:c,pid:m.id,lid};}
+        data[c]=data[c]||[];data[c].push({m,subs});
       }
-    }catch(e){console.warn(client,e.message);}
+    }catch(e){console.warn(c,e.message);}
   }));
-
-  document.getElementById('sync-btn').classList.remove('spin');
-  renderStats();renderHome();
-  toast('Atualizado!','ok');
+  document.getElementById('sync-btn').textContent='↻';
+  rStats();rList();toast('Atualizado!','ok');
 }
 
-// ═══ STATS ═══
-function renderStats(){
-  let posts=0,ag=0;
-  const clis=MY_CLIENTS.filter(c=>allData[c]?.length);
-  for(const c of clis)for(const g of allData[c]){
-    posts+=g.subtasks.length;
-    ag+=g.subtasks.filter(s=>{const st=(s.status?.status||'').toLowerCase();return st.includes('agendamento')||st.includes('conclu');}).length;
-  }
-  document.getElementById('s-cli').textContent=clis.length;
-  document.getElementById('s-posts').textContent=posts;
+function rStats(){
+  let p=0,ag=0;const cl=CLIENTS.filter(c=>data[c]?.length);
+  for(const c of cl)for(const g of data[c]){p+=g.subs.length;ag+=g.subs.filter(s=>{const st=(s.status?.status||'').toLowerCase();return st.includes('agendamento')||st.includes('conclu');}).length;}
+  document.getElementById('s-cli').textContent=cl.length;
+  document.getElementById('s-posts').textContent=p;
   document.getElementById('s-ag').textContent=ag;
-  document.getElementById('s-pend').textContent=posts-ag;
-  const pct=posts?Math.round(ag/posts*100):0;
+  document.getElementById('s-pend').textContent=p-ag;
+  const pct=p?Math.round(ag/p*100):0;
   document.getElementById('prog-pct').textContent=pct+'%';
-  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('pf').style.width=pct+'%';
 }
 
-// ═══ HOME ═══
-function renderHome(){
-  const el=document.getElementById('home-list');
-  if(!token){el.innerHTML='<div class="empty">Configure seu token 🔑</div>';return;}
-  const clis=MY_CLIENTS.filter(c=>allData[c]?.length);
-  if(!clis.length){el.innerHTML='<div class="empty">Nenhuma tarefa de planejamento encontrada.<br><small>Verifique se você está como responsável nas tarefas.</small></div>';return;}
-
-  let html='';
-  for(const client of clis){
-    const groups=allData[client]||[];
-    const isOpen=openClients[client]!==false;
-    const total=groups.reduce((a,g)=>a+g.subtasks.length,0);
-    html+=`<div class="cc">
-      <div class="cc-hdr" onclick="toggleClient('${client}')">
-        <div style="display:flex;align-items:center;gap:10px">
-          <div class="cdot"></div>
-          <div><div class="cnm">${client}</div><div class="csub">${groups.length} tarefa(s) · ${total} post(s)</div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="cbadge">${total}</span>
-          <span class="chev" style="transform:${isOpen?'rotate(90deg)':'none'}">›</span>
-        </div>
+function rList(){
+  const el=document.getElementById('main');
+  const cl=CLIENTS.filter(c=>data[c]?.length);
+  if(!cl.length){el.innerHTML='<div class="empty">Nenhuma tarefa de planejamento encontrada.</div>';return;}
+  el.innerHTML=cl.map(c=>{
+    const gs=data[c]||[],isOpen=oc[c]!==false,tot=gs.reduce((a,g)=>a+g.subs.length,0);
+    return`<div class="client">
+      <button class="chdr" onclick="tC('${c}')">
+        <div class="cl"><div class="cdot"></div><div><div class="cnm">${c}</div><div class="csub">${gs.length} tarefa(s) · ${tot} post(s)</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="cbadge">${tot}</span><span style="color:#444;font-size:14px">${isOpen?'▼':'▶'}</span></div>
+      </button>
+      <div class="cbody ${isOpen?'open':''}">
+        ${gs.map(({m,subs})=>{
+          const st=(m.status?.status||'').toLowerCase(),stc=st.includes('planejamento')?'sp-plan':st.includes('design')?'sp-design':'sp-out',mO=om[m.id]!==false;
+          return`<div class="mae">
+            <button class="mhdr" onclick="tM('${m.id}')">
+              <div><div class="mnm">${m.name}</div><div class="mmeta"><span class="sp ${stc}">${m.status?.status||'—'}</span><span class="mcnt">${subs.length} post(s)</span></div></div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <button onclick="event.stopPropagation();oMI('${m.id}')" style="background:none;border:1px solid #333;border-radius:6px;color:#888;padding:4px 8px;font-size:11px">ℹ</button>
+                <span style="color:#444;font-size:14px">${mO?'▼':'▶'}</span>
+              </div>
+            </button>
+            <div class="mbody ${mO?'open':''}">
+              ${subs.map(s=>{
+                const cf=pCF(s.custom_fields||[]),dt=fts(s.due_date),st2=(s.status?.status||'').toLowerCase(),stc2=st2.includes('planejamento')?'sp-plan':st2.includes('design')?'sp-design':'sp-out';
+                return`<button class="sitem" onclick="oSP('${s.id}')">
+                  <span class="sico">✎</span>
+                  <div class="sbody"><div class="snm">${s.name}</div><div class="stags"><span class="tdate ${!dt?'x':''}">${dt||'sem data'}</span><span class="tmidia ${!cf.midia?'x':''}">${cf.midia||'sem mídia'}</span><span class="sp ${stc2}" style="font-size:9px">${s.status?.status||'—'}</span></div></div>
+                  <div class="sav">CI</div><span style="color:#444;font-size:14px">›</span>
+                </button>`;
+              }).join('')}
+              <button class="addsub" onclick="oAP('${m.id}','${c}')">+ Adicionar post</button>
+            </div>
+          </div>`;
+        }).join('')}
       </div>
-      <div class="cc-body ${isOpen?'open':''}">`;
-
-    for(const{mother,subtasks}of groups){
-      const st=(mother.status?.status||'').toLowerCase();
-      const stc=st.includes('planejamento')?'sp-plan':st.includes('design')?'sp-design':'sp-out';
-      html+=`<div class="mae-row" onclick="goToMother('${mother.id}','${client}')">
-        <div class="mae-icon">📋</div>
-        <div class="mae-info">
-          <div class="mae-nm">${mother.name}</div>
-          <div class="mae-meta"><span class="sp ${stc}">${mother.status?.status||'—'}</span><span class="mae-cnt">${subtasks.length} post(s)</span></div>
-        </div>
-        <span class="row-arrow">›</span>
-      </div>`;
-    }
-    html+=`</div></div>`;
-  }
-  el.innerHTML=html;
-}
-
-function toggleClient(n){openClients[n]=openClients[n]===false?true:false;renderHome();}
-
-// ═══ NAVIGATION ═══
-function showPage(id,dir='forward'){
-  document.querySelectorAll('.page').forEach(p=>{
-    p.classList.remove('active','back');
-    p.style.display='none';
-  });
-  const pg=document.getElementById(id);
-  pg.style.display='flex';
-  if(dir==='back')pg.classList.add('back');
-  pg.classList.add('active');
-  window.scrollTo(0,0);
-}
-
-function goBack(){
-  if(pageStack.length===0){showPage('pg-home','back');return;}
-  const prev=pageStack.pop();
-  showPage(prev,'back');
-}
-
-function goToMother(mId,client){
-  pageStack.push('pg-home');
-  curMotherId=mId;
-  renderMotherPage(mId);
-  showPage('pg-mother');
-}
-
-function goToSub(subId){
-  const fromPage=document.querySelector('.page.active')?.id||'pg-mother';
-  pageStack.push(fromPage);
-  curSubId=subId;
-  renderSubPage(subId);
-  showPage('pg-sub');
-}
-
-function goToAddSub(parentId,client){
-  pageStack.push('pg-mother');
-  curAddParentId=parentId;
-  curAddClient=client;
-  // Reset fields
-  document.getElementById('add-title').value='';
-  document.getElementById('add-date').value='';
-  document.getElementById('add-midia').value='';
-  document.getElementById('add-funil').value='';
-  document.getElementById('add-desc').value='';
-  const mes=new Date().getMonth();
-  document.getElementById('add-mes').selectedIndex=mes;
-  showPage('pg-add');
-}
-
-function goToDesign(){
-  pageStack.push('pg-sub');
-  const s=cache[curSubId];
-  document.getElementById('dp-task-nm').textContent=s?.name||'—';
-  designAssignee=null;
-  const al=document.getElementById('al');
-  al.innerHTML=DESIGNERS.map(d=>`
-    <div class="ao" id="ao-${d.id}" onclick="selDesigner('${d.id}')">
-      <div class="ao-dot" style="background:${d.color}"></div>
-      <div class="ao-av" style="background:${d.color};color:var(--black)">${d.init}</div>
-      <span class="ao-nm">${d.nm}</span>
-      <span class="ao-chk">✓</span>
-    </div>`).join('');
-  showPage('pg-design');
-}
-
-function goToDup(){
-  pageStack.push('pg-sub');
-  const s=cache[curSubId];
-  document.getElementById('dup-nm').value=(s?.name||'')+' (cópia)';
-  document.getElementById('dup-date').value='';
-  showPage('pg-dup');
-}
-
-// ═══ MOTHER PAGE ═══
-function renderMotherPage(mId){
-  const m=mCache[mId];if(!m)return;
-  document.getElementById('mt-title').textContent=m.name;
-  document.getElementById('mt-sub').textContent=m.client;
-  document.getElementById('back-label-mother').textContent=m.client;
-
-  const st=(m.status||'').toLowerCase();
-  const stc=st.includes('planejamento')?'sp-plan':st.includes('design')?'sp-design':'sp-ok';
-  const dt=fts(m.due_date);
-  const subs=allData[m.client]?.find(g=>g.mother.id===mId)?.subtasks||[];
-
-  let html=`<div class="mp-hero">
-    <div class="mp-bread">Criação / <b>${m.client}</b></div>
-    <div class="mp-title">${m.name}</div>
-    <div class="mp-props">
-      <div class="mp-prop"><div class="pp-icon">🏷</div><div class="pp-lbl">Status</div><div class="pp-val"><span class="sp ${stc}">${m.status||'—'}</span></div></div>
-      <div class="mp-prop"><div class="pp-icon">👤</div><div class="pp-lbl">Responsáveis</div><div class="pp-val" style="display:flex;gap:6px">${(m.assignees||[]).map(a=>{const d=DESIGNERS.find(x=>String(x.id)===String(a.id));return d?`<div class="av" style="background:${d.color};color:var(--black);width:26px;height:26px;font-size:11px">${d.init}</div>`:''}).join('')||'—'}</div></div>
-      ${dt?`<div class="mp-prop"><div class="pp-icon">📅</div><div class="pp-lbl">Data final</div><div class="pp-val">${dt}</div></div>`:''}
-      <div class="mp-prop"><div class="pp-icon">📁</div><div class="pp-lbl">Cliente</div><div class="pp-val">${m.client}</div></div>
     </div>`;
-
-  if(m.description){
-    html+=`<div class="mp-desc">
-      <div class="mp-desc-lbl">Descrição</div>
-      <div class="mp-desc-text">${m.description.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
-    </div>`;
-  }
-  html+=`</div>`;
-
-  html+=`<div class="mp-subs-hdr">
-    <span class="mp-subs-nm">Subtarefas</span>
-    <span class="mp-subs-cnt">${subs.length} disponível</span>
-  </div>
-  <div class="mp-subs-list">`;
-
-  for(const s of subs){
-    const cf=parseCF(s.custom_fields||[]);
-    const dt2=fts(s.due_date);
-    const midia=cf.midia;
-    const st2=(s.status?.status||'').toLowerCase();
-    const stc2=st2.includes('planejamento')?'sp-plan':st2.includes('design')?'sp-design':'sp-out';
-    const assignee=DESIGNERS.find(d=>String(d.id)===MEMBER_ID)||{color:'#60C8F5',init:'CI'};
-    html+=`<div class="sub-row" onclick="goToSub('${s.id}')">
-      <div class="sr-icon">✎</div>
-      <div class="sr-body">
-        <div class="sr-nm">${s.name}</div>
-        <div class="sr-tags">
-          <span class="tdate ${!dt2?'x':''}">${dt2||'sem data'}</span>
-          <span class="tmidia ${!midia?'x':''}">${midia||'sem mídia'}</span>
-          <span class="sp ${stc2}" style="font-size:9px">${s.status?.status||'—'}</span>
-        </div>
-      </div>
-      <div class="sr-av" style="background:${assignee.color};color:var(--black)">${assignee.init}</div>
-      <span class="row-arrow" style="font-size:14px">›</span>
-    </div>`;
-  }
-
-  html+=`<div class="add-sub-row" onclick="goToAddSub('${mId}','${m.client}')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M12 5v14M5 12h14"/></svg>
-    Adicionar subtarefa
-  </div></div>`;
-
-  document.getElementById('mp-scroll').innerHTML=html;
+  }).join('');
 }
 
-// ═══ SUB EDIT PAGE ═══
-function renderSubPage(id){
-  const s=cache[id];if(!s)return;
-  document.getElementById('se-topbar-title').textContent=s.name;
-  document.getElementById('back-label-sub').textContent=mCache[s.parentId]?.name||'Voltar';
+function tC(n){oc[n]=oc[n]===false?true:false;rList();}
+function tM(id){om[id]=om[id]===false?true:false;rList();}
 
-  const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  const midias=['Stories','Feed','Reels','TikTok','Carrossel'];
-  const funis=['Topo','Meio','Fundo'];
-  const dateVal=ts2in(s.dueDateRaw);
+function oPanel(h){document.getElementById('pbody').innerHTML=h;document.getElementById('overlay').classList.add('open');document.getElementById('panel').classList.add('open');}
+function closePanel(){document.getElementById('overlay').classList.remove('open');document.getElementById('panel').classList.remove('open');}
 
-  const html=`
-    <div class="se-client">${s.client}</div>
-    <input class="se-title" id="se-name" value="${s.name.replace(/"/g,'&quot;')}" placeholder="Título do post">
-    <div class="se-props">
-      <div class="se-prop"><div class="sep-icon">📅</div><div class="sep-lbl">Data</div><input class="sep-input" type="date" id="se-date" value="${dateVal}"></div>
-      <div class="se-prop"><div class="sep-icon">📱</div><div class="sep-lbl">Mídia</div>
-        <select class="sep-select" id="se-midia">
-          <option value="">— selecione —</option>
-          ${midias.map(m=>`<option ${s.midia===m?'selected':''}>${m}</option>`).join('')}
-        </select>
-      </div>
-      <div class="se-prop"><div class="sep-icon">🔻</div><div class="sep-lbl">Funil</div>
-        <select class="sep-select" id="se-funil">
-          <option value="">— selecione —</option>
-          ${funis.map(f=>`<option ${s.funil===f?'selected':''}>${f}</option>`).join('')}
-        </select>
-      </div>
-      <div class="se-prop"><div class="sep-icon">📆</div><div class="sep-lbl">Mês</div>
-        <select class="sep-select" id="se-mes">
-          ${meses.map(m=>`<option ${s.mes===m?'selected':''}>${m}</option>`).join('')}
-        </select>
-      </div>
+function oSP(id){
+  sid=id;const s=cache[id];if(!s)return;
+  const M=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  oPanel(`<div class="psub">${s.client}</div>
+    <input class="tinput" id="se-nm" value="${s.name.replace(/"/g,'&quot;')}" placeholder="Título">
+    <div class="fgrow">
+      <div class="fg"><label>Data</label><input type="date" id="se-dt" value="${t2i(s.ddr)}"></div>
+      <div class="fg"><label>Mídia</label><select id="se-mi"><option value="">—</option>${['Stories','Feed','Reels','TikTok','Carrossel'].map(m=>`<option ${s.midia===m?'selected':''}>${m}</option>`).join('')}</select></div>
     </div>
-    <div class="se-desc-lbl">Descrição / Observação</div>
-    <textarea class="se-desc" id="se-desc" placeholder="Referências, copy, observações…">${s.desc||''}</textarea>`;
-
-  document.getElementById('se-scroll').innerHTML=html;
+    <div class="fgrow">
+      <div class="fg"><label>Funil</label><select id="se-fu"><option value="">—</option>${['Topo','Meio','Fundo'].map(f=>`<option ${s.funil===f?'selected':''}>${f}</option>`).join('')}</select></div>
+      <div class="fg"><label>Mês</label><select id="se-ms">${M.map(m=>`<option ${s.mes===m?'selected':''}>${m}</option>`).join('')}</select></div>
+    </div>
+    <div class="fg"><label>Descrição</label><textarea id="se-dc" placeholder="Observações…">${s.desc||''}</textarea></div>
+    <div class="pacts">
+      <button class="pbtn pb-save" onclick="saveSub()">💾 Salvar</button>
+      <button class="pbtn pb-design" onclick="oDsP()">→ Enviar para Design</button>
+      <button class="pbtn pb-dup" onclick="oDuP()">⧉ Duplicar</button>
+      <button class="pbtn pb-del" onclick="delSub()">🗑 Excluir</button>
+      <button class="pbtn pb-cancel" onclick="closePanel()">Cancelar</button>
+    </div>`);
 }
 
-// ═══ ACTIONS ═══
 async function saveSub(){
-  const id=curSubId;
-  const name=document.getElementById('se-name')?.value?.trim();
-  if(!name){toast('Preencha o título','err');return;}
-  const date=document.getElementById('se-date')?.value;
-  const desc=document.getElementById('se-desc')?.value||'';
+  const id=sid,nm=document.getElementById('se-nm')?.value?.trim();
+  if(!nm){toast('Preencha o título','err');return;}
+  const dt=document.getElementById('se-dt')?.value,dc=document.getElementById('se-dc')?.value||'';
+  try{toast('Salvando…');await PUT(`/task/${id}`,{name:nm,description:dc,due_date:dt?new Date(dt).getTime():undefined});closePanel();toast('Salvo!','ok');await syncData();}
+  catch(e){toast('Erro: '+e.message,'err');}
+}
+
+function delSub(){const id=sid,s=cache[id];closePanel();sUndo(`"${s?.name}" excluído`,async()=>{await DEL(`/task/${id}`);await syncData();});}
+
+function oDsP(){
+  const s=cache[sid];
+  oPanel(`<div class="ptitle">→ Design</div><div style="font-size:13px;color:#666;margin-bottom:16px">${s?.name||''}</div>
+    ${DESIGNERS.map(d=>`<button class="ao" id="ao-${d.id}" onclick="sDs('${d.id}')"><div class="ao-dot" style="background:${d.color}"></div><div class="ao-av" style="background:${d.color};color:#000">${d.init}</div>${d.nm}<span class="ao-chk">✓</span></button>`).join('')}
+    <div class="pacts" style="margin-top:16px">
+      <button class="pbtn pb-save" onclick="cDs()">→ Confirmar</button>
+      <button class="pbtn pb-cancel" onclick="oSP('${sid}')">← Voltar</button>
+    </div>`);
+  da=null;
+}
+function sDs(id){da=id;document.querySelectorAll('.ao').forEach(e=>e.classList.remove('sel'));document.getElementById('ao-'+id)?.classList.add('sel');}
+async function cDs(){
+  if(!da){toast('Selecione um designer','err');return;}
+  const id=sid,s=cache[id];closePanel();
+  sUndo(`"${s?.name}" → Design`,async()=>{await PUT(`/task/${id}`,{status:'design',assignees:{add:[parseInt(da)],rem:[]}});await syncData();});
+}
+
+function oDuP(){
+  const s=cache[sid];
+  oPanel(`<div class="ptitle">⧉ Duplicar</div>
+    <div class="fg"><label>Novo título</label><input type="text" id="dup-nm" value="${(s?.name||'').replace(/"/g,'&quot;')} (cópia)"></div>
+    <div class="fg"><label>Nova data <span style="color:#EF4444">*</span></label><input type="date" id="dup-dt"></div>
+    <div class="pacts" style="margin-top:16px">
+      <button class="pbtn pb-save" onclick="cDu()">⧉ Criar</button>
+      <button class="pbtn pb-cancel" onclick="oSP('${sid}')">← Voltar</button>
+    </div>`);
+}
+async function cDu(){
+  const dt=document.getElementById('dup-dt')?.value,nm=document.getElementById('dup-nm')?.value?.trim();
+  if(!dt){toast('Informe a data','err');return;}if(!nm){toast('Informe o título','err');return;}
+  const s=cache[sid];closePanel();
+  sUndo(`"${nm}" duplicado`,async()=>{await POST(`/list/${s.lid}/task`,{name:nm,parent:s.pid,assignees:[parseInt(MID)],due_date:new Date(dt).getTime(),description:s.desc||'',status:'planejamento'});await syncData();});
+}
+
+function oAP(pid,c){
+  mid2=pid;cli=c;
+  const M=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],mes=new Date().getMonth();
+  oPanel(`<div class="ptitle">+ Novo post</div><div class="psub">${c}</div>
+    <input class="tinput" id="add-nm" placeholder="Título / Tema">
+    <div class="fgrow">
+      <div class="fg"><label>Data</label><input type="date" id="add-dt"></div>
+      <div class="fg"><label>Mídia</label><select id="add-mi"><option value="">—</option><option>Stories</option><option>Feed</option><option>Reels</option><option>TikTok</option><option>Carrossel</option></select></div>
+    </div>
+    <div class="fgrow">
+      <div class="fg"><label>Funil</label><select id="add-fu"><option value="">—</option><option>Topo</option><option>Meio</option><option>Fundo</option></select></div>
+      <div class="fg"><label>Mês</label><select id="add-ms">${M.map((m,i)=>`<option ${i===mes?'selected':''}>${m}</option>`).join('')}</select></div>
+    </div>
+    <div class="fg"><label>Descrição</label><textarea id="add-dc" placeholder="Observações…"></textarea></div>
+    <div class="pacts">
+      <button class="pbtn pb-save" onclick="sAdd()">💾 Salvar</button>
+      <button class="pbtn pb-cancel" onclick="closePanel()">Cancelar</button>
+    </div>`);
+}
+async function sAdd(){
+  const nm=document.getElementById('add-nm')?.value?.trim();if(!nm){toast('Preencha o título','err');return;}
+  const dt=document.getElementById('add-dt')?.value,lid=LISTS[cli];
+  try{toast('Criando…');await POST(`/list/${lid}/task`,{name:nm,parent:mid2,assignees:[parseInt(MID)],due_date:dt?new Date(dt).getTime():undefined,description:document.getElementById('add-dc')?.value||'',status:'planejamento'});closePanel();toast('Post criado!','ok');await syncData();}
+  catch(e){toast('Erro: '+e.message,'err');}
+}
+
+function oMI(id){
+  const m=mc[id];if(!m)return;
+  const st=(m.status||'').toLowerCase(),stc=st.includes('planejamento')?'sp-plan':st.includes('design')?'sp-design':'sp-out';
+  const subs=data[m.client]?.find(g=>g.m.id===id)?.subs||[],dt=fts(m.due_date);
+  let h=`<div class="psub">${m.client}</div><div class="ptitle">${m.name}</div>
+    <div class="ibox" style="margin-bottom:14px">
+      <div class="ifield"><div class="iflbl">Status</div><div class="ifval"><span class="sp ${stc}">${m.status||'—'}</span></div></div>
+      ${dt?`<div class="ifield"><div class="iflbl">Data</div><div class="ifval">${dt}</div></div>`:''}
+    </div>`;
+  if(m.description)h+=`<div class="descbox"><div class="desclbl">Descrição</div><div class="desctxt">${m.description.replace(/</g,'&lt;')}</div></div>`;
+  h+=`<div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Subtarefas (${subs.length})</div>
+    <div class="ibox" style="margin-bottom:16px">
+      ${subs.map(s=>{const dt2=fts(s.due_date);return`<button onclick="closePanel();setTimeout(()=>oSP('${s.id}'),300)" style="display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.04);background:none;border-left:none;border-right:none;border-top:none;width:100%;text-align:left;color:#f0f0f0" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='none'">
+        <span style="color:#60C8F5;font-size:14px">✎</span>
+        <span style="flex:1;font-size:13px;font-weight:500">${s.name}</span>
+        <span style="font-size:11px;color:#666">${dt2||'—'}</span>
+        <span style="color:#444;font-size:14px">›</span>
+      </button>`;}).join('')}
+    </div>
+    <button class="pbtn pb-cancel" onclick="closePanel()">Fechar</button>`;
+  oPanel(h);
+}
+
+async function openLinks(type){
+  oPanel(`<div class="ptitle">📁 ${type==='stories'?'Links Stories':'Links Feed'}</div><div class="empty"><div class="spin"></div><br>Carregando…</div>`);
+  const docId=type==='stories'?'8ckm0q6-8473':'8ckm0q6-8513';
   try{
-    toast('Salvando…');
-    await PUT(`/task/${id}`,{name,description:desc,due_date:date?new Date(date).getTime():undefined});
-    toast('Salvo!','ok');
-    await syncData();
-    goBack();
-  }catch(e){toast('Erro: '+e.message,'err');}
+    const d=await GET(`/doc/${docId}/page?content_format=text/md`);
+    const pages=d.pages||[];let rows=[];
+    for(const pg of pages){const lines=(pg.content||'').split('\n');for(const l of lines){if(l.includes('|')){const cells=l.split('|').map(c=>c.trim()).filter(c=>c&&!c.match(/^-+$/));if(cells.length>=2&&!cells[0].toLowerCase().includes('cliente')){const um=cells[1].match(/https?:\/\/[^\s\)\]]+/);rows.push({client:cells[0],url:um?um[0]:null});}}}}
+    let h=`<div class="ptitle">📁 ${type==='stories'?'Links Stories':'Links Feed'}</div><div class="ibox" style="margin-bottom:16px">`;
+    if(!rows.length)h+=`<div class="empty">Nenhum link encontrado.</div>`;
+    else rows.forEach(r=>{h+=`<div class="lrow"><div class="lnm">${r.client}</div>${r.url?`<a class="lopen" href="${r.url}" target="_blank">↗ Abrir</a>`:'<span style="font-size:13px;color:#444">—</span>'}</div>`;});
+    h+=`</div><button class="pbtn pb-cancel" onclick="closePanel()">Fechar</button>`;
+    document.getElementById('pbody').innerHTML=h;
+  }catch(e){
+    const url=type==='stories'?'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8473':'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8513';
+    document.getElementById('pbody').innerHTML=`<div class="ptitle">📁 ${type==='stories'?'Links Stories':'Links Feed'}</div><div class="empty"><br><a href="${url}" target="_blank" class="lopen" style="display:inline-flex;margin:0 auto">↗ Abrir no ClickUp</a></div><button class="pbtn pb-cancel" style="margin:16px 0" onclick="closePanel()">Fechar</button>`;
+  }
 }
 
-async function saveNewSub(){
-  const name=document.getElementById('add-title')?.value?.trim();
-  if(!name){toast('Preencha o título','err');return;}
-  const date=document.getElementById('add-date')?.value;
-  const desc=document.getElementById('add-desc')?.value||'';
-  const listId=ALL_LISTS[curAddClient];
-  try{
-    toast('Criando…');
-    await POST(`/list/${listId}/task`,{
-      name,parent:curAddParentId,assignees:[parseInt(MEMBER_ID)],
-      due_date:date?new Date(date).getTime():undefined,
-      description:desc,status:'planejamento'
-    });
-    toast('Post criado!','ok');
-    await syncData();
-    goBack();
-    setTimeout(()=>renderMotherPage(curAddParentId),300);
-  }catch(e){toast('Erro: '+e.message,'err');}
-}
-
-function deleteSub(){
-  const id=curSubId;
-  const s=cache[id];
-  goBack();
-  scheduleUndo(`"${s?.name||'Post'}" excluído`,async()=>{
-    await DEL(`/task/${id}`);
-    await syncData();
-    renderMotherPage(s?.parentId||curMotherId);
-  });
-}
-
-function selDesigner(id){
-  designAssignee=id;
-  document.querySelectorAll('.ao').forEach(e=>e.classList.remove('sel'));
-  document.getElementById('ao-'+id)?.classList.add('sel');
-}
-
-async function confirmDesign(){
-  if(!designAssignee){toast('Selecione um designer','err');return;}
-  const id=curSubId;
-  const s=cache[id];
-  goBack();
-  scheduleUndo(`"${s?.name}" → Design`,async()=>{
-    await PUT(`/task/${id}`,{status:'design',assignees:{add:[parseInt(designAssignee)],rem:[]}});
-    await syncData();
-    renderMotherPage(s?.parentId||curMotherId);
-  });
-}
-
-async function confirmDup(){
-  const date=document.getElementById('dup-date')?.value;
-  const name=document.getElementById('dup-nm')?.value?.trim();
-  if(!date){toast('Informe a nova data','err');return;}
-  if(!name){toast('Informe o título','err');return;}
-  const s=cache[curSubId];
-  goBack();
-  scheduleUndo(`"${name}" duplicado`,async()=>{
-    await POST(`/list/${s.listId}/task`,{
-      name,parent:s.parentId,assignees:[parseInt(MEMBER_ID)],
-      due_date:new Date(date).getTime(),
-      description:s.desc||'',status:'planejamento'
-    });
-    await syncData();
-    renderMotherPage(s?.parentId||curMotherId);
-  });
-}
-
-// ═══ UNDO ═══
-const UNDO_MS=10000;
-function scheduleUndo(msg,action){
-  clearTimeout(undoTimer);undoAction=action;
-  const bar=document.getElementById('undo');
-  const prog=document.getElementById('undo-prog');
-  document.getElementById('undo-msg').textContent=msg;
+function sUndo(msg,action){
+  clearTimeout(ut);ua=action;
+  const bar=document.getElementById('undo'),prog=document.getElementById('uprog');
+  document.getElementById('umsg').textContent=msg;
   prog.style.transition='none';prog.style.width='100%';
   bar.classList.add('show');
-  setTimeout(()=>{prog.style.transition=`width ${UNDO_MS}ms linear`;prog.style.width='0%';},30);
-  undoTimer=setTimeout(()=>{bar.classList.remove('show');if(undoAction){undoAction();undoAction=null;}},UNDO_MS);
+  setTimeout(()=>{prog.style.transition='width 10000ms linear';prog.style.width='0%';},30);
+  ut=setTimeout(()=>{bar.classList.remove('show');if(ua){ua();ua=null;}},10000);
 }
-function doUndo(){
-  clearTimeout(undoTimer);undoAction=null;
-  document.getElementById('undo').classList.remove('show');
-  toast('Ação desfeita','ok');
-}
+function doUndo(){clearTimeout(ut);ua=null;document.getElementById('undo').classList.remove('show');toast('Desfeito','ok');}
 
-// ═══ TOAST ═══
 function toast(msg,type=''){
   const t=document.createElement('div');
-  t.style.cssText='position:fixed;top:70px;right:16px;background:#101010;border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;z-index:700;transition:opacity .3s;max-width:260px';
-  t.textContent=msg;
-  if(type==='ok')t.style.color='#22C55E';
-  if(type==='err')t.style.color='#EF4444';
-  document.body.appendChild(t);
-  setTimeout(()=>t.style.opacity='0',2000);
-  setTimeout(()=>t.remove(),2400);
+  t.style.cssText='position:fixed;top:70px;right:16px;background:#111;border:1px solid #333;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:500;z-index:50;transition:opacity .3s;max-width:260px;pointer-events:none';
+  t.textContent=msg;if(type==='ok')t.style.color='#22C55E';if(type==='err')t.style.color='#EF4444';
+  document.body.appendChild(t);setTimeout(()=>t.style.opacity='0',2000);setTimeout(()=>t.remove(),2400);
 }
 
-// ═══ CFG ═══
 function openCfg(){document.getElementById('cfg-bg').classList.add('open');}
 function closeCfg(){document.getElementById('cfg-bg').classList.remove('open');}
-function saveCfg(){
-  const t=document.getElementById('cfg-tok').value.trim();
-  if(!t){toast('Token inválido','err');return;}
-  token=t;localStorage.setItem('cu_token_ciane',t);
-  closeCfg();toast('Conectado!','ok');syncData();
-}
+function saveCfg(){const t=document.getElementById('cfg-tok').value.trim();if(!t){toast('Token inválido','err');return;}tok=t;localStorage.setItem('cu_tok_ciane',t);closeCfg();toast('Conectado!','ok');syncData();}
 
-// ═══ LINKS DOCS ═══
-const DOC_STORIES = '8ckm0q6-8473';
-const DOC_FEED = '8ckm0q6-8513';
-let linksCache = {stories:null, feed:null};
-
-function goToLinks(type){
-  pageStack.push('pg-home');
-  const pg = type==='stories' ? 'pg-stories' : 'pg-feed';
-  showPage(pg);
-  loadLinks(type);
-}
-
-async function loadLinks(type){
-  if(!token){openCfg();return;}
-  const docId = type==='stories' ? DOC_STORIES : DOC_FEED;
-  const elId = type==='stories' ? 'links-stories-content' : 'links-feed-content';
-  const el = document.getElementById(elId);
-
-  // Usa cache se disponível
-  if(linksCache[type]){el.innerHTML=linksCache[type];return;}
-
-  el.innerHTML='<div class="links-loading"><div class="spin2"></div><br>Carregando…</div>';
-  try{
-    const data = await GET(`/doc/${docId}/page?content_format=text/md`);
-    const pages = data.pages||[];
-    let html='';
-
-    for(const page of pages){
-      const lines = (page.content||'').split('
-');
-      let tableRows = [];
-      let inTable = false;
-      let monthTitle = page.name||'';
-
-      for(const line of lines){
-        if(line.includes('|')){
-          inTable=true;
-          const cells = line.split('|').map(c=>c.trim()).filter(c=>c&&c!=='---'&&!c.match(/^-+$/));
-          if(cells.length>=2 && !cells[0].toLowerCase().includes('cliente')){
-            tableRows.push({client:cells[0], link:cells[1]});
-          }
-        }
-      }
-
-      if(tableRows.length){
-        html+=`<div class="links-table">
-          <div class="links-month-title">${monthTitle}</div>`;
-        for(const row of tableRows){
-          const hasLink = row.link && row.link.includes('http');
-          const isGdrive = row.link&&(row.link.includes('drive.google')||row.link.toLowerCase().includes('google drive'));
-          html+=`<div class="link-row">
-            <div class="link-client">${row.client}</div>
-            ${hasLink
-              ? `<a class="link-btn" href="${row.link}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>Abrir</a>`
-              : `<span style="font-size:13px;color:var(--gray)">Link não disponível</span>`
-            }
-          </div>`;
-        }
-        html+='</div>';
-      }
-    }
-
-    if(!html) html='<div class="empty">Nenhum link encontrado no documento.</div>';
-    linksCache[type]=html;
-    el.innerHTML=html;
-  }catch(e){
-    // Fallback: mostra botão direto pro doc no ClickUp
-    const docUrl = type==='stories'
-      ? 'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8473'
-      : 'https://app.clickup.com/9013166822/v/dc/8ckm0q6-8513/8ckm0q6-8513';
-    el.innerHTML=`<div class="empty">
-      Não foi possível carregar automaticamente.<br><br>
-      <a class="link-btn" href="${docUrl}" target="_blank" style="display:inline-flex;margin:0 auto">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
-        Abrir no ClickUp
-      </a>
-    </div>`;
-    console.warn('Links doc error:',e.message);
-  }
-}
-
-// ═══ TEMA ═══
-function toggleTheme(){
-  const cur=document.documentElement.getAttribute('data-theme');
-  const next=cur==='light'?'dark':'light';
-  applyTheme(next);
-}
-function applyTheme(theme){
-  if(theme==='light'){
-    document.documentElement.setAttribute('data-theme','light');
-    document.getElementById('theme-btn').textContent='☀️';
-  } else {
-    document.documentElement.removeAttribute('data-theme');
-    document.getElementById('theme-btn').textContent='🌙';
-  }
-  localStorage.setItem('cu_theme_ciane',theme);
-}
-
-// ═══ INIT ═══
-renderWeek();
-const savedTheme=localStorage.getItem('cu_theme_ciane');
-if(savedTheme)applyTheme(savedTheme);
-if(token)syncData();
-else document.getElementById('home-list').innerHTML='<div class="empty">Configure seu token 🔑</div>';
+rWeek();syncData();
 </script>
 </body>
 </html>
